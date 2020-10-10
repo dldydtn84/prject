@@ -1,3 +1,5 @@
+com/ys/Appler/controller/HomeController.java
+ com.ys.Appler.controller.HomeController
 com/ys/Appler/ServletInitializer.java
  com.ys.Appler.ServletInitializer
 com/ys/Appler/ApplerApplication.java
