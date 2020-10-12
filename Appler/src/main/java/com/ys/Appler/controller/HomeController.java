@@ -12,6 +12,10 @@ public class HomeController {
         //model.addAttribute("data","hello");
         return "index";
     }
-
+    @GetMapping("/layout/default")
+    public String defaults(Model model){
+        //model.addAttribute("data","hello");
+        return "/layout/default";
+    }
 
 }

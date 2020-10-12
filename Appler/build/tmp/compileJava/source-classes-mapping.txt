@@ -1,9 +1,9 @@
-com/ys/Appler/ApplerApplication.java
- com.ys.Appler.ApplerApplication
-com/ys/Appler/ServletInitializer.java
- com.ys.Appler.ServletInitializer
 com/ys/Appler/service/로직.java
  com.ys.Appler.service.로직
+com/ys/Appler/ServletInitializer.java
+ com.ys.Appler.ServletInitializer
+com/ys/Appler/ApplerApplication.java
+ com.ys.Appler.ApplerApplication
 com/ys/Appler/dto/getset.java
  com.ys.Appler.dto.getset
 com/ys/Appler/repository/as.java
