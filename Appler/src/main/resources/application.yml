@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: jdbc:mysql://database-1.cd5vpjxhrb6d.ap-northeast-2.rds.amazonaws.com:3306/appler?characterEncoding=utf8
-    username: administrator
-    password: ritkfygh12
-    driver-class-name: com.mysql.cj.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://database-1.cd5vpjxhrb6d.ap-northeast-2.rds.amazonaws.com:3306/appler?characterEncoding=utf8
+      username: administrator
+      password: ritkfygh12
   thymeleaf:
     cache : false
    #실제 운영시 true
-mybatis:
-  type-aliases-package: com.ys.Appler
-  mapper-locations: mybatis/mapper/**/*.xml
+#mybatis:
+ # type-aliases-package: com.ys.Appler
+  #mapper-locations: mybatis/mapper/**/*.xml
 
 
