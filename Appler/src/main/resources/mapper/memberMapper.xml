@@ -4,9 +4,9 @@
 <mapper namespace="com.ys.Appler.mapper.memberMapper">
 
     <select id="onemember" resultType="member">
-        select seq,name,country
+        select seq, name, country
         from testdb
-        where seq=1
+        where seq=1;
     </select>
 
 </mapper>

@@ -1,14 +1,17 @@
 spring:
   datasource:
+    hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://database-1.cd5vpjxhrb6d.ap-northeast-2.rds.amazonaws.com:3306/appler?
+      jdbc-url: jdbc:mysql://database-1.cd5vpjxhrb6d.ap-northeast-2.rds.amazonaws.com:3306/appler
       username: administrator
       password: ritkfygh12
   thymeleaf:
     cache : false
+
+
    #실제 운영시 true
-#mybatis:
- # type-aliases-package: com.ys.Appler
-  #mapper-locations: mybatis/mapper/**/*.xml
+mybatis:
+  type-aliases-package: com.ys.Appler.dto
+  mapper-locations: mybatis/mapper/**/*.xml
 
 

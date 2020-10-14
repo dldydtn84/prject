@@ -4,7 +4,7 @@ import com.ys.Appler.dto.memberDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+
 
 @Mapper
 @Repository(value = "memberMapper")
