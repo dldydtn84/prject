@@ -3,8 +3,8 @@
 
 <mapper namespace="com.ys.Appler.mapper.memberMapper">
 
-    <select id="onemember" resultType="member">
-        select seq, name, country
+    <select id="selectmember" resultType="com.ys.Appler.dto.memberDto">
+        select *
         from testdb
         where seq=1;
     </select>

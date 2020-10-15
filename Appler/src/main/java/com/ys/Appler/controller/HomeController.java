@@ -3,15 +3,14 @@ package com.ys.Appler.controller;
 import com.ys.Appler.dto.memberDto;
 
 import com.ys.Appler.service.memberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-
 @Controller
 public class HomeController {
-
+    @Autowired
     private memberService memberService;
 
     @GetMapping("index")
@@ -26,11 +25,13 @@ public class HomeController {
     }
 
     @GetMapping("selectable")
-    public String selectable(Model model) throws Exception {
+    public String selectable(Model model)  {
     memberDto member = memberService.onemember();
+
         model.addAttribute("member", member);
         return "selectable";
     }
+
 
 
 }

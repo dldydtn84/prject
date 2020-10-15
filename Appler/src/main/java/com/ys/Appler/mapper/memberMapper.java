@@ -7,10 +7,9 @@ import org.springframework.stereotype.Repository;
 
 
 @Mapper
-@Repository(value = "memberMapper")
 public interface memberMapper {
 
-   public memberDto onemember();
+   public memberDto selectmember();
 
 
 }
