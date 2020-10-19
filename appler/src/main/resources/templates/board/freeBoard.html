@@ -37,98 +37,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">10</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=1'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
+                            <tr th:each="context: ${contextlist}">
+                                <td th:text="${context.posts_no}" class="text-center d-none d-md-table-cell"></td>
+                                <td th:text="${context.subject}"><a href="#">asd</a></td>
+                                <td th:text="${context.nickname}" class="text-center d-none d-md-table-cell">이용수</td>
+                                <td th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell">2020-07-25</td>
                             </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">9</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=1'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
-                            </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">8</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=1'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
-                            </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">7</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=1'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
-                            </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">6</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=1'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
-                            </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">5</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=1'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
-                            </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">4</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=1'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
-                            </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">3</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=1'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
-                            </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">2</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=1'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
-                            </tr>
-
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">1</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=1'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
-                            </tr>
-
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">0</td>
-                                <td><a href='/MiniBoardJavaProject/board/read?board_info_idx=4&content_idx=0'>asd</a>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">이용수</td>
-                                <td class="text-center d-none d-md-table-cell">2020-07-25</td>
-
-                            </tr>
-
-
                             </tbody>
                         </table>
 

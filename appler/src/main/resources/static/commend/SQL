@@ -1,257 +1,49 @@
-
-//멤버 테이블
-
-CREATE TABLE tbl_member
-(
-    `id`        VARCHAR(45)    NOT NULL    COMMENT '아이디',
-    `pass`      VARCHAR(45)    NOT NULL    COMMENT '비밀번호',
-    `nickname`  VARCHAR(45)    NOT NULL    COMMENT '닉네임',
-    `name`      VARCHAR(45)    NOT NULL    COMMENT '이름',
-    `email`     VARCHAR(45)    NOT NULL    COMMENT '이메일',
-    `level`     CHAR(1)        NOT NULL    COMMENT '회원레벨',
-    `point`     INT            NOT NULL    COMMENT '포인트',
-    `date`      DATETIME       NOT NULL    COMMENT '가입일자',
-    PRIMARY KEY (id)
-);
-
-//게시판설정 테이블
-
-CREATE TABLE tbl_board_config
-(
-    `code`               VARCHAR(45)    NOT NULL    COMMENT '게시판코드',
-    `name`               VARCHAR(45)    NOT NULL    COMMENT '게시판이름',
-    `list_authority`     CHAR(1)        NOT NULL    COMMENT '리스트권한',
-    `read_authority`     CHAR(1)        NOT NULL    COMMENT '읽기권한',
-    `write_authority`    CHAR(1)        NOT NULL    COMMENT '작성권한',
-    `comment_authority`  CHAR(1)        NOT NULL    COMMENT '댓글권한',
-    PRIMARY KEY (code)
-);
-
-//댓글 테이블
-
-CREATE TABLE tbl_comment
-(
-    `p_no`            VARCHAR(45)    NOT NULL    COMMENT '부모글번호',
-    `no`              VARCHAR(45)    NOT NULL    COMMENT '댓글번호',
-    `level`           VARCHAR(45)    NOT NULL    COMMENT '댓글레벨',
-    `write_id`        VARCHAR(45)    NOT NULL    COMMENT '작성자id',
-    `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
-    `contents`        VARCHAR(45)    NOT NULL    COMMENT '댓글내용',
-    `reporting_date`  DATETIME       NOT NULL    COMMENT '작성일자',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT '작성자ip',
-    PRIMARY KEY (p_no)
-);
-
-//자유게시판 테이블
-
 CREATE TABLE tbl_free_board
 (
     `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `code`            VARCHAR(45)    NOT NULL    COMMENT '게시판코드',
+    `subject`           VARCHAR(45)    NOT NULL    COMMENT '제목',
     `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `title`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
     `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
+    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
     `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
     `readcount`       INT            NOT NULL    COMMENT '조회수',
     `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
     PRIMARY KEY (posts_no)
 );
 
-ALTER TABLE tbl_free_board
-    ADD CONSTRAINT FK_tbl_free_board_code_tbl_board_config_code FOREIGN KEY (code)
-        REFERENCES tbl_board_config (code) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE tbl_free_board
-    ADD CONSTRAINT FK_tbl_free_board_nickname_tbl_member_nickname FOREIGN KEY (nickname)
-        REFERENCES tbl_member (nickname) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-//질문게시판 테이블
+INSERT INTO tbl_free_board (posts_no, contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (01,  'contents 01', 'title 01', 'ip 01', 'nickname 01', 'attachments 01', 01, NOW());
+INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (02,  'contents 02', 'title 02', 'ip 02', 'nickname 02', 'attachments 02', 01, NOW());
+INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (03,  'contents 03', 'title 03', 'ip 03', 'nickname 03', 'attachments 03', 01, NOW());
+INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (04,  'contents 04', 'title 04', 'ip 04', 'nickname 04', 'attachments 04', 01, NOW());
+INSERT INTO tbl_free_board (posts_no, contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (05,  'contents 05', 'title 05', 'ip 05', 'nickname 05', 'attachments 05', 01, NOW());
+INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (06,  'contents 06', 'title 06', 'ip 06', 'nickname 06', 'attachments 06', 01, NOW());
+INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (07,  'contents 07', 'title 07', 'ip 07', 'nickname 07', 'attachments 07', 01, NOW());
+INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (08, 'contents 08', 'title 08', 'ip 08', 'nickname 08', 'attachments 08', 01, NOW());
+INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (09,  'contents 09', 'title 09', 'ip 09', 'nickname 09', 'attachments 09', 01, NOW());
+INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (10,  'contents 10', 'title 10', 'ip 10', 'nickname 10', 'attachments 10', 01, NOW());
 
 CREATE TABLE tbl_question_board
 (
     `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `code`            VARCHAR(45)    NOT NULL    COMMENT '게시판코드',
+    `subject`           VARCHAR(45)    NOT NULL    COMMENT '제목',
     `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `title`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
     `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
+    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
     `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
     `readcount`       INT            NOT NULL    COMMENT '조회수',
     `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
-    PRIMARY KEY (posts_no)
+     PRIMARY KEY (posts_no)
 );
-
-ALTER TABLE tbl_question_board
-    ADD CONSTRAINT FK_tbl_question_board_code_tbl_board_config_code FOREIGN KEY (code)
-        REFERENCES tbl_board_config (code) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE tbl_question_board
-    ADD CONSTRAINT FK_tbl_question_board_nickname_tbl_member_nickname FOREIGN KEY (nickname)
-        REFERENCES tbl_member (nickname) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-//인증게시판 테이블
 
 CREATE TABLE tbl_certification_board
 (
     `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `code`            VARCHAR(45)    NOT NULL    COMMENT '게시판코드',
+    `subject`           VARCHAR(45)    NOT NULL    COMMENT '제목',
     `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `title`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
     `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
-    `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
-    `readcount`       INT            NOT NULL    COMMENT '조회수',
-    `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
-    PRIMARY KEY (posts_no)
-);
-
-ALTER TABLE tbl_certification_board
-    ADD CONSTRAINT FK_tbl_certification_board_code_tbl_board_config_code FOREIGN KEY (code)
-        REFERENCES tbl_board_config (code) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE tbl_certification_board
-    ADD CONSTRAINT FK_tbl_certification_board_nickname_tbl_member_nickname FOREIGN KEY (nickname)
-        REFERENCES tbl_member (nickname) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-//사진게시판 테이블
-
-CREATE TABLE tbl_photo_share_board
-(
-    `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `code`            VARCHAR(45)    NOT NULL    COMMENT '게시판코드',
-    `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `title`           VARCHAR(45)    NOT NULL    COMMENT '제목',
     `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
-    `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
     `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
     `readcount`       INT            NOT NULL    COMMENT '조회수',
     `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
     PRIMARY KEY (posts_no)
 );
-
-ALTER TABLE tbl_photo_share_board
-    ADD CONSTRAINT FK_tbl_photo_share_board_code_tbl_board_config_code FOREIGN KEY (code)
-        REFERENCES tbl_board_config (code) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE tbl_photo_share_board
-    ADD CONSTRAINT FK_tbl_photo_share_board_nickname_tbl_member_nickname FOREIGN KEY (nickname)
-        REFERENCES tbl_member (nickname) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-//최신IT정보게시판 테이블
-
-CREATE TABLE tbl_new_it_board
-(
-    `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `code`            VARCHAR(45)    NOT NULL    COMMENT '게시판코드',
-    `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `title`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
-    `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
-    `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
-    `readcount`       INT            NOT NULL    COMMENT '조회수',
-    `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
-    PRIMARY KEY (posts_no)
-);
-
-ALTER TABLE tbl_new_it_board
-    ADD CONSTRAINT FK_tbl_new_it_board_code_tbl_board_config_code FOREIGN KEY (code)
-        REFERENCES tbl_board_config (code) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE tbl_new_it_board
-    ADD CONSTRAINT FK_tbl_new_it_board_nickname_tbl_member_nickname FOREIGN KEY (nickname)
-        REFERENCES tbl_member (nickname) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-//이벤트게시판 테이블
-
-CREATE TABLE tbl_event_board
-(
-    `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `code`            VARCHAR(45)    NOT NULL    COMMENT '게시판코드',
-    `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `title`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
-    `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
-    `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
-    `readcount`       INT            NOT NULL    COMMENT '조회수',
-    `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
-    PRIMARY KEY (posts_no)
-);
-
-ALTER TABLE tbl_event_board
-    ADD CONSTRAINT FK_tbl_event_board_code_tbl_board_config_code FOREIGN KEY (code)
-        REFERENCES tbl_board_config (code) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE tbl_event_board
-    ADD CONSTRAINT FK_tbl_event_board_nickname_tbl_member_nickname FOREIGN KEY (nickname)
-        REFERENCES tbl_member (nickname) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-//공지사항게시판 테이블
-
-CREATE TABLE tbl_notice_board
-(
-    `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `code`            VARCHAR(45)    NOT NULL    COMMENT '게시판코드',
-    `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `title`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
-    `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
-    `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
-    `readcount`       INT            NOT NULL    COMMENT '조회수',
-    `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
-    PRIMARY KEY (posts_no)
-);
-
-ALTER TABLE tbl_notice_board
-    ADD CONSTRAINT FK_tbl_notice_board_code_tbl_board_config_code FOREIGN KEY (code)
-        REFERENCES tbl_board_config (code) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE tbl_notice_board
-    ADD CONSTRAINT FK_tbl_notice_board_nickname_tbl_member_nickname FOREIGN KEY (nickname)
-        REFERENCES tbl_member (nickname) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-//1:1게시판 테이블
-
-CREATE TABLE tbl_onetoone_board
-(
-    `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `code`            VARCHAR(45)    NOT NULL    COMMENT '게시판코드',
-    `ref`             VARCHAR(45)    NOT NULL    COMMENT '그룹',
-    `restop`          VARCHAR(45)    NOT NULL    COMMENT '그룹내 순서',
-    `relevel`         VARCHAR(45)    NOT NULL    COMMENT '계층',
-    `title`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
-    `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
-    `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
-    `readcount`       INT            NOT NULL    COMMENT '조회수',
-    `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
-    `security`        CHAR(1)        NULL        COMMENT '비밀글',
-    PRIMARY KEY (posts_no)
-);
-
-ALTER TABLE tbl_onetoone_board
-    ADD CONSTRAINT FK_tbl_onetoone_board_code_tbl_board_config_code FOREIGN KEY (code)
-        REFERENCES tbl_board_config (code) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE tbl_onetoone_board
-    ADD CONSTRAINT FK_tbl_onetoone_board_nickname_tbl_member_nickname FOREIGN KEY (nickname)
-        REFERENCES tbl_member (nickname) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-//자주묻는게시판 테이블
-
-CREATE TABLE tbl_asked_board
-(
-    `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `code`            VARCHAR(45)    NOT NULL    COMMENT '게시판코드',
-    `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `title`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
-    `readcount`       INT            NOT NULL    COMMENT '조회수',
-    `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
-    PRIMARY KEY (posts_no)
-);
-
-ALTER TABLE tbl_asked_board
-    ADD CONSTRAINT FK_tbl_asked_board_code_tbl_board_config_code FOREIGN KEY (code)
-        REFERENCES tbl_board_config (code) ON DELETE RESTRICT ON UPDATE RESTRICT;

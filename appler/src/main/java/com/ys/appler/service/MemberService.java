@@ -1,5 +1,6 @@
 package com.ys.appler.service;
 
+
 import com.ys.appler.dto.MemberDto;
 import com.ys.appler.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,4 +15,5 @@ public class MemberService {
     public MemberDto selectTest(){
         return testMapper.selectTest();
     }
+
 }
