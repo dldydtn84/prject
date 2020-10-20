@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -47,17 +48,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        String userQuery="select id as username, pass as password, enabled from tbl_member where id =? ";
+        String userQuery="select id as username,  CONCAT('{noop}', pass) password, enabled from tbl_member where id =? ";
         String authQuery="select id as username, authority FROM tbl_member  where id=?";
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery(userQuery)
                 .authoritiesByUsernameQuery(authQuery);
-             /*   .passwordEncoder(passwordEncoder());*/
+
 
     }
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+
 }
