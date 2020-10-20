@@ -12,6 +12,7 @@
     }
 
 
+
 </style>
 <body id="page-top">
 <th:block th:replace="include/top :: top"></th:block>
@@ -20,8 +21,17 @@
     <div class="row">
         <div class="col-sm-9">dasdasd</div>
         <div class="col-sm-3">
-            <button type="button" onclick="location.href='login/login' "id="login-submit" class="btn btn-secondary btn-block"/>
-            로그인</button>
+            <!-- <button th:if="${session.greeting == null}" type="button" onclick="location.href='login' "id="login-submit" class="btn btn-secondary btn-block" />로그인</button>
+             <button th:if="${session.greeting != null}" type="button" onclick="location.href='login' "id="login-submit" class="btn btn-secondary btn-block"  />로그아웃</button>
+     -->
+            <div th:if="${session.greeting}">
+                <button type="button" onclick="location.href='/logout'" class="btn btn-secondary btn-block"/>
+                로그아웃</button>
+            </div>
+            <div th:unless="${session.greeting}">
+                <button type="button" onclick="location.href='login'" class="btn btn-secondary btn-block"/>
+                로그인</button>
+            </div>
 
 
         </div>
