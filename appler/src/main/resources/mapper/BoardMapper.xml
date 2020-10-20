@@ -6,4 +6,7 @@
         from tbl_free_board
         order by posts_no desc
     </select>
+    <insert id="contextInsert" parameterType="com.ys.appler.dto.FreeboardDto">
+        INSERT INTO tbl_free_board (subject, contents, nickname, ip, attachments, readcount, reporting_date) VALUES ( #{subject}, #{contents}, #{nickname},#{attachments},#{readcount}, NOW());
+    </insert>
 </mapper>
