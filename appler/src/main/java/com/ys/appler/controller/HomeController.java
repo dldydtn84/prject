@@ -3,6 +3,8 @@ package com.ys.appler.controller;
 import com.ys.appler.dto.MemberDto;
 import com.ys.appler.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,16 +19,15 @@ public class HomeController {
     @Autowired
     MemberService testService;
 
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
     @GetMapping("/")
     public String index(Model model, HttpSession session){
-       String id="";
-        if(session.getAttribute("greeting") == null){
-            id="null";
-        }else{
-            id=(String)session.getAttribute("greeting");
-        }
-
-        model.addAttribute("id",id);
+        String pass ="test";
+        String pass1 ="$2a$10$OprFunQpXXQdrofVkDkPAe.bTxQJX29tNlm3gwlcpg2VzRnI8BDay";
+        boolean pwmatch = passwordEncoder.matches(pass, pass1);
+        System.out.println(pwmatch);
         return "index";
     }
 

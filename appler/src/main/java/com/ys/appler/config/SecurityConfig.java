@@ -8,9 +8,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
+
 
 import javax.sql.DataSource;
 
@@ -44,18 +47,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .logout()
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/");
+                    .logoutSuccessUrl("/")
+                    .invalidateHttpSession(true);
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        String userQuery="select id as username,  CONCAT('{noop}', pass) password, enabled from tbl_member where id =? ";
+        String userQuery="select id as username,  pass as password, enabled from tbl_member where id =? ";
         String authQuery="select id as username, authority FROM tbl_member  where id=?";
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery(userQuery)
-                .authoritiesByUsernameQuery(authQuery);
+                .authoritiesByUsernameQuery(authQuery)
+                .passwordEncoder(passwordEncoder());
 
 
     }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        firewall.setAllowUrlEncodedSlash(true);
+        firewall.setAllowSemicolon(true);
+        return firewall;
+    } //시큐리티 방화벽 해제. 추후 변경필요
 
 }
