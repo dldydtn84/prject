@@ -7,5 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface BoardMapper {
-    List<FreeboardDto> contextList();
+    List<FreeboardDto> contextList(String name);
 }

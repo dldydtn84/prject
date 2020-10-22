@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ys.appler.mapper.BoardMapper">
-    <select id="contextList" resultType="com.ys.appler.dto.FreeboardDto">
+    <select id="contextList" parameterType="String" resultType="com.ys.appler.dto.FreeboardDto">
         select posts_no, subject ,contents, nickname ,attachments ,readcount ,STR_TO_DATE(reporting_date,  '%Y-%m-%d')
-        from tbl_free_board
+        from ${name}
         order by posts_no desc
     </select>
     <insert id="contextInsert" parameterType="com.ys.appler.dto.FreeboardDto">

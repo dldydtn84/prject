@@ -12,7 +12,8 @@ public class BoardService {
     @Autowired
     BoardMapper boardMapper;
 
-    public List<FreeboardDto> contextList(){
-        return boardMapper.contextList();
+    public List<FreeboardDto> contextList(String name){
+        List<FreeboardDto> boardlist = boardMapper.contextList(name);
+        return boardlist;
     }
 }

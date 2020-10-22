@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,12 +19,13 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-    @GetMapping("/freeboard")
-    public String freeBoard(Model model){
-        //model.addAttribute("data","hello");
-        List<FreeboardDto> contextlist = boardService.contextList();
+
+    @GetMapping("/list")
+    public String list(@RequestParam("board") String name , Model model){
+
+        List<FreeboardDto> contextlist = boardService.contextList(name);
         model.addAttribute("contextlist", contextlist);
-        return "/board/freeBoard";
+        return "/board/list";
     }
     @GetMapping("/questionboard")
     public String question(Model model){
