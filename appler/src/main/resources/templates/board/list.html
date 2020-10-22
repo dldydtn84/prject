@@ -4,23 +4,13 @@
 
 <!-- 공통 헤더-->
 <th:block th:replace="include/head :: head"></th:block>
-<style type="text/css">
-.test{
-        width: 1324px;
-    position: relative;
-    margin: 0 auto;
-    }
 
 
-
-
-
-</style>
 <body id="page-top">
 <th:block th:replace="include/top :: top"></th:block>
 <div id="content" style="margin-top: 50px">
 
-    <div class="container test" style="margin-top: 50px">
+    <div class="container layout" style="margin-top: 50px">
         <div class="row">
             <div class="col-sm-9">
                 <div class="card shadow">
@@ -39,9 +29,12 @@
                             <tbody>
                             <tr th:each="context: ${contextlist}">
                                 <td th:text="${context.posts_no}" class="text-center d-none d-md-table-cell"></td>
-                                <td th:text="${context.subject}"><a href="#">asd</a></td>
+                                <td><a th:href="@{/board/read(no=${context.posts_no},board=${boardnum})}"><p th:text="${context.subject}"></p></a>
+                                </td>
                                 <td th:text="${context.nickname}" class="text-center d-none d-md-table-cell">이용수</td>
-                                <td th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell">2020-07-25</td>
+                                <td th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell">
+                                    2020-07-25
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -72,8 +65,9 @@
 
                         <div class="text-right">
                             <!-- 게시판 종류별 인덱싱 -->
-                            <a href="/board/write"
+                            <a th:href="@{/board/write(board=${boardnum})}"
                                class="btn btn-primary">글쓰기</a>
+
                         </div>
 
                     </div>
@@ -82,7 +76,8 @@
             </div>
             <div class="col-sm-3">
 
-                <button type="submit" id="login-submit" class="btn btn-secondary btn-block" />로그인</button>
+                <button type="submit" id="login-submit" class="btn btn-secondary btn-block"/>
+                로그인</button>
             </div>
         </div>
 

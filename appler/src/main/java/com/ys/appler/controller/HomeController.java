@@ -27,6 +27,8 @@ public class HomeController {
         String pass ="test";
         String pass1 ="$2a$10$OprFunQpXXQdrofVkDkPAe.bTxQJX29tNlm3gwlcpg2VzRnI8BDay";
         boolean pwmatch = passwordEncoder.matches(pass, pass1);
+        String asd=passwordEncoder.encode("1");
+        System.out.println(asd);
         System.out.println(pwmatch);
         return "index";
     }

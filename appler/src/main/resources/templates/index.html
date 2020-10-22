@@ -4,20 +4,11 @@
 
 <!-- 공통 헤더-->
 <th:block th:replace="include/head :: head"></th:block>
-<style type="text/css">
-.test{
-        width: 1324px;
-    position: relative;
-    margin: 0 auto;
-    }
 
-
-
-</style>
 <body id="page-top">
 <th:block th:replace="include/top :: top"></th:block>
 
-<div class="container test">
+<div class="container layout">
     <div class="row">
         <div class="col-sm-9">dasdasd</div>
         <div class="col-sm-3">
@@ -31,14 +22,25 @@
             <div th:unless="${session.greeting}">
                 <button type="button" onclick="location.href='login'" class="btn btn-secondary btn-block"/>
                 로그인</button>
-            </div>
 
+            </div>
+            <button onclick="delete_button()" class="btn btn-danger">삭제하기</button>
 
         </div>
     </div>
 </div>
 </div>
+<script type="text/javascript">
+ function delete_button(){
+if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+    document.form.submit();
+}else{   //취소
+    return;
+}
+}
 
+
+</script>
 
 <!-- 공통 하단-->
 <th:block th:replace="include/footer :: footer"></th:block>
@@ -47,4 +49,5 @@
 <!-- 공통 스크립트-->
 <th:block th:replace="include/script :: script"></th:block>
 </body>
+
 </html>

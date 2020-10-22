@@ -3,8 +3,10 @@ package com.ys.appler.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+
+
 @Getter @Setter
-public class FreeboardDto {
+public class BoardDto {
 
     private String posts_no;
     private String subject;

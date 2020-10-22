@@ -12,8 +12,6 @@ public class MemberService {
     @Autowired
     public MemberMapper testMapper;
 
-    public MemberDto selectTest(){
-        return testMapper.selectTest();
-    }
+
 
 }
