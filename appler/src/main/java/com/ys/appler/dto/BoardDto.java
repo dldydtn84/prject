@@ -8,11 +8,17 @@ import lombok.Setter;
 @Getter @Setter
 public class BoardDto {
 
-    private String posts_no;
+    private int no;
+    private int posts_no;
+    private String board_code;
     private String subject;
-    private String contents;
     private String nickname;
-    private String attachments;
+    private String editordata;
+    private String ip;
+    private String files;
     private int readcount;
     private String reporting_date;
 }
+
+
+

@@ -2,19 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ys.appler.mapper.BoardMapper">
     <select id="contextList" resultType="com.ys.appler.dto.BoardDto">
-        select posts_no, subject ,contents, nickname ,attachments ,readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
-        from ${board}
+        select posts_no ,subject ,nickname ,editordata ,files ,readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
+        from tbl_board
+        where board_code=#{boardcode}
         order by posts_no desc
     </select>
-    <select id="contextRead" resultType="com.ys.appler.dto.BoardDto">
-        select posts_no, subject ,contents, nickname ,attachments ,readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
-        from ${board}
-        where posts_no=#{no}
+   <select id="contextRead" resultType="com.ys.appler.dto.BoardDto">
+        select posts_no, subject ,nickname, editordata ,files ,readcount, DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
+        from tbl_board
+        where posts_no=#{no} and board_code = #{boardcode}
     </select>
-    <insert id="contextWrite" >
-        select posts_no, subject ,contents, nickname ,attachments ,readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
-        from ${board}
-        where posts_no=#{no}
+
+
+   <select id="postnoOne" resultType="int">
+        select posts_no from tbl_board tb where board_code = #{board_code} order by posts_no DESC LIMIT 1;
+    </select>
+
+     <insert id="contextWrite"  parameterType="com.ys.appler.dto.BoardDto" >
+        INSERT INTO tbl_board (posts_no,board_code, subject, nickname, editordata, ip, files, readcount, reporting_date)
+        VALUES (#{posts_no}, #{subject}, #{nickname},#{editordata}, '127.0.0.1',#{files},0,now())
     </insert>
+
 
 </mapper>

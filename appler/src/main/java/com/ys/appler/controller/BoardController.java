@@ -1,7 +1,6 @@
 package com.ys.appler.controller;
 
 import com.ys.appler.dto.BoardDto;
-import com.ys.appler.dto.MemberDto;
 import com.ys.appler.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,19 +22,19 @@ public class BoardController {
 
 
     @GetMapping("/list")
-    public String list(@RequestParam("board") int boardnum, Model model) {
+    public String list(@RequestParam("board") int board, Model model) {
 
-        List<BoardDto> contextlist = boardService.contextList(boardnum);
+        List<BoardDto> contextlist = boardService.contextList(board);
         model.addAttribute("contextlist", contextlist);
-        model.addAttribute("boardnum", boardnum);
+        model.addAttribute("board", board);
         return "/board/list";
     }
 
     @GetMapping("/read")
-    public String read(@RequestParam("board") int boardnum, @RequestParam("no") int no, Model model) {
-        BoardDto contextread = boardService.contextRead(no, boardnum);
+    public String read(@RequestParam("board") int board, @RequestParam("no") int no, Model model) {
+        BoardDto contextread = boardService.contextRead(no, board);
         model.addAttribute("contextread", contextread);
-        model.addAttribute("board", boardnum);
+        model.addAttribute("board", board);
         model.addAttribute("no", no);
         return "/board/read";
     }
@@ -43,18 +42,30 @@ public class BoardController {
 
     @GetMapping("/write")
     public String write(@RequestParam("board") int boardnum, Model model) {
-        model.addAttribute("boardnum", boardnum);
+        String boardcode ="";
+        if(boardnum == 1){
+            boardcode ="FB";
+        }else if(boardnum ==2){
+            boardcode ="QB";
+        }else if(boardnum ==3){
+            boardcode ="CB";
+        }else{
+            System.out.println("error");
+        }
+
+        model.addAttribute("boardcode", boardcode);
 
 
         return "/board/write";
     }
 
     @GetMapping("/writepro")
-    public String writepro(@RequestParam("board") int boardnum , @ModelAttribute BoardDto boardDto, Model model) {
+    public String writepro(@RequestParam("board_code") String board_code,@ModelAttribute BoardDto boardDto, Model model) {
+        int boardpostno = boardService.postnoOne(board_code);
+        boardDto.setPosts_no(boardpostno);
+        boardService.contextWrite(boardDto);
 
-
-        boardService.contextwrite(boardnum);
-        return "/board/writepro";
+        return "/";
     }
     @GetMapping("/modify")
     public String modify(Model model) {

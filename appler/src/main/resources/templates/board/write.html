@@ -17,12 +17,12 @@
                     <div class="card-body">
                         <h4 class="card-title">자유게시판</h4>
                         <form  action="#" th:action="@{/board/writepro}" th:object="${BoardDto}" method="get" >
-                            <input type="hidden" name="board" id="board" th:value="${boardnum}">
+                            <input type="hidden" name="board_code" id="board_code" th:value="${boardcode}">
                             <input type="hidden" name="nickname" id="nickname" th:value="${session.greeting}">
                             <label for="subject">제목</label><br>
                             <input type="text" name="subject" id="subject" class="form-control mr-sm-2" ><br>
-                            <label for="writedate">작성일자</label><br>
-                            <input type="date" name="writedate" id="writedate" ><br>
+                            <label for="reporting_date">작성일자</label><br>
+                            <input type="date" name="reporting_date" id="reporting_date" ><br>
                             <span>작성자 </span>
                             <textarea id="summernote" name="editordata"></textarea><br>
                             <button type="submit" class="btn btn-success">입력완료</button>

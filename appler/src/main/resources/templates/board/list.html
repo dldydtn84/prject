@@ -29,7 +29,7 @@
                             <tbody>
                             <tr th:each="context: ${contextlist}">
                                 <td th:text="${context.posts_no}" class="text-center d-none d-md-table-cell"></td>
-                                <td><a th:href="@{/board/read(no=${context.posts_no},board=${boardnum})}"><p th:text="${context.subject}"></p></a>
+                                <td><a th:href="@{/board/read(no=${context.posts_no},board=${board})}"><p th:text="${context.subject}"></p></a>
                                 </td>
                                 <td th:text="${context.nickname}" class="text-center d-none d-md-table-cell">이용수</td>
                                 <td th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell">
@@ -65,7 +65,7 @@
 
                         <div class="text-right">
                             <!-- 게시판 종류별 인덱싱 -->
-                            <a th:href="@{/board/write(board=${boardnum})}"
+                            <a th:href="@{/board/write(board=${board})}"
                                class="btn btn-primary">글쓰기</a>
 
                         </div>

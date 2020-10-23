@@ -12,35 +12,42 @@ public class BoardService {
     @Autowired
     BoardMapper boardMapper;
 
-    public String boardnum(int boardnum){
-        String board ="";
+    public String Boardnum(int boardnum){
+        String boardcode ="";
         if(boardnum == 1){
-            board ="tbl_free_board";
+            boardcode ="FB";
         }else if(boardnum ==2){
-            board ="tbl_question_board";
+            boardcode ="QB";
         }else if(boardnum ==3){
-            board="tbl_certification_board";
+            boardcode ="CB";
         }else{
             System.out.println("error");
         }
-        return board;
+        return boardcode;
     }
 
 
-    public List<BoardDto> contextList(int boardnum){
-        String board = boardnum(boardnum);
-        List<BoardDto> boardlist = boardMapper.contextList(board);
+    public List<BoardDto> contextList(int board){
+        String boardcode = Boardnum(board);
+        List<BoardDto> boardlist = boardMapper.contextList(boardcode);
         return boardlist;
     }
 
-    public BoardDto contextRead(int no,int boardnum){
-        String board = boardnum(boardnum);
-        BoardDto boardread = boardMapper.contextRead(board,no);
+    public BoardDto contextRead(int no,int board){
+        String boardcode = Boardnum(board);
+
+        BoardDto boardread = boardMapper.contextRead(boardcode,no);
         return  boardread;
     }
-    public void contextwrite(int boardnum){
-        String board = boardnum(boardnum);
-       boardMapper.contextWrite(board);
+   public void contextWrite(BoardDto boardDto){
 
+
+       boardMapper.contextWrite(boardDto);
+    }
+
+    public int postnoOne(String board_code) {
+        int boardpostno = boardMapper.postnoOne(board_code);
+        boardpostno += 1;
+        return boardpostno;
     }
 }

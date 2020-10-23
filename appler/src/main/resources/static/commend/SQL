@@ -1,48 +1,12 @@
-CREATE TABLE tbl_free_board
-(
-    `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `subject`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
-    `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
-    `readcount`       INT            NOT NULL    COMMENT '조회수',
-    `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
-    PRIMARY KEY (posts_no)
-);
-
-INSERT INTO tbl_free_board (posts_no, contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (01,  'contents 01', 'title 01', 'ip 01', 'nickname 01', 'attachments 01', 01, NOW());
-INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (02,  'contents 02', 'title 02', 'ip 02', 'nickname 02', 'attachments 02', 01, NOW());
-INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (03,  'contents 03', 'title 03', 'ip 03', 'nickname 03', 'attachments 03', 01, NOW());
-INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (04,  'contents 04', 'title 04', 'ip 04', 'nickname 04', 'attachments 04', 01, NOW());
-INSERT INTO tbl_free_board (posts_no, contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (05,  'contents 05', 'title 05', 'ip 05', 'nickname 05', 'attachments 05', 01, NOW());
-INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (06,  'contents 06', 'title 06', 'ip 06', 'nickname 06', 'attachments 06', 01, NOW());
-INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (07,  'contents 07', 'title 07', 'ip 07', 'nickname 07', 'attachments 07', 01, NOW());
-INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (08, 'contents 08', 'title 08', 'ip 08', 'nickname 08', 'attachments 08', 01, NOW());
-INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (09,  'contents 09', 'title 09', 'ip 09', 'nickname 09', 'attachments 09', 01, NOW());
-INSERT INTO tbl_free_board (posts_no,  contents, subject, ip, nickname, attachments, readcount, reporting_date) VALUES (10,  'contents 10', 'title 10', 'ip 10', 'nickname 10', 'attachments 10', 01, NOW());
-
-CREATE TABLE tbl_question_board
-(
-    `posts_no`        INT            NOT NULL    COMMENT '글번호',
-    `subject`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
-    `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
-    `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
-    `readcount`       INT            NOT NULL    COMMENT '조회수',
-    `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
-     PRIMARY KEY (posts_no)
-);
-
 CREATE TABLE tbl_certification_board
 (
-    `posts_no`        INT            NOT NULL    COMMENT '글번호',
+    `posts_no`        INT            NOT NULL  AUTO_INCREMENT  COMMENT '글번호',
     `subject`           VARCHAR(45)    NOT NULL    COMMENT '제목',
-    `contents`        VARCHAR(45)    NOT NULL    COMMENT '내용',
     `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
-    `ip`              VARCHAR(45)    NOT NULL    COMMENT 'IP',
-    `attachments`     VARCHAR(45)    NULL        COMMENT '첨부파일',
+    `editordata`        VARCHAR(2000)    NOT NULL    COMMENT '내용',
+
+    `ip`              VARCHAR(45)   DEFAULT '0.0.0.0' NOT NULL    COMMENT 'IP',
+    `files`     VARCHAR(500)    NULL        COMMENT '첨부파일',
     `readcount`       INT            NOT NULL    COMMENT '조회수',
     `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
     PRIMARY KEY (posts_no)
