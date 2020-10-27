@@ -5,11 +5,16 @@ import com.ys.appler.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -41,7 +46,7 @@ public class BoardController {
 
 
     @GetMapping("/write")
-    public String write(@RequestParam("board") int boardnum, Model model) {
+    public String write(@RequestParam("board") int boardnum, @ModelAttribute BoardDto boardDto, Model model, HttpServletRequest request) {
         String boardcode ="";
         if(boardnum == 1){
             boardcode ="FB";
@@ -53,6 +58,7 @@ public class BoardController {
             System.out.println("error");
         }
 
+        model.addAttribute("boardnum", boardnum);
         model.addAttribute("boardcode", boardcode);
 
 
@@ -60,12 +66,16 @@ public class BoardController {
     }
 
     @GetMapping("/writepro")
-    public String writepro(@RequestParam("board_code") String board_code,@ModelAttribute BoardDto boardDto, Model model) {
+    public String writepro(@RequestParam("board_code") String board_code,
+                           @RequestParam("boardnum") String boardnum,
+                           @Valid BoardDto boardDto, BindingResult result,
+                           RedirectAttributes redirect, HttpServletRequest request,
+                           HttpServletResponse response, Model model) {
         int boardpostno = boardService.postnoOne(board_code);
         boardDto.setPosts_no(boardpostno);
         boardService.contextWrite(boardDto);
 
-        return "/";
+        return "redirect:/board/list?board="+boardnum;
     }
     @GetMapping("/modify")
     public String modify(Model model) {

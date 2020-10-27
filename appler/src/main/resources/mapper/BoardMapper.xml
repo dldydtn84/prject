@@ -19,8 +19,8 @@
     </select>
 
      <insert id="contextWrite"  parameterType="com.ys.appler.dto.BoardDto" >
-        INSERT INTO tbl_board (posts_no,board_code, subject, nickname, editordata, ip, files, readcount, reporting_date)
-        VALUES (#{posts_no}, #{subject}, #{nickname},#{editordata}, '127.0.0.1',#{files},0,now())
+        INSERT INTO tbl_board (posts_no, board_code, subject, nickname, editordata, ip, files, readcount, reporting_date)
+        VALUES (#{posts_no}, #{board_code}, #{subject}, #{nickname},#{editordata}, '127.0.0.1',#{files},0,now())
     </insert>
 
 
