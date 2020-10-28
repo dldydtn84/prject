@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e03d8959-b0ae-4125-9468-3c6b6847f964" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/appler/src/test/java/com/ys/appler/dto/BoardDtoTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appler/src/main/java/com/ys/appler/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/appler/src/main/java/com/ys/appler/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appler/src/main/java/com/ys/appler/dto/BoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/appler/src/main/java/com/ys/appler/dto/BoardDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appler/src/main/resources/mapper/BoardMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/appler/src/main/resources/mapper/BoardMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appler/src/main/resources/templates/board/write.html" beforeDir="false" afterPath="$PROJECT_DIR$/appler/src/main/resources/templates/board/write.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,9 +39,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1603777728141">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="592" y="218" key="FileChooserDialogImpl" timestamp="1603790359363">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="592" y="218" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1603790359363" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603777728141" />
   </component>
 </project>
