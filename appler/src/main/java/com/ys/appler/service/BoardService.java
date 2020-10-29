@@ -33,7 +33,7 @@ public class BoardService {
         return boardcode;
     }
 
-    private String getIp(HttpServletRequest request) {
+    public String getIp(HttpServletRequest request) {
 
         String ip = request.getHeader("X-Forwarded-For");
 
@@ -90,5 +90,10 @@ public class BoardService {
         int boardpostno = boardMapper.postnoOne(board_code);
         boardpostno += 1;
         return boardpostno;
+    }
+
+    public int readcountup(int reviewNo){
+        int readcount = boardMapper.readcountup(reviewNo);
+        return readcount;
     }
 }

@@ -14,4 +14,5 @@ public interface BoardMapper {
     BoardDto contextRead(String boardcode, int no);
     void contextWrite(BoardDto boardDto);
     int postnoOne(String board_code);
+    int readcountup(int reviewNo);
 }
