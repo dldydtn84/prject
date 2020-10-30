@@ -4,6 +4,7 @@ package com.ys.appler.controller;
 import com.sun.tools.javac.util.StringUtils;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.service.BoardService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("/board")
 public class BoardController {
@@ -30,7 +32,7 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
 
     @GetMapping("/list")
@@ -53,7 +55,7 @@ public class BoardController {
         } else if (boardnum == 3) {
             boardcode = "CB";
         } else {
-            System.out.println("error");
+            log.info("boardcode error");
         }
 
         model.addAttribute("boardnum", boardnum);
@@ -71,7 +73,7 @@ public class BoardController {
                            HttpServletResponse response, Model model) {
         int boardpostno = boardService.postnoOne(board_code);
         String IP = boardService.getIp(request);
-        logger.info("아이피는 " + IP);
+        log.info("아이피는 " + IP);
         boardDto.setIp(IP);
         boardDto.setPosts_no(boardpostno);
         boardService.contextWrite(boardDto);
@@ -86,20 +88,28 @@ public class BoardController {
         return "/board/modify";
     }
 
-    @GetMapping("/deletePro")
-    public String deletePro(Model model) {
+    @PostMapping("/deletePro")
+    public String deletePro(Model model,@RequestParam("board") int board ,@RequestParam("posts_no") int posts_no) {
+        log.info(String.valueOf(board));
+        boardService.contextDelete(board, posts_no);
 
-        return "/board/deletePro";
+        return "redirect:/board/list?board=" + board;
     }
 
 
     @RequestMapping(value = "/read")
-    public String read(@RequestParam("board") int board, @RequestParam("no") int reviewNo, Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String read(@RequestParam("board") int board, @RequestParam("posts_no") int posts_no, Model model,BoardDto boardDto, HttpServletRequest request, HttpServletResponse response) {
 
-        BoardDto review = boardService.contextRead(reviewNo, board);
-        model.addAttribute("contextread", review);
+        BoardDto contextread = boardService.contextRead(posts_no, board);
+
+
+        model.addAttribute("contextread", contextread);
         model.addAttribute("board", board);
-        model.addAttribute("no", reviewNo);
+        model.addAttribute("no", posts_no);
+
+        //게시판 시퀀스번호
+        int boardno=contextread.getNo();
+
 
         //쿠키가져오기
         Cookie[] cookies = request.getCookies();
@@ -111,21 +121,21 @@ public class BoardController {
         if (cookies != null && cookies.length > 0) {
             for (int i = 0; i < cookies.length; i++) {
                 // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌
-                if (cookies[i].getName().equals("cookie" + reviewNo)) {
-                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+                if (cookies[i].getName().equals("cookie" + posts_no)) {
                     viewCookie = cookies[i];
                 }
             }
         }
         // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
         if (viewCookie == null) {
-            System.out.println("cookie 없음");
+
             // 쿠키 생성(이름, 값)
-            Cookie newCookie = new Cookie("cookie" + reviewNo, "|" + reviewNo + "|");
+            Cookie newCookie = new Cookie("cookie" + posts_no, "|" + posts_no + "|");
             // 쿠키 추가
             response.addCookie(newCookie);
 
-            /* boardService.readcountup(reviewNo);*/
+
+           boardService.readcountUp(boardno);
         }
         // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
         else {

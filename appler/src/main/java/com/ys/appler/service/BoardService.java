@@ -2,19 +2,20 @@ package com.ys.appler.service;
 
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.mapper.BoardMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-
-
+@Slf4j
 @Service
 public class BoardService {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     BoardMapper boardMapper;
@@ -28,7 +29,7 @@ public class BoardService {
         }else if(boardnum ==3){
             boardcode ="CB";
         }else{
-            System.out.println("error");
+            log.info("boardcode error");
         }
         return boardcode;
     }
@@ -37,29 +38,29 @@ public class BoardService {
 
         String ip = request.getHeader("X-Forwarded-For");
 
-        logger.info(">>>> X-FORWARDED-FOR : " + ip);
+        log.info(">>>> X-FORWARDED-FOR : " + ip);
 
         if (ip == null) {
             ip = request.getHeader("Proxy-Client-IP");
-            logger.info(">>>> Proxy-Client-IP : " + ip);
+            log.info(">>>> Proxy-Client-IP : " + ip);
         }
         if (ip == null) {
             ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
-            logger.info(">>>> WL-Proxy-Client-IP : " + ip);
+            log.info(">>>> WL-Proxy-Client-IP : " + ip);
         }
         if (ip == null) {
             ip = request.getHeader("HTTP_CLIENT_IP");
-            logger.info(">>>> HTTP_CLIENT_IP : " + ip);
+            log.info(">>>> HTTP_CLIENT_IP : " + ip);
         }
         if (ip == null) {
             ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-            logger.info(">>>> HTTP_X_FORWARDED_FOR : " + ip);
+            log.info(">>>> HTTP_X_FORWARDED_FOR : " + ip);
         }
         if (ip == null) {
             ip = request.getRemoteAddr();
         }
 
-        logger.info(">>>> Result : IP Address : "+ip);
+        log.info(">>>> Result : IP Address : "+ip);
 
         return ip;
 
@@ -92,8 +93,17 @@ public class BoardService {
         return boardpostno;
     }
 
-    public int readcountup(int reviewNo){
-        int readcount = boardMapper.readcountup(reviewNo);
-        return readcount;
+    public void readcountUp(int reviewNo){
+        boardMapper.readcountUp(reviewNo);
+
     }
+   public void contextDelete(int board , int posts_no){
+       String boardcode = Boardnum(board);
+       Map<String, String> map = new HashMap<String, String>();
+       map.put("boardcode", boardcode);
+       map.put("posts_no", String.valueOf(posts_no));
+
+
+       boardMapper.contextDelete(map);
+   }
 }

@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ys.appler.mapper.BoardMapper">
     <select id="contextList" resultType="com.ys.appler.dto.BoardDto">
-        select posts_no ,subject ,nickname ,editordata ,files ,readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
+        select no, posts_no ,subject ,nickname ,editordata ,files ,readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
         from tbl_board
         where board_code=#{boardcode}
         order by posts_no desc
     </select>
    <select id="contextRead" resultType="com.ys.appler.dto.BoardDto">
-        select posts_no, subject ,nickname, editordata ,files ,readcount, DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
+        select no, posts_no, subject ,nickname, editordata ,files ,readcount, DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
         from tbl_board
         where posts_no=#{no} and board_code = #{boardcode}
     </select>
@@ -23,5 +23,16 @@
         VALUES (#{posts_no}, #{board_code}, #{subject}, #{nickname},#{editordata},#{ip} ,#{files},0,now())
     </insert>
 
+    <update id="readcountUp" parameterType="int">
+        UPDATE tbl_board
+        SET readcount = readcount + 1
+        WHERE no = #{reviewNo}
+    </update>
+
+    <delete id="contextDelete" parameterType="hashMap" >
+        DELETE
+        FROM tbl_board
+        WHERE board_code = #{boardcode} and posts_no = #{posts_no}
+    </delete>
 
 </mapper>

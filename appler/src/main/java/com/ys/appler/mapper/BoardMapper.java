@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface BoardMapper {
@@ -14,5 +15,8 @@ public interface BoardMapper {
     BoardDto contextRead(String boardcode, int no);
     void contextWrite(BoardDto boardDto);
     int postnoOne(String board_code);
-    int readcountup(int reviewNo);
+    void readcountUp(int reviewNo);
+
+
+    void contextDelete(Map<String, String> map);
 }

@@ -15,12 +15,11 @@
             <div class="col-sm-9">
                 <div class="card shadow">
                     <div class="card-body">
-
                         <h3 th:text="${contextread.subject}"></h3>
                         <span th:text="${contextread.nickname}"></span><br>
                         조회수 : <span th:text="${contextread.readcount}"></span><br>
                         작성일 : <span th:text="${contextread.reporting_date}"></span><br>
-                        내용 : <span th:text="${contextread.editordata}"></span>
+                        내용 : <p th:text="${contextread.editordata}"></p>
 
                         <div class="form-group">
                             <div class="text-right">
@@ -44,21 +43,63 @@
 
     </div>
 </div>
-        <!-- 공통 하단-->
-        <th:block th:replace="include/footer :: footer"></th:block>
+<!-- 공통 하단-->
+<th:block th:replace="include/footer :: footer"></th:block>
 
 </body>
 
 
 <script type="text/javascript">
- function delete_button(){
+//파라미터 정규식
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+//동적폼
+
+function post_to_url(path, params, method) {
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    for(var key in params) {
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", params[key]);
+        form.appendChild(hiddenField);
+    }
+    document.body.appendChild(form);
+    form.submit();
+}
+
+
+function delete_button(){
+
+var posts_no = getParameter("posts_no");
+var board = getParameter("board");
+alert(board);
 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-    location.href="/board/deletepro";
+    post_to_url('/board/deletePro', {'posts_no':posts_no,'board':board});
+
 
 }else{   //취소
     return;
 }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 </script>
