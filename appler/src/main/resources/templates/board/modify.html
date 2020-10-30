@@ -16,15 +16,17 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h4 class="card-title">자유게시판</h4>
-                        <form action="/board/writepro"method="get">
+                        <form  action="#" th:action="@{/board/modifypro}" th:object="${boardDto}" method="get" >
+                            <input type="hidden" name="board" id="board" th:value="${board}">
+                            <input type="hidden" name="posts_no" id="posts_no" th:value="${posts_no}">
+                            <input type="hidden" name="board_code" id="board_code" th:value="${boardcode}">
                             <label for="subject">제목</label><br>
-                            <input type="text" name="subject" id="subject" class="form-control mr-sm-2" ><br>
-                            <label for="writedate">작성일자</label><br>
-                            <input type="date" name="writedate" id="writedate" ><br>
-                            <span>작성자 </span>
+                            <input type="text" name="subject" id="subject"  th:value="${contextread.subject}" class="form-control mr-sm-2" ><br>
+
+                            <span>내용 </span>
                             <textarea id="summernote" name="editordata"></textarea><br>
                             <button type="submit" class="btn btn-success">입력완료</button>
-
+                        </form>
 
                     </div>
                 </div>
@@ -35,10 +37,12 @@
                 로그인</button>
             </div>
         </div>
-        </form>
 
-        <!-- 공통 하단-->
-        <th:block th:replace="include/footer :: footer"></th:block>
+    </div>
+</div>
+
+<!-- 공통 하단-->
+<th:block th:replace="include/footer :: footer"></th:block>
 
 </body>
 <!-- 공통 스크립트-->
@@ -57,8 +61,19 @@ $(document).ready(function() {
 		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 
 	});
+		  $("#summernote").summernote('code',  "[[${contextread.editordata}]]");
+
 });
 
-</script>
 
+</script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+
+    var message = /*[[${message}]]*/ 'default';
+    console.log(message);
+    alert("왜 안돼?");
+
+/*]]>*/
+</script>
 </html>

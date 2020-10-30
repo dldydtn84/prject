@@ -19,13 +19,13 @@
                         <span th:text="${contextread.nickname}"></span><br>
                         조회수 : <span th:text="${contextread.readcount}"></span><br>
                         작성일 : <span th:text="${contextread.reporting_date}"></span><br>
-                        내용 : <p th:text="${contextread.editordata}"></p>
+                        내용 : <div th:utext="${contextread.editordata}"></div>
 
                         <div class="form-group">
                             <div class="text-right">
 
                                 <a th:href="@{/board/list(board=${board})}" class="btn btn-primary">목록보기</a>
-                                <a th:href="@{/board/modify(board=${board}, no=${no})}" class="btn btn-info">수정하기</a>
+                                <a th:href="@{/board/modify(board=${board}, posts_no=${posts_no})}" class="btn btn-info">수정하기</a>
                                 <button onclick="delete_button()" class="btn btn-danger">삭제하기</button>
 
 

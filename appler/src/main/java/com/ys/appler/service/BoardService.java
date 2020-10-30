@@ -75,6 +75,17 @@ public class BoardService {
         return boardlist;
     }
 
+    public int selectListno(int board){
+
+        String boardcode = Boardnum(board);
+        int listno = boardMapper.selectListno(boardcode);
+
+
+
+
+        return listno;
+    }
+
     public BoardDto contextRead(int no,int board){
         String boardcode = Boardnum(board);
 
@@ -106,4 +117,9 @@ public class BoardService {
 
        boardMapper.contextDelete(map);
    }
+   public void contextUpdate(BoardDto boardDto){
+        boardMapper.contextUpdate(boardDto);
+
+   }
+
 }

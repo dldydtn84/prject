@@ -32,21 +32,7 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-
-
-
-    @GetMapping("/list")
-    public String list(@RequestParam("board") int board, Model model) {
-
-        List<BoardDto> contextlist = boardService.contextList(board);
-        model.addAttribute("contextlist", contextlist);
-        model.addAttribute("board", board);
-        return "/board/list";
-    }
-
-
-    @GetMapping("/write")
-    public String write(@RequestParam("board") int boardnum, @ModelAttribute BoardDto boardDto, Model model, HttpServletRequest request) {
+    private String boardCode(int boardnum) {
         String boardcode = "";
         if (boardnum == 1) {
             boardcode = "FB";
@@ -57,6 +43,27 @@ public class BoardController {
         } else {
             log.info("boardcode error");
         }
+        return boardcode;
+    }
+
+
+
+
+    @GetMapping("/list")
+    public String list(@RequestParam("board") int board, Model model) {
+
+        List<BoardDto> contextlist = boardService.contextList(board);
+        int listno = boardService.selectListno(board);
+        log.info(String.valueOf(listno));
+        model.addAttribute("contextlist", contextlist);
+        model.addAttribute("board", board);
+        return "/board/list";
+    }
+
+
+    @GetMapping("/write")
+    public String write(@RequestParam("board") int boardnum, @ModelAttribute BoardDto boardDto, Model model, HttpServletRequest request) {
+        String boardcode = boardCode(boardnum);
 
         model.addAttribute("boardnum", boardnum);
         model.addAttribute("boardcode", boardcode);
@@ -83,32 +90,51 @@ public class BoardController {
     }
 
     @GetMapping("/modify")
-    public String modify(Model model) {
+    public String modify(Model model, @RequestParam("board") int board, @RequestParam("posts_no") int posts_no) {
+        String boardcode = boardCode(board);
+        BoardDto contextread = boardService.contextRead(posts_no, board);
+        model.addAttribute("contextread", contextread);
+        model.addAttribute("board", board);
+        model.addAttribute("boardcode", boardcode);
+        model.addAttribute("posts_no", posts_no);
+
 
         return "/board/modify";
     }
 
+    @GetMapping("/modifypro")
+    public String modifypro(@RequestParam("board") int boardnum, Model model, BoardDto boardDto ) {
+        boardService.contextUpdate(boardDto);
+
+        return "redirect:/board/list?board="+boardnum;
+    }
+
+
     @PostMapping("/deletePro")
-    public String deletePro(Model model,@RequestParam("board") int board ,@RequestParam("posts_no") int posts_no) {
-        log.info(String.valueOf(board));
+    public String deletePro(Model model, @RequestParam("board") int board, @RequestParam("posts_no") int posts_no, HttpServletResponse response) {
+        log.info(String.valueOf(posts_no));
         boardService.contextDelete(board, posts_no);
+
+        Cookie delCk = new Cookie("cookie" + posts_no, null);
+        delCk.setMaxAge(0);
+        response.addCookie(delCk);
 
         return "redirect:/board/list?board=" + board;
     }
 
 
     @RequestMapping(value = "/read")
-    public String read(@RequestParam("board") int board, @RequestParam("posts_no") int posts_no, Model model,BoardDto boardDto, HttpServletRequest request, HttpServletResponse response) {
+    public String read(@RequestParam("board") int board, @RequestParam("posts_no") int posts_no, Model model, BoardDto boardDto, HttpServletRequest request, HttpServletResponse response) {
 
         BoardDto contextread = boardService.contextRead(posts_no, board);
 
 
         model.addAttribute("contextread", contextread);
         model.addAttribute("board", board);
-        model.addAttribute("no", posts_no);
+        model.addAttribute("posts_no", posts_no);
 
         //게시판 시퀀스번호
-        int boardno=contextread.getNo();
+        int boardno = contextread.getNo();
 
 
         //쿠키가져오기
@@ -135,7 +161,7 @@ public class BoardController {
             response.addCookie(newCookie);
 
 
-           boardService.readcountUp(boardno);
+            boardService.readcountUp(boardno);
         }
         // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
         else {
