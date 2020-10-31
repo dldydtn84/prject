@@ -50,15 +50,48 @@ public class BoardController {
 
 
     @GetMapping("/list")
-    public String list(@RequestParam("board") int board, Model model) {
+    public String list(@RequestParam("board") int board, Model model,BoardDto boardDto) {
+        int pageSize = boardDto.getPageSize();// 한페이지에 나오는 게시물 개수
+        int pageIndex = boardDto.getPageIndex(); //현재 선택한 페이지 number
+        int pageGroupSize = boardDto.getPageGroupSize(); // 10  페이지 번호가 몇개 나오느냐 개수
+        int startRow = (pageIndex - 1) * pageSize + 1;// 한 페이지의 시작글 번호
+
+        int endRow = pageIndex * pageSize;// 한 페이지의 마지막 글번호
+
+
+        boardDto.setStartRow(startRow);
+        boardDto.setEndRow(endRow);
+        int count = boardService.selectListno(board); //게시물 총 개수
+
+        int pageGroupCount = count / (pageSize * pageGroupSize) + (count % (pageSize * pageGroupSize) == 0 ? 0 : 1);
+
+        int nowPageGroup = (int) Math.ceil((double) pageIndex / pageGroupSize);
+
 
         List<BoardDto> contextlist = boardService.contextList(board);
-        int listno = boardService.selectListno(board);
-        log.info(String.valueOf(listno));
+
+
         model.addAttribute("contextlist", contextlist);
         model.addAttribute("board", board);
+        model.addAttribute("pageGroupCount", pageGroupCount);
+        model.addAttribute("nowPageGroup", nowPageGroup);
+
         return "/board/list";
     }
+/*
+<c:choose>
+                  <c:when test="${count > pageSize}"> <!-- ex) count= 11, pageSize=10 -->
+                    <c:out
+            value="${count - pageSize*(pageIndex-1) - idx.count +1}" /> <!-- 11,10,9,8.......... -->
+                  </c:when>
+                  <c:otherwise>
+                    <c:out value="${count  - idx.count +1}" />
+                  </c:otherwise>
+
+                </c:choose>
+
+*/
+
 
 
     @GetMapping("/write")
@@ -72,7 +105,7 @@ public class BoardController {
         return "/board/write";
     }
 
-    @PostMapping("/writepro")
+    @GetMapping("/writepro")
     public String writepro(@RequestParam("board_code") String board_code,
                            @RequestParam("boardnum") String boardnum,
                            @Valid BoardDto boardDto, BindingResult result,

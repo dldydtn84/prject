@@ -6,7 +6,7 @@ import lombok.Setter;
 
 
 
-public class BoardDto {
+public class BoardDto extends ListPagingDto{
 
     private int no;
     private int posts_no;
