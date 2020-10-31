@@ -26,7 +26,7 @@
                             <input type="text" name="subject" id="subject" class="form-control mr-sm-2"><br>
 
                             <span>내용 </span>
-                            <textarea id="summernote" name="editordata"></textarea><br>
+                            <textarea id="summernote" name="summernote"></textarea><br>
                             <button type="submit" class="btn btn-success">입력완료</button>
                         </form>
 
@@ -48,11 +48,9 @@
 </body>
 <!-- 공통 스크립트-->
 <th:block th:replace="include/script :: script"></th:block>
-<script th:src="@{/js/summernote/summernote-lite.js}"></script>
-<script th:src="@{/js/summernote/lang/summernote-ko-KR.js}"></script>
 <script type="text/javascript">
-
-$('#summernote').summernote({
+$(function(){
+         $('#summernote').summernote({
 				height: 300,                 // 에디터 높이
 				minHeight: null,             // 최소 높이
 				maxHeight: null,             // 최대 높이
@@ -61,7 +59,6 @@ $('#summernote').summernote({
 				placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
 				callbacks: {	//여기 부분이 이미지를 첨부하는 부분
 					onImageUpload : function(files) {
-
 						uploadSummernoteImageFile(files[0],this);
 					},
 					onPaste: function (e) {
@@ -74,30 +71,31 @@ $('#summernote').summernote({
 						}
 					}
 				}
-	});
+	    })
+
 
 	function uploadSummernoteImageFile(file, editor) {
-	alert('업로드 ...2');
+
 		data = new FormData();
 		data.append("file", file);
 		$.ajax({
 			data : data,
-			type : "POST",
+			type : "GET",
 			url : "/uploadSummernoteImageFile",
 			contentType : false,
 			processData : false,
 			success : function(data) {
-            	//항상 업로드된 파일의 url이 있어야 한다.
-
-				$(editor).summernote('insertImage', data.url);
-			}
+           		$(editor).summernote('insertImage', data.url);
+			},
+			error:function(){
+             alert("why not??");
+             }
 		});
 	}
-
-
-
-
+	});
 
 </script>
+<script th:src="@{/js/summernote/summernote-lite.js}"></script>
+<script th:src="@{/js/summernote/lang/summernote-ko-KR.js}"></script>
 
 </html>

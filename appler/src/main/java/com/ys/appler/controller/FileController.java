@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,19 +19,19 @@ import java.util.UUID;
 @Controller
 public class FileController {
 
-    @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
+    @GetMapping(value="/uploadSummernoteImageFile", produces = "application/json")
     @ResponseBody
     public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
-      log.info("파일업로드");
+        log.info("파일업로드");
         JsonObject jsonObject = new JsonObject();
-
+        log.info(String.valueOf(multipartFile));
         String fileRoot = "C:\\summernote_image\\";	//저장될 파일 경로
         String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 
         // 랜덤 UUID+확장자로 저장될 savedFileName
         String savedFileName = UUID.randomUUID() + extension;
-
+        log.info("filename : "+savedFileName);
         File targetFile = new File(fileRoot + savedFileName);
 
         try {
