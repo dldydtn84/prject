@@ -40,8 +40,18 @@
                         </table>
 
                         <div class="d-none d-md-block">
+                            <p th:text="${pageing.prev}"></p>
+                            <p th:text="${pageing.next}"></p>
+                            <div th:if="${pageing.prev}">asdsa</div>
+                            <div th:if="${pageing.next}">asdsasdasdasa</div>
+
+                            <p th:text="${pageing.startPage}"></p>
+                            <p th:text="${pageing.endPage}"></p>
+
+
                             <ul class="pagination justify-content-center">
-                                <li class="page-item"><a href="#" class="page-link">이전</a></li>
+
+                                <li th:if="${pageing.prev}" class="page-item"><a href="#" class="page-link">이전</a></li>
                                 <li class="page-item"><a href="#" class="page-link">1</a></li>
                                 <li class="page-item"><a href="#" class="page-link">2</a></li>
                                 <li class="page-item"><a href="#" class="page-link">3</a></li>
@@ -52,7 +62,7 @@
                                 <li class="page-item"><a href="#" class="page-link">8</a></li>
                                 <li class="page-item"><a href="#" class="page-link">9</a></li>
                                 <li class="page-item"><a href="#" class="page-link">10</a></li>
-                                <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                                <li th:if="${pageing.next}" class="page-item"><a href="#" class="page-link">다음</a></li>
                             </ul>
                         </div>
 

@@ -7,10 +7,10 @@
         WHERE board_code=#{boardcode}
         ORDER BY posts_no desc
     </select>
-   <select id="contextRead" resultType="com.ys.appler.dto.BoardDto">
-       SELECT no, posts_no, subject ,nickname, editordata ,files ,readcount, DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
-       FROM tbl_board
-       WHERE posts_no=#{no} and board_code = #{boardcode}
+    <select id="contextRead" resultType="com.ys.appler.dto.BoardDto">
+        SELECT no, posts_no, subject ,nickname, editordata ,files ,readcount, DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
+        FROM tbl_board
+        WHERE posts_no=#{no} and board_code = #{boardcode}
     </select>
 
     <select id="selectListno" resultType="int" parameterType="String">
@@ -19,14 +19,14 @@
         WHERE board_code = #{boardcode}
     </select>
 
-   <select id="postnoOne" resultType="int">
-       SELECT posts_no
-       FROM tbl_board tb
-       WHERE board_code = #{board_code}
-       ORDER BY posts_no DESC LIMIT 1;
+    <select id="postnoOne" resultType="int">
+        SELECT posts_no
+        FROM tbl_board tb
+        WHERE board_code = #{board_code}
+        ORDER BY posts_no DESC LIMIT 1;
     </select>
 
-     <insert id="contextWrite"  parameterType="com.ys.appler.dto.BoardDto" >
+    <insert id="contextWrite"  parameterType="com.ys.appler.dto.BoardDto" >
         INSERT INTO tbl_board (posts_no, board_code, subject, nickname, editordata, ip, files, readcount, reporting_date)
         VALUES (#{posts_no}, #{board_code}, #{subject}, #{nickname},#{editordata},#{ip} ,#{files},0,now())
     </insert>
@@ -47,5 +47,15 @@
         SET subject=#{subject}, editordata=#{editordata}, files=#{files}
         WHERE board_code=#{board_code} and posts_no =#{posts_no}
     </update>
+
+    <select id="listPaging" resultType="com.ys.appler.dto.BoardDto">
+        SELECT no, posts_no ,subject ,nickname ,editordata ,files ,readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
+        FROM tbl_board
+        WHERE board_code=#{boardCode}
+        ORDER BY posts_no desc
+        limit #{pageStart} , #{perPageNum}
+    </select>
+
+
 
 </mapper>

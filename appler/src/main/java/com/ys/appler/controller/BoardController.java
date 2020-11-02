@@ -1,18 +1,16 @@
 package com.ys.appler.controller;
 
 
-import com.sun.tools.javac.util.StringUtils;
+import com.ys.appler.commons.paging.Criteria;
+import com.ys.appler.commons.paging.Pageing;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -20,9 +18,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -31,6 +27,7 @@ public class BoardController {
 
     @Autowired
     BoardService boardService;
+
 
     private String boardCode(int boardnum) {
         String boardcode = "";
@@ -41,7 +38,7 @@ public class BoardController {
         } else if (boardnum == 3) {
             boardcode = "CB";
         } else {
-            log.info("boardcode error");
+            /*  log.info("boardcode error");*/
         }
         return boardcode;
     }
@@ -50,34 +47,49 @@ public class BoardController {
 
 
     @GetMapping("/list")
+    public String list(@RequestParam("board") int board,@RequestParam(value = "perPageNum" , defaultValue="15") int perPageNum ,
+                       @RequestParam(value = "page" , defaultValue="1") int page ,  Model model,BoardDto boardDto
+                      ) {
+
+        String boardCode = boardCode(board);
+        Criteria criteria =new Criteria();
+        criteria.setPage(page);
+        criteria.setPerPageNum(perPageNum);
+        criteria.setBoardCode(boardCode);
+
+        Pageing pageing = new Pageing();
+        pageing.setCriteria(criteria);
+        pageing.setTotalCount(1000);
+
+
+
+
+        List<BoardDto> contextlist = boardService.listPaging(criteria);
+
+
+
+       model.addAttribute("pageing", pageing);
+        model.addAttribute("contextlist", contextlist);
+        model.addAttribute("board", board);
+
+
+
+        return "/board/list";
+    }
+
+
+   /* @GetMapping("/list")
     public String list(@RequestParam("board") int board, Model model,BoardDto boardDto) {
-        int pageSize = boardDto.getPageSize();// 한페이지에 나오는 게시물 개수
-        int pageIndex = boardDto.getPageIndex(); //현재 선택한 페이지 number
-        int pageGroupSize = boardDto.getPageGroupSize(); // 10  페이지 번호가 몇개 나오느냐 개수
-        int startRow = (pageIndex - 1) * pageSize + 1;// 한 페이지의 시작글 번호
-
-        int endRow = pageIndex * pageSize;// 한 페이지의 마지막 글번호
-
-
-        boardDto.setStartRow(startRow);
-        boardDto.setEndRow(endRow);
-        int count = boardService.selectListno(board); //게시물 총 개수
-
-        int pageGroupCount = count / (pageSize * pageGroupSize) + (count % (pageSize * pageGroupSize) == 0 ? 0 : 1);
-
-        int nowPageGroup = (int) Math.ceil((double) pageIndex / pageGroupSize);
 
 
         List<BoardDto> contextlist = boardService.contextList(board);
 
-
         model.addAttribute("contextlist", contextlist);
         model.addAttribute("board", board);
-        model.addAttribute("pageGroupCount", pageGroupCount);
-        model.addAttribute("nowPageGroup", nowPageGroup);
+
 
         return "/board/list";
-    }
+    }*/
 /*
 <c:choose>
                   <c:when test="${count > pageSize}"> <!-- ex) count= 11, pageSize=10 -->
@@ -113,7 +125,7 @@ public class BoardController {
                            HttpServletResponse response, Model model) {
         int boardpostno = boardService.postnoOne(board_code);
         String IP = boardService.getIp(request);
-        log.info("아이피는 " + IP);
+        /*   log.info("아이피는 " + IP);*/
         boardDto.setIp(IP);
         boardDto.setPosts_no(boardpostno);
         boardService.contextWrite(boardDto);
@@ -145,7 +157,7 @@ public class BoardController {
 
     @PostMapping("/deletePro")
     public String deletePro(Model model, @RequestParam("board") int board, @RequestParam("posts_no") int posts_no, HttpServletResponse response) {
-        log.info(String.valueOf(posts_no));
+        /*log.info(String.valueOf(posts_no));*/
         boardService.contextDelete(board, posts_no);
 
         Cookie delCk = new Cookie("cookie" + posts_no, null);
