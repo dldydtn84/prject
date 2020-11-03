@@ -15,14 +15,12 @@ CREATE TABLE tbl_board
 );
 
      create table tbl_comment(
-seq int not null auto_increment,
+no int not null auto_increment,
 p_no varchar(50) not null,
-no varchar(50) not null ,
 board_code varchar(50) not null ,
-/*level  varchar(50) not null,*/
-contents varchar(500) not null,
+comments varchar(500) not null,
 nickname varchar(50) not null,
 r_date datetime not null,
 ip varchar(50) not null,
-primary key(seq)
+primary key(no)
 );

@@ -6,6 +6,8 @@ import com.ys.appler.service.CommentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/comment")
 public class CommentController {
@@ -32,29 +35,31 @@ public class CommentController {
 
     @RequestMapping("/insert") //댓글 작성
     @ResponseBody
-    private int commentInsert(@RequestParam String p_no, @RequestParam String board , @RequestParam String contents, HttpSession session, HttpServletRequest request) throws Exception{
+    private int commentInsert(@RequestParam String p_no, @RequestParam int board , @RequestParam String comments, HttpSession session, HttpServletRequest request) throws Exception{
+        log.info(".....");
         BoardService boardService =new BoardService();
         String IP = boardService.getIp(request);
-        String boardcode = boardService.Boardnum(Integer.parseInt(board));
+        String boardcode = boardService.Boardnum(board);
 
 
         CommentDto comment = new CommentDto();
         comment.setP_no(p_no);
-        comment.setContents(contents);
+        comment.setComments(comments);
         comment.setIp(IP);
         comment.setBoard_code(boardcode);
         comment.setNickname((String) session.getAttribute("greeting"));
-
-        return commentService.commentInsertService(comment);
+         int result= commentService.commentInsertService(comment);
+         log.info(String.valueOf(request));
+        return result;
     }
 
     @RequestMapping("/update") //댓글 수정  
     @ResponseBody
-    private int commentUpdate(@RequestParam int no, @RequestParam String contents) throws Exception{
+    private int commentUpdate(@RequestParam int no, @RequestParam String comments) throws Exception{
 
         CommentDto comment = new CommentDto();
         comment.setNo(no);
-        comment.setContents(contents);
+        comment.setComments(comments);
 
         return commentService.commentUpdateService(comment);
     }

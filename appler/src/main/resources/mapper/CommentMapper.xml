@@ -17,14 +17,14 @@
 
     <insert id="commentInsert" parameterType="com.ys.appler.dto.CommentDto">
         INSERT INTO
-        tbl_comment (p_no, board_code, contents, nickname, r_date, ip)
-        VALUES(#{p_no},#{board_code},#{contents},#{nickname},now() ,#{ip})
+        tbl_comment (p_no, board_code, comments, nickname, r_date, ip)
+        VALUES(#{p_no},#{board_code},#{comments},#{nickname},now() ,#{ip})
     </insert>
 
     <update id="commentUpdate" parameterType="com.ys.appler.dto.CommentDto">
         UPDATE tbl_comment
         SET
-        contents = #{contents}
+        contents = #{comments}
         WHERE no = #{no}
     </update>
 

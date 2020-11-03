@@ -92,7 +92,7 @@ log.info("getpage: "+ criteria.getPage()+"getBper" + criteria.getPerPageNum());
 			CommentDto commentDto = new CommentDto();
 			commentDto.setP_no("1000");
 			commentDto.setBoard_code("FB");
-			commentDto.setContents(i+"번째 댓글입니다.");
+			commentDto.setComments(i+"번째 댓글입니다.");
 			commentDto.setIp("127.0.0.1");
 			commentDto.setNickname("nick");
 
@@ -116,7 +116,7 @@ log.info(String.valueOf(count));
 	public void commentinsert() throws Exception{
 		CommentDto comment = new CommentDto();
 		comment.setP_no("1000");
-		comment.setContents("asdsaadsadasddas");
+		comment.setComments("asdsaadsadasddas");
 comment.setBoard_code("FB");
 		comment.setNickname("nick");
 		comment.setIp("127.0.0.1");
