@@ -1,6 +1,8 @@
-CREATE TABLE tbl_certification_board
+CREATE TABLE tbl_board
 (
-    `posts_no`        INT            NOT NULL  AUTO_INCREMENT  COMMENT '글번호',
+ 	`no` int not null AUTO_INCREMENT comment '전체 글 번호',
+    `posts_no`        INT            NOT NULL    COMMENT '각 게시판 글번호',
+    `board_code` 	varchar(5)	 	not null comment '게시판 코드',
     `subject`           VARCHAR(45)    NOT NULL    COMMENT '제목',
     `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
     `editordata`        VARCHAR(2000)    NOT NULL    COMMENT '내용',
@@ -9,5 +11,18 @@ CREATE TABLE tbl_certification_board
     `files`     VARCHAR(500)    NULL        COMMENT '첨부파일',
     `readcount`       INT            NOT NULL    COMMENT '조회수',
     `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
-    PRIMARY KEY (posts_no)
+    PRIMARY KEY (no)
+);
+
+     create table tbl_comment(
+seq int not null auto_increment,
+p_no varchar(50) not null,
+no varchar(50) not null ,
+board_code varchar(50) not null ,
+/*level  varchar(50) not null,*/
+contents varchar(500) not null,
+nickname varchar(50) not null,
+r_date datetime not null,
+ip varchar(50) not null,
+primary key(seq)
 );

@@ -10,7 +10,7 @@
 <th:block th:replace="include/top :: top"></th:block>
 <div id="content" style="margin-top: 50px">
 
-    <div class="container layout" style="margin-top: 50px">
+    <div class="container layout" >
         <div class="row">
             <div class="col-sm-9">
                 <div class="card shadow">
@@ -19,80 +19,41 @@
                         <span th:text="${contextread.nickname}"></span><br>
                         조회수 : <span th:text="${contextread.readcount}"></span><br>
                         작성일 : <span th:text="${contextread.reporting_date}"></span><br>
-                        내용 : <div th:utext="${contextread.editordata}"></div>
-
+                        내용 :
+                        <div th:utext="${contextread.editordata}"></div>
                         <div class="form-group">
                             <div class="text-right">
-
                                 <a th:href="@{/board/list(board=${board})}" class="btn btn-primary">목록보기</a>
-                                <a th:href="@{/board/modify(board=${board}, posts_no=${posts_no})}" class="btn btn-info">수정하기</a>
+                                <a th:href="@{/board/modify(board=${board}, posts_no=${posts_no})}"
+                                   class="btn btn-info">수정하기</a>
                                 <button onclick="delete_button()" class="btn btn-danger">삭제하기</button>
-
-
                             </div>
                         </div>
-
-
-
-                        <div >
-                            <div >
-                                <span><strong> 댓글</strong></span>
-                            </div>
-                            <div >
-
-                                <div>
-                                    <!-- comment item -->
-
-                                    <h4 >
-                                        댓글쓰기
-                                    </h4>
-
-                                    <!-- Form -->
-                                    <form action="#" method="post" >
-
-                                        <input type="hidden" name="user" value="">
-                                        <input type="hidden" name="board_id" value="">
-
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <input type="text" name="user" class="form-control" placeholder="닉네임" >
-                                                </div>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <input type="password" name="password" class="form-control" placeholder="패스워드" >
-                                                </div>
-                                            </div>
-                                            <textarea maxlength="5000" rows="4" class="form-control" name="comment" placeholder="내용"></textarea>
-                                        </div>
-
-                                        <button class="btn btn-primary btn-md">
-                                            <i class="fa fa-check"></i>
-                                            <span>댓글작성</span>
-                                        </button>
-                                    </form>
-                                    <!-- /Form -->
+                        <div class="container">
+                            <label for="comment">댓글</label>
+                            <form name="commentInsertForm">
+                                <div class="input-group">
+                                    <input type="hidden" id="p_no" name="p_no" value="1000">
+                                    <input type="hidden" id="board_code" name="board_code" value="FB">
+                                    <input type="text" class="form-control" id="comment" name="comment" placeholder="내용을 입력하세요.">
+                                    <span class="input-group-btn">
+                    <button class="btn btn-submit" type="button" name="commentInsertBtn">등록</button>
+               </span>
                                 </div>
-                            </div>
+                            </form>
                         </div>
 
-
-
-
-                    </div>
-
-
-
-
-
-
-
-
+                        <div class="container">
+                            <div class="commentList"></div>
+                        </div>
 
 
 
 
                     </div>
                 </div>
+
+
             </div>
             <div class="col-sm-3">
 
@@ -100,13 +61,110 @@
                 로그인</button>
             </div>
         </div>
-
     </div>
+
 </div>
+
 <!-- 공통 하단-->
 <th:block th:replace="include/footer :: footer"></th:block>
 
-</body>
+</body><script>
+var bno = 1000; //게시글 번호
+
+$('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시
+    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
+    commentInsert(insertData); //Insert 함수호출(아래)
+});
+
+
+
+//댓글 목록
+function commentList(){
+    $.ajax({
+        url : '/comment/list',
+        type : 'get',
+        data : {'bno':bno},
+        success : function(data){
+            var a ='';
+            $.each(data, function(key, value){
+                a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                a += '<div class="commentInfo'+value.cno+'">'+'댓글번호 : '+value.cno+' / 작성자 : '+value.writer;
+                a += '<a onclick="commentUpdate('+value.cno+',\''+value.content+'\');"> 수정 </a>';
+                a += '<a onclick="commentDelete('+value.cno+');"> 삭제 </a> </div>';
+                a += '<div class="commentContent'+value.cno+'"> <p> 내용 : '+value.content +'</p>';
+                a += '</div></div>';
+            });
+
+            $(".commentList").html(a);
+        }
+    });
+}
+
+//댓글 등록
+function commentInsert(insertData){
+
+    $.ajax({
+        url : '/comment/insert',
+        type : 'get',
+        data : insertData,
+        success : function(data){
+          <!--  if(data == 1) {
+                commentList(); //댓글 작성 후 댓글 목록 reload
+                $('[name=content]').val('');
+            }-->
+        }
+    });
+}
+
+//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경
+function commentUpdate(cno, content){
+    var a ='';
+
+    a += '<div class="input-group">';
+    a += '<input type="text" class="form-control" name="content_'+cno+'" value="'+content+'"/>';
+    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+cno+');">수정</button> </span>';
+    a += '</div>';
+
+    $('.commentContent'+cno).html(a);
+
+}
+
+//댓글 수정
+function commentUpdateProc(cno){
+    var updateContent = $('[name=content_'+cno+']').val();
+
+    $.ajax({
+        url : '/comment/update',
+        type : 'post',
+        data : {'content' : updateContent, 'cno' : cno},
+        success : function(data){
+            if(data == 1) commentList(bno); //댓글 수정후 목록 출력
+        }
+    });
+}
+
+//댓글 삭제
+function commentDelete(cno){
+    $.ajax({
+        url : '/comment/delete/'+cno,
+        type : 'post',
+        success : function(data){
+            if(data == 1) commentList(bno); //댓글 삭제후 목록 출력
+        }
+    });
+}
+
+
+
+
+$(document).ready(function(){
+    commentList(); //페이지 로딩시 댓글 목록 출력
+});
+
+
+
+</script>
+
 
 
 <script type="text/javascript">
@@ -140,7 +198,7 @@ function delete_button(){
 
 var posts_no = getParameter("posts_no");
 var board = getParameter("board");
-alert(board);
+
 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
     post_to_url('/board/deletePro', {'posts_no':posts_no,'board':board});
 
@@ -149,18 +207,6 @@ if (confirm("정말 삭제하시겠습니까??") == true){    //확인
     return;
 }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
 <!-- 공통 스크립트-->

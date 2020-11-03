@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 public class Pageing {
 
     private int totalCount;
-    public  int startPage;
-    public int endPage;
+    private  int startPage;
+    private int endPage;
     private boolean prev;
     private boolean next;
     private int displayPageNum = 10;
@@ -46,5 +46,13 @@ public class Pageing {
 
     public boolean isNext() {
         return next;
+    }
+
+    public int getStartPage() {
+        return startPage;
+    }
+
+    public int getEndPage() {
+        return endPage;
     }
 }
