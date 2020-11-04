@@ -20,21 +20,21 @@
                             <thead>
 
                             <tr>
-                                <th class="text-center d-none d-md-table-cell">글번호</th>
+
                                 <th class="w-50">제목</th>
                                 <th class="text-center d-none d-md-table-cell">작성자</th>
                                 <th class="text-center d-none d-md-table-cell">작성날짜</th>
+                                <th class="text-center d-none d-md-table-cell">조회수</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="context: ${contextlist}">
-                                <td th:text="${context.posts_no}" class="text-center d-none d-md-table-cell"></td>
-                                <td><a th:href="@{/board/read(posts_no=${context.posts_no},board=${board})}"><p th:text="${context.subject}"></p></a>
+
+                                <td><a th:href="@{/board/read(posts_no=${context.posts_no},board=${board})}"><p th:text="${context.subject}+' ['+ ${context.comment}+']'"></p></a>
                                 </td>
-                                <td th:text="${context.nickname}" class="text-center d-none d-md-table-cell">이용수</td>
-                                <td th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell">
-                                    2020-07-25
-                                </td>
+                                <td th:text="${context.nickname}" class="text-center d-none d-md-table-cell"></td>
+                                <td th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell"></td>
+                                <td th:text="${context.readcount}" class="text-center d-none d-md-table-cell"></td>
                             </tr>
                             </tbody>
                         </table>

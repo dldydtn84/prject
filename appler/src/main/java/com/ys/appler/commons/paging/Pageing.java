@@ -25,8 +25,7 @@ public class Pageing {
     private void calcData(){
         endPage = (int) (Math.ceil(criteria.getPage() / (double) displayPageNum) * displayPageNum);
         startPage = (endPage - displayPageNum) +1;
-        log.info(String.valueOf(endPage));
-        log.info(String.valueOf(startPage));
+
 
         int tempEndPage = (int) (Math.ceil(totalCount / (double) criteria.getPerPageNum()));
 
@@ -36,8 +35,7 @@ public class Pageing {
         prev = startPage ==1 ? false: true;
         next = endPage * criteria.getPerPageNum() >= totalCount ? false : true;
 
-        log.info(String.valueOf(prev));
-        log.info(String.valueOf(next));
+
     }
 
     public boolean isPrev() {

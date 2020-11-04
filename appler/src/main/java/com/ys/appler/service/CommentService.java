@@ -13,8 +13,13 @@ public class CommentService {
     @Autowired
     CommentMapper commentMapper;
 
-    public List<CommentDto> CommentListService() throws Exception{
-        List<CommentDto> result =commentMapper.commentList();
+    public int commentCount()throws Exception{
+        int result = commentMapper.commentCount();
+        return result;
+    }
+
+    public List<CommentDto> CommentListService(int p_no) throws Exception{
+        List<CommentDto> result =commentMapper.commentList(p_no);
         return result;
     }
     public int commentInsertService(CommentDto commentDto) throws Exception {

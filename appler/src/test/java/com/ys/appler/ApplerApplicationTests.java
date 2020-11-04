@@ -33,24 +33,24 @@ public class ApplerApplicationTests {
 	@Autowired
 	BoardService boardService;
 
-	@Test
+	/*@Test
 	public void paging(){
 
 		Criteria criteria = new Criteria();
 		criteria.setPage(5);
 		criteria.setPerPageNum(20);
-/*		criteria.setBoardCode("FB");*/
-		/*List<BoardDto> test = boardMapper.listPaging(criteria);*/
+*//*		criteria.setBoardCode("FB");*//*
+		*//*List<BoardDto> test = boardMapper.listPaging(criteria);*//*
 
 
-		/*for(BoardDto tests: test){
+		*//*for(BoardDto tests: test){
 			log.info(tests.getPosts_no()+":"+tests.getSubject());
-		}*/
+		}*//*
 
 	}
 
-
-
+*/
+/*
 	@Test
 	public void pagingmak(){
 
@@ -68,23 +68,25 @@ log.info("getpage: "+ criteria.getPage()+"getBper" + criteria.getPerPageNum());
 
 
 
-	}
+	}*/
 
 	@Test
 	public void testCreate() throws Exception{
 		for(int i =1; i<=1000; i++){
 			BoardDto boardDto = new BoardDto();
 			boardDto.setPosts_no(i);
-			boardDto.setSubject("질문게시판"+i+"번째 글 제목입니다.");
+			boardDto.setSubject("인증게시판"+i+"번째 글 제목입니다.");
 			boardDto.setEditordata(i+"번째 글내용입니다.");
-			boardDto.setBoard_code("QB");
+			boardDto.setBoard_code("CB");
 			boardDto.setNickname("nick");
+			boardDto.setComment("0");
 			boardDto.setReadcount(0);
 			boardDto.setIp("127.0.0.1");
 			boardMapper.contextWrite(boardDto);
 		}
 
 	}
+/*
 
 	@Test
 	public void commenttest() throws Exception{
@@ -123,6 +125,7 @@ comment.setBoard_code("FB");
 		 commentService.commentInsertService(comment);
 
 	}
+*/
 
 
 

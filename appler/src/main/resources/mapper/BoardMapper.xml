@@ -14,7 +14,7 @@
     </select>
 
     <select id="selectListno" resultType="int" parameterType="String">
-        SELECT count(posts_no)
+        SELECT count(*)
         FROM tbl_board
         WHERE board_code = #{boardcode}
     </select>
@@ -27,8 +27,8 @@
     </select>
 
     <insert id="contextWrite"  parameterType="com.ys.appler.dto.BoardDto" >
-        INSERT INTO tbl_board (posts_no, board_code, subject, nickname, editordata, ip, files, readcount, reporting_date)
-        VALUES (#{posts_no}, #{board_code}, #{subject}, #{nickname},#{editordata},#{ip} ,#{files},0,now())
+        INSERT INTO tbl_board (posts_no, board_code, subject, nickname, editordata, files, ip, comment,  readcount, reporting_date)
+        VALUES (#{posts_no}, #{board_code}, #{subject}, #{nickname},#{editordata},#{files} ,#{ip} ,#{comment} ,0,now())
     </insert>
 
     <update id="readcountUp" parameterType="int">
@@ -49,8 +49,8 @@
     </update>
 
     <select id="listPaging" resultType="com.ys.appler.dto.BoardDto">
-        SELECT no, posts_no ,subject ,nickname ,editordata ,files ,readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
-        FROM tbl_board
+        SELECT no, posts_no ,subject ,nickname ,editordata ,files ,readcount ,(select count(*) from tbl_comment b  where a.board_code= b.board_code and a.posts_no =b.p_no) as comment,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
+        FROM tbl_board a
         WHERE board_code=#{boardCode}
         ORDER BY posts_no desc
         limit #{pageStart} , #{perPageNum}

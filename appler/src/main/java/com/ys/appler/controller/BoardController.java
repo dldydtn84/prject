@@ -5,6 +5,7 @@ import com.ys.appler.commons.paging.Criteria;
 import com.ys.appler.commons.paging.Pageing;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.service.BoardService;
+import com.ys.appler.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,8 @@ public class BoardController {
     BoardService boardService;
 
 
+
+
     private String boardCode(int boardnum) {
         String boardcode = "";
         if (boardnum == 1) {
@@ -50,6 +53,7 @@ public class BoardController {
     public String list(@RequestParam("board") int board,@RequestParam(value = "perPageNum" , defaultValue="15") int perPageNum ,
                        @RequestParam(value = "page" , defaultValue="1") int page ,  Model model,BoardDto boardDto
                       ) {
+       int totalcount = boardService.selectListnoService(board);
 
         String boardCode = boardCode(board);
         Criteria criteria =new Criteria();
@@ -59,8 +63,8 @@ public class BoardController {
 
         Pageing pageing = new Pageing();
         pageing.setCriteria(criteria);
-        pageing.setTotalCount(1000);
-int start=pageing.getStartPage();
+        pageing.setTotalCount(totalcount);
+        int start=pageing.getStartPage();
 
 
 

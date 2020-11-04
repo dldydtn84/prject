@@ -4,16 +4,25 @@
 
     <select id="commentCount" resultType="int">
         SELECT
-        COUNT(*)
+            COUNT(*)
         FROM tbl_comment
+        WHERE p_no =#{p_no}
     </select>
 
     <select id="commentList" resultType="com.ys.appler.dto.CommentDto">
         SELECT
         *
         FROM tbl_comment
-    </select>
+        WHERE p_no =#{p_no}
 
+    </select>
+    <!--<select id="commentListCount" resultType="int">
+        SELECT
+             count(*)
+        FROM tbl_comment
+        WHERE p_no =#{bno}
+
+    </select>-->
 
     <insert id="commentInsert" parameterType="com.ys.appler.dto.CommentDto">
         INSERT INTO
@@ -24,7 +33,7 @@
     <update id="commentUpdate" parameterType="com.ys.appler.dto.CommentDto">
         UPDATE tbl_comment
         SET
-        contents = #{comments}
+        comments = #{comments}
         WHERE no = #{no}
     </update>
 

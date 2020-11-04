@@ -28,15 +28,19 @@ public class CommentController {
 
     @RequestMapping("/list") //댓글 리스트
     @ResponseBody
-    private List<CommentDto> commentList(Model model) throws Exception{
-        List<CommentDto> result = commentService.CommentListService();
+    private List<CommentDto> commentList(@RequestParam int bno,Model model) throws Exception{
+        List<CommentDto> result = commentService.CommentListService(bno);
+
+
+
+
         return result;
     }
 
     @RequestMapping("/insert") //댓글 작성
     @ResponseBody
     private int commentInsert(@RequestParam String p_no, @RequestParam int board , @RequestParam String comments, HttpSession session, HttpServletRequest request) throws Exception{
-        log.info(".....");
+
         BoardService boardService =new BoardService();
         String IP = boardService.getIp(request);
         String boardcode = boardService.Boardnum(board);
@@ -49,22 +53,22 @@ public class CommentController {
         comment.setBoard_code(boardcode);
         comment.setNickname((String) session.getAttribute("greeting"));
          int result= commentService.commentInsertService(comment);
-         log.info(String.valueOf(request));
+
         return result;
     }
 
     @RequestMapping("/update") //댓글 수정  
     @ResponseBody
-    private int commentUpdate(@RequestParam int no, @RequestParam String comments) throws Exception{
+    private int commentUpdate(@RequestParam int no, @RequestParam String content) throws Exception{
 
         CommentDto comment = new CommentDto();
         comment.setNo(no);
-        comment.setComments(comments);
+        comment.setComments(content);
 
         return commentService.commentUpdateService(comment);
     }
 
-    @RequestMapping("/delete/{cno}") //댓글 삭제  
+    @RequestMapping("/delete/{no}") //댓글 삭제
     @ResponseBody
     private int commentDelete(@PathVariable int no) throws Exception{
 
