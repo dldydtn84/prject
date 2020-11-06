@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- 공통 헤더-->
+<th:block th:replace="include/head :: head"></th:block>
+
+<style>
+    .fileDrop {
+    width: 600px;
+    height : 70px;
+    border : 2px dotted gray;
+    background-color : gray;
+    }
+</style>
+<body id="page-top">
+<th:block th:replace="include/top :: top"></th:block>
+<div id="content" style="margin-top: 50px">
+
+    <div class="container layout">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4 class="card-title">사진공유게시판</h4>
+                        <form action="#" th:action="@{/refboard/fileupload}" th:object="${boardDto}" method="get">
+
+
+                            <input type="hidden" name="nickname" id="nickname" th:value="${session.greeting}">
+                            <label for="subject">제목</label><br>
+                            <input type="text" name="subject" id="subject" class="form-control mr-sm-2"><br>
+                            <label for="contents">글내용</label><br>
+                            <textarea class="form-control" rows="10" name="contents" id="contents"></textarea>
+
+                            <div>
+                                <div class="fileDrop"></div>
+                                <div id="uploadedList"></div>
+                            </div>
+                            <button type="submit" class="btn btn-success">입력완료</button>
+                        </form>
+                        <form name="test" action="fileupload" method="post" enctype="multipart/form-data">
+                            <input type="file" name="uploadfile" placeholder="파일 선택" /><br/>
+                            <input type="submit" value="업로드">
+                        </form>
+                       <!-- <form action="fileupload" method="post" enctype="multipart/form-data">
+                            <input type="file" name="uploadfile" placeholder="파일 선택" /><br/>
+                            <input type="submit" value="업로드">
+                        </form>
+
+                        <h2>다중 파일 업로드</h2>
+                        <form action="fileupload2" method="post" enctype="multipart/form-data">
+                            <input type="file" name="uploadfiles" placeholder="파일 선택" multiple/><br/>
+                            <input type="submit" value="업로드">
+                        </form>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+
+                <button type="button" id="login-submit" class="btn btn-secondary btn-block"/>
+                로그인</button>
+
+            </div>
+        </div>
+
+
+        <!-- 공통 하단-->
+        <th:block th:replace="include/footer :: footer"></th:block>
+
+</body>
+<!-- 공통 스크립트-->
+<th:block th:replace="include/script :: script"></th:block>
+<script>
+    $(document).ready(function(){
+
+          var queryString = $("form[name=test]").serialize() ;
+            alert(queryString);
+        $.ajax({
+            type : 'post',
+            url : '/test.jsp',
+            data : queryString,
+            dataType : 'text',
+            success : function(data){
+                alert(data)
+            }
+        });
+    )
+</script>
+
+</html>

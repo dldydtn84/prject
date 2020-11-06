@@ -15,7 +15,9 @@
             <div class="col-sm-9">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h4 class="card-title">자유게시판</h4>
+                        <h4 class="card-title" th:if="${board.toString().equals('1')}">자유게시판</h4>
+                        <h4 class="card-title" th:if="${board.toString().equals('2')}">질문게시판</h4>
+                        <h4 class="card-title" th:if="${board.toString().equals('3')}">인증게시판</h4>
                         <table class="table table-hover" id='board_list'>
                             <thead>
 

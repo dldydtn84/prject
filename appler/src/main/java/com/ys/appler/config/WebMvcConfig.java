@@ -1,17 +1,31 @@
 package com.ys.appler.config;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.io.File;
+
 @Configuration
+@Import({FileConfig.class})
+@ComponentScan(basePackages = {"com.ys.appler"})
+@EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
-    //web root가 아닌 외부 경로에 있는 리소스를 url로 불러올 수 있도록 설정
-    //현재 localhost:8080/summernoteImage/1234.jpg
-    //로 접속하면 C:/summernote_image/1234.jpg 파일을 불러온다.
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/summernoteImage/**")
-                .addResourceLocations("file:///C:/summernote_image/");
+        registry.addResourceHandler("/static/**",
+                                      "/summernoteImage/**",
+                                          "/img/**",
+                                            "/css/**",
+                                           "/js/**")
+                .addResourceLocations("file:c:" + File.separator + "temp/",
+                        "file:///C:/summernote_image/",
+                        "classpath:/static/img/",
+                        "classpath:/static/css/",
+                        "classpath:/static/js/");
     }
 }

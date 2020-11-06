@@ -5,7 +5,14 @@
 
 <!-- 공통 헤더-->
 <th:block th:replace="include/head :: head"></th:block>
-
+<style>
+    .fileDrop {
+    width: 600px;
+    height : 70px;
+    border : 2px dotted gray;
+    background-color : gray;
+    }
+</style>
 
 <body id="page-top">
 <th:block th:replace="include/top :: top"></th:block>
@@ -27,8 +34,15 @@
 
                             <span>내용 </span>
                             <textarea id="summernote" name="summernote"></textarea><br>
+                            <input type="file" name="uploadfile" placeholder="파일 선택" />
+
+                            <div>
+                                <div class="fileDrop"></div>
+                                <div id="uploadedList"></div>
+                            </div>
                             <button type="submit" class="btn btn-success">입력완료</button>
                         </form>
+
 
                     </div>
                 </div>
@@ -41,7 +55,6 @@
             </div>
         </div>
 
-
         <!-- 공통 하단-->
         <th:block th:replace="include/footer :: footer"></th:block>
 
@@ -49,8 +62,9 @@
 <!-- 공통 스크립트-->
 <th:block th:replace="include/script :: script"></th:block>
 <script type="text/javascript">
-$(function(){
-         $('#summernote').summernote({
+
+$(document).ready(function() {
+$('#summernote').summernote({
 				height: 300,                 // 에디터 높이
 				minHeight: null,             // 최소 높이
 				maxHeight: null,             // 최대 높이
@@ -71,15 +85,19 @@ $(function(){
 						}
 					}
 				}
-	    })
+	});
 
+		});
 
-           function uploadSummernoteImageFile(file, editor) {
-		    data = new FormData();
-	    	data.append("file", file);
-		    $.ajax({
+	/**
+	* 이미지 파일 업로드
+	*/
+	function uploadSummernoteImageFile(file, editor) {
+		data = new FormData();
+		data.append("file", file);
+		$.ajax({
 			data : data,
-			type : "POST",
+			type : "GET",
 			url : "/uploadSummernoteImageFile",
 			contentType : false,
 			processData : false,
@@ -87,9 +105,83 @@ $(function(){
             	//항상 업로드된 파일의 url이 있어야 한다.
 				$(editor).summernote('insertImage', data.url);
 			}
-		    })
-        	}
-        	};
+		});
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+
+
+$(document).ready(function() {
+	//여기 아래 부분
+	$('#summernote').summernote({
+		  height: 300,
+		  lang: "ko-KR",
+		  placeholder: '최대 2048자까지 쓸 수 있습니다',
+		  toolbar: [
+			    // [groupName, [list of button]]
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+
+			  ],
+			fontNames: ['Arial','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+
+	});
+});
+-->
+
+
+
+</script>
+<script>
+    $(document).ready(function(){
+        $(".fileDrop").on("dragenter dragover", function(e){
+        e.preventDefault();
+        });
+        $(".fileDrop").on("drop", function(e){
+        e.preventDefault();
+        var files = e.originalEvent.dataTranster.files;
+        var file = files[0];
+        var formData = new FormData();
+        formData.append("file",file);
+        $.ajax({
+            url:"${path}/upload/uploadAjax",
+            type: "post",
+            data: formData,
+            dataType: "text",
+            p.ocessData: false,
+            contentType: false,
+            success: function(data){
+            console.log(data);
+            var fileInfo = getFileInfo(data);
+            var html = "<a href='"+fileInfo.getLink+"'>"+fileInfo.fileName+"</a><br>";
+            html += "<input type='hidden' class='file' value='"+fileInfo.fullName+"'>";
+            $("#uploadedList").append(html);
+            }
+            });
+            });
 </script>
 <script th:src="@{/js/summernote/summernote-lite.js}"></script>
 <script th:src="@{/js/summernote/lang/summernote-ko-KR.js}"></script>
