@@ -92,6 +92,7 @@ public class RefboardController {
         log.info("saveName: {}",saveName);
 
         String fileName = file.getOriginalFilename();
+        log.info("fileName : "+fileName);
         String contentType = file.getContentType();
         long filesize = file.getSize();
         // byte[] bytes = file.getBytes();
@@ -100,9 +101,9 @@ public class RefboardController {
         //System.out.println("컨텐츠 타입:" + contentType);
         //System.out.println("파일크기:" + filesize);
 
-        // 저장할 File 객체를 생성(껍데기 파일)ㄴ
+        // 저장할 File 객체를 생성(껍데기 파일)
         File saveFile = new File(UPLOAD_PATH, saveName); // 저장할 폴더 이름, 저장할 파일 이름
-
+log.info("저장파일 : "+String.valueOf(saveFile));
         try {
             file.transferTo(saveFile); // 업로드 파일에 saveFile이라는 껍데기 입힘
         } catch (IOException e) {
@@ -114,37 +115,6 @@ public class RefboardController {
     }
 
 
-
-
-    @GetMapping(value="/uploadSummernoteImageFile", produces = "application/json")
-    @ResponseBody
-    public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
-        log.info("파일업로드");
-        JsonObject jsonObject = new JsonObject();
-        log.info(String.valueOf(multipartFile));
-        String fileRoot = "C:\\summernote_image\\";	//저장될 파일 경로
-        String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-
-        // 랜덤 UUID+확장자로 저장될 savedFileName
-        String savedFileName = UUID.randomUUID() + extension;
-        log.info("filename : "+savedFileName);
-        File targetFile = new File(fileRoot + savedFileName);
-
-        try {
-            InputStream fileStream = multipartFile.getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-            jsonObject.addProperty("url", "/summernoteImage/"+savedFileName);
-            jsonObject.addProperty("responseCode", "success");
-
-        } catch (IOException e) {
-            FileUtils.deleteQuietly(targetFile);	// 실패시 저장된 파일 삭제
-            jsonObject.addProperty("responseCode", "error");
-            e.printStackTrace();
-        }
-
-        return jsonObject;
-    }
 
 
 }
