@@ -108,6 +108,8 @@ public class BoardController {
         boardService.contextWriteService(boardDto);
 
 
+
+
         return "redirect:/board/list?board=" + boardnum;
     }
 

@@ -6,14 +6,14 @@
 <!-- 공통 헤더-->
 <th:block th:replace="include/head :: head"></th:block>
 
-<style>
+<!--<style>
     .fileDrop {
     width: 600px;
     height : 70px;
     border : 2px dotted gray;
     background-color : gray;
     }
-</style>
+</style>-->
 <body id="page-top">
 <th:block th:replace="include/top :: top"></th:block>
 <div id="content" style="margin-top: 50px">
@@ -23,26 +23,28 @@
             <div class="col-sm-9">
                 <div class="card shadow">
                     <div class="card-body">
+                        <div style="padding: 20px 20px 10px 20px; border: 1px solid #eee">
+                            <p><b>게시판 글쓰기전 주의사항</b></p>
+                            <p>1.저작권이 없는 사진들만 업로드 해주세요</p>
+                            <p>2. 회원들만 사진을 보기및 저장이 가능합니다 이점에 주의해주세요.</p>
+                        </div><br>
                         <h4 class="card-title">사진공유게시판</h4>
-                        <form action="#" th:action="@{/refboard/fileupload}" th:object="${boardDto}" method="get">
+                        <form action="#" th:action="@{/photoboard/writepro}" th:object="${PhotoBoardDto}" method="post" enctype="multipart/form-data">
 
 
-                            <input type="hidden" name="nickname" id="nickname" th:value="${session.greeting}">
+                            <input type="hidden" name="nickname" id="nickname" value="test" ><!--th:value="${session.greeting}"-->
                             <label for="subject">제목</label><br>
                             <input type="text" name="subject" id="subject" class="form-control mr-sm-2"><br>
                             <label for="contents">글내용</label><br>
                             <textarea class="form-control" rows="10" name="contents" id="contents"></textarea>
 
-                            <div>
-                                <div class="fileDrop"></div>
-                                <div id="uploadedList"></div>
-                            </div>
+                            <input type="file" name="uploadfile" placeholder="파일 선택" /><br/>
+
                             <button type="submit" class="btn btn-success">입력완료</button>
                         </form>
-                        <form name="test" action="fileupload" method="post" enctype="multipart/form-data">
-                            <input type="file" name="uploadfile" placeholder="파일 선택" /><br/>
-                            <input type="submit" value="업로드">
-                        </form>
+                     <!--   <form name="test" action="fileupload" method="post" enctype="multipart/form-data">
+
+                        </form>-->
                        <!-- <form action="fileupload" method="post" enctype="multipart/form-data">
                             <input type="file" name="uploadfile" placeholder="파일 선택" /><br/>
                             <input type="submit" value="업로드">
