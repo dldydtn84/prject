@@ -25,12 +25,14 @@
 
             <div class="row">
 
+                <p th:each="context: ${contextlist}">
 
+                    <p th:text="${context.subject}"></p>
+                    <p th:text="${context.nickname}" class="text-center d-none d-md-table-cell"></p>
+                    <p th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell"></p>
+                    <p th:text="${context.readcount}" class="text-center d-none d-md-table-cell"></p>
+                </p>
 
-                    <p th:text="${contextList.subject}"></p>
-                    <p th:text="${contextList.nickname}" class="text-center d-none d-md-table-cell"></p>
-                    <p th:text="${contextList.reporting_date}" class="text-center d-none d-md-table-cell"></p>
-                    <p th:text="${contextList.readcount}" class="text-center d-none d-md-table-cell"></p>
 
 
                 <div class="col-sm-6 col-md-4">

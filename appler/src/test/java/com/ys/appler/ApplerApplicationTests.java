@@ -4,10 +4,12 @@ import com.ys.appler.commons.paging.Criteria;
 import com.ys.appler.commons.paging.Pageing;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.CommentDto;
+import com.ys.appler.dto.NoticeBoardDto;
 import com.ys.appler.mapper.BoardMapper;
 import com.ys.appler.mapper.CommentMapper;
 import com.ys.appler.service.BoardService;
 import com.ys.appler.service.CommentService;
+import com.ys.appler.service.NoticeBoardService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -32,6 +34,24 @@ public class ApplerApplicationTests {
 	CommentService commentService;
 	@Autowired
 	BoardService boardService;
+
+
+
+	@Autowired
+	NoticeBoardService noticeBoardService;
+
+
+	@Test
+	public void 테스트(){
+		NoticeBoardDto noticeBoardDto=new NoticeBoardDto();
+		noticeBoardDto.setNickname("nick");
+		noticeBoardDto.setSubject("제목");
+		noticeBoardDto.setContents("내용입니다.");
+		noticeBoardDto.setFile(null);
+		noticeBoardDto.setIp("127.0.0.1");
+
+		noticeBoardService.contextWriteService(noticeBoardDto);
+	}
 
 	/*@Test
 	public void paging(){

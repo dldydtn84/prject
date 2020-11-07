@@ -28,7 +28,7 @@
 
     <insert id="contextWrite"  parameterType="com.ys.appler.dto.BoardDto" >
         INSERT INTO tbl_board (posts_no, board_code, subject, nickname, editordata, files, ip, comment,  readcount, reporting_date)
-        VALUES (#{posts_no}, #{board_code}, #{subject}, #{nickname},#{editordata},#{files} ,#{ip} ,#{comment} ,0,now())
+        VALUES (#{posts_no}, #{board_code}, #{subject}, #{nickname},#{editordata},#{files} ,#{ip} ,null ,0,now())
     </insert>
 
     <update id="readcountUp" parameterType="int">

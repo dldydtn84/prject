@@ -29,7 +29,8 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-
+    @Autowired
+    CommentService commentService;
 
 
     private String boardCode(int boardnum) {
@@ -47,16 +48,14 @@ public class BoardController {
     }
 
 
-
-
     @GetMapping("/list")
-    public String list(@RequestParam("board") int board,@RequestParam(value = "perPageNum" , defaultValue="15") int perPageNum ,
-                       @RequestParam(value = "page" , defaultValue="1") int page ,  Model model,BoardDto boardDto
-                      ) {
-       int totalcount = boardService.selectListnoService(board);
+    public String list(@RequestParam("board") int board, @RequestParam(value = "perPageNum", defaultValue = "15") int perPageNum,
+                       @RequestParam(value = "page", defaultValue = "1") int page, Model model, BoardDto boardDto
+    ) {
+        int totalcount = boardService.selectListnoService(board);
 
         String boardCode = boardCode(board);
-        Criteria criteria =new Criteria();
+        Criteria criteria = new Criteria();
         criteria.setPage(page);
         criteria.setPerPageNum(perPageNum);
         criteria.setBoardCode(boardCode);
@@ -64,16 +63,13 @@ public class BoardController {
         Pageing pageing = new Pageing();
         pageing.setCriteria(criteria);
         pageing.setTotalCount(totalcount);
-        int start=pageing.getStartPage();
-
-
+        int start = pageing.getStartPage();
 
 
         List<BoardDto> contextlist = boardService.listPagingService(criteria);
 
 
-
-       model.addAttribute("pageing", pageing);
+        model.addAttribute("pageing", pageing);
         model.addAttribute("contextlist", contextlist);
         model.addAttribute("board", board);
         model.addAttribute("start", start);
@@ -108,8 +104,6 @@ public class BoardController {
         boardService.contextWriteService(boardDto);
 
 
-
-
         return "redirect:/board/list?board=" + boardnum;
     }
 
@@ -127,21 +121,24 @@ public class BoardController {
     }
 
     @GetMapping("/modifypro")
-    public String modifypro(@RequestParam("board") int boardnum, Model model, BoardDto boardDto ) {
+    public String modifypro(@RequestParam("board") int boardnum, Model model, BoardDto boardDto) {
         boardService.contextUpdateService(boardDto);
 
-        return "redirect:/board/list?board="+boardnum;
+        return "redirect:/board/list?board=" + boardnum;
     }
 
 
     @PostMapping("/deletePro")
-    public String deletePro(Model model, @RequestParam("board") int board, @RequestParam("posts_no") int posts_no, HttpServletResponse response) {
+    public String deletePro(Model model, @RequestParam("board") int board, @RequestParam("posts_no") int posts_no, HttpServletResponse response) throws Exception {
         /*log.info(String.valueOf(posts_no));*/
         boardService.contextDeleteService(board, posts_no);
 
         Cookie delCk = new Cookie("cookie" + posts_no, null);
         delCk.setMaxAge(0);
         response.addCookie(delCk);
+
+        int result = commentService.commentDeleteService(posts_no);
+        log.info("comment delete result" + result);
 
         return "redirect:/board/list?board=" + board;
     }

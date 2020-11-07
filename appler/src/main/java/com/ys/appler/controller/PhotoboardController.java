@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +33,13 @@ public class PhotoboardController {
 
     @GetMapping("/list")
     public String list(Model model) {
-      List<PhotoBoardDto> contextList = photoBoardService.contextListService();
-      log.info("context :"+String.valueOf(contextList));
-      model.addAttribute("contextList",contextList);
+      List<PhotoBoardDto> contextlist = photoBoardService.contextListService();
+      log.info("context :"+String.valueOf(contextlist));
+
+
+      model.addAttribute("contextlist",contextlist);
+
+
 
         return "/photoboard/list";
     }

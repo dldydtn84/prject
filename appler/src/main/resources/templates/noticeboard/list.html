@@ -8,50 +8,46 @@
 
 <body id="page-top">
 <th:block th:replace="include/top :: top"></th:block>
-<div id="content" style="margin-top: 50px">
+<div id="content">
 
     <div class="container layout" style="margin-top: 50px">
         <div class="row">
             <div class="col-sm-9">
-                <div class="card shadow">
+                <div>
                     <div class="card-body">
-                        <h4 class="card-title" th:if="${board.toString().equals('1')}">자유게시판</h4>
-                        <h4 class="card-title" th:if="${board.toString().equals('2')}">질문게시판</h4>
-                        <h4 class="card-title" th:if="${board.toString().equals('3')}">인증게시판</h4>
+
                         <table class="table table-hover" id='board_list'>
                             <thead>
 
+                            <div class="text-right">
+                                <!-- 게시판 종류별 인덱싱 -->
+                                <a th:href="@{/noticeboard/write}"
+                                   class="btn btn-primary">글쓰기</a>
+
+                            </div>
                             <tr>
-                                <th class="w-50">제목</th>
-                                <th class="text-center d-none d-md-table-cell">작성자</th>
-                                <th class="text-center d-none d-md-table-cell">작성날짜</th>
-                                <th class="text-center d-none d-md-table-cell">조회수</th>
+                                <th class="w-75 text-center">내용</th>
+
+                                <th class="text-center d-none d-md-table-cell">등록일</th>
+
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="context: ${contextlist}">
+                           <!-- <tr th:each="context: ${contextlist}">
 
                                 <td><a th:href="@{/board/read(posts_no=${context.posts_no},board=${board})}"><p th:text="${context.subject}+' ['+ ${context.comment}+']'"></p></a>
                                 </td>
                                 <td th:text="${context.nickname}" class="text-center d-none d-md-table-cell"></td>
                                 <td th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell"></td>
                                 <td th:text="${context.readcount}" class="text-center d-none d-md-table-cell"></td>
-                            </tr>
+                            </tr>-->
                             </tbody>
                         </table>
-
-                        <div class="d-none d-md-block">
-                            <ul class="pagination justify-content-center">
-                                <li th:if="${pageing.prev}" class="page-item"><a th:href="@{list(board=${board}, page=${pageing.startPage-1})}" class="page-link">이전</a></li>
-                     <th:block th:each="index: ${#numbers.sequence(pageing.startPage,pageing.endPage)}">
-                                <li class="page-item"><a class="page-link" th:text="${index}"  th:href="@{list(board=${board}, page=${index})}" ></a></li>
-
-                     </th:block>
-                                <li th:if="${pageing.next}" class="page-item"><a th:href="@{list(board=${board}, page=${pageing.endPage+1})}" class="page-link">다음</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="d-block d-md-none">
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                       <!-- <div class="d-none d-md-block">
                             <ul class="pagination justify-content-center">
                                 <li th:if="${pageing.prev}" class="page-item"><a th:href="@{list(board=${board}, page=${pageing.startPage-1})}" class="page-link">이전</a></li>
                                 <th:block th:each="index: ${#numbers.sequence(pageing.startPage,pageing.endPage)}">
@@ -60,12 +56,19 @@
                                 </th:block>
                                 <li th:if="${pageing.next}" class="page-item"><a th:href="@{list(board=${board}, page=${pageing.endPage+1})}" class="page-link">다음</a></li>
                             </ul>
+                        </div>-->
+
+                        <div class="d-block d-md-none">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item"><a href="#" class="page-link">이전</a></li>
+                                <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                            </ul>
                         </div>
 
                         <div class="text-right">
                             <!-- 게시판 종류별 인덱싱 -->
-                            <a th:href="@{/board/write(board=${board})}"
-                               class="btn btn-primary">글쓰기</a>
+                          <!--  <a th:href="@{/board/write(board=${board})}"
+                               class="btn btn-primary">글쓰기</a>-->
 
                         </div>
 
