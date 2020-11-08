@@ -1,4 +1,4 @@
-package com.ys.appler.config;
+package com.ys.appler.handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
