@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberService {
 
-    @Autowired
-    public MemberMapper testMapper;
+ /*   @Autowired
+    public MemberMapper testMapper;*/
 
 
 

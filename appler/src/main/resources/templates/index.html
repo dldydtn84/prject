@@ -16,20 +16,34 @@
 		}
 
 
+
 </style>
 
 <body id="page-top">
 <th:block th:replace="include/top :: top"></th:block>
 
 
-<div class="container layout">
+<div class="container" style="margin-top: 50px">
     <div class="row">
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">자유게시판</h4>
+                    <table class="table-hover" id="conextlist">
+                        <tr th:each="context: ${contextList}">
+
+                            <td style="border-bottom:1px">
+                                <div>
+                                <a th:href="@{/board/read(posts_no=${context.posts_no},board=${context.board_code})}">
+                                <span th:text="${context.subject}+' ['+ ${context.comment}+']'"></span></a>
+                                <span th:text="${context.reporting_date}" style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span>
+                                </div>
+                            </td>
+
+                        </tr>
 
 
+                    </table>
 
                 </div>
             </div>
@@ -44,7 +58,9 @@
                             <tr>
                                 <th>사용자명</th>
                                 <th><input type="text" name="userName" id="userName"></th>
-                                <th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
+                                <th>
+                                    <button onclick="chatName()" id="startBtn">이름 등록</button>
+                                </th>
                             </tr>
                         </table>
                     </div>
@@ -53,16 +69,18 @@
                             <tr>
                                 <th>메시지</th>
                                 <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-                                <th><button onclick="send()" id="sendBtn">보내기</button></th>
+                                <th>
+                                    <button onclick="send()" id="sendBtn">보내기</button>
+                                </th>
                             </tr>
                         </table>
                     </div>
+                </div>
             </div>
         </div>
+
         <div class="col-sm-4">
-            <!-- <button th:if="${session.greeting == null}" type="button" onclick="location.href='login' "id="login-submit" class="btn btn-secondary btn-block" />로그인</button>
-             <button th:if="${session.greeting != null}" type="button" onclick="location.href='login' "id="login-submit" class="btn btn-secondary btn-block"  />로그아웃</button>
-     -->
+
             <div th:if="${session.greeting}">
                 <button type="button" onclick="location.href='/logout'" class="btn btn-secondary btn-block"/>
                 로그아웃</button>
@@ -82,7 +100,16 @@
 
 <!-- 공통 하단-->
 <th:block th:replace="include/footer :: footer"></th:block>
+<script type="text/javascript">
+    function test(){
 
+			$("#conextlist").hide();
+
+		}
+	}
+
+
+</script>
 
 <script type="text/javascript">
 	var ws;
@@ -129,6 +156,7 @@
 		ws.send(uN+" : "+msg);
 		$('#chatting').val("");
 	}
+
 </script>
 <!-- 공통 스크립트-->
 <th:block th:replace="include/script :: script"></th:block>

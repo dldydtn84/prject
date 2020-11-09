@@ -137,7 +137,8 @@ public class BoardController {
         delCk.setMaxAge(0);
         response.addCookie(delCk);
 
-        int result = commentService.commentDeleteService(posts_no);
+        int result = commentService.contextallcommentDeleteService(posts_no);
+
         log.info("comment delete result" + result);
 
         return "redirect:/board/list?board=" + board;

@@ -43,6 +43,15 @@
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.date{
+
+    position: absolute;
+    top: 0px;
+    right: 0;
+    }
+
+
+
 .thumbnail {
   display: block;
   padding: 4px;
@@ -646,7 +655,7 @@ pre code {
 
 @media (min-width: 1200px) {
   .container, .container-sm, .container-md, .container-lg, .container-xl {
-    max-width: 1400px;
+    max-width: 1300px;
   }
   }
 

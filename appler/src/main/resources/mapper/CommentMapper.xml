@@ -38,6 +38,13 @@
     </update>
 
     <delete id="commentDelete" parameterType="int">
-        DELETE FROM tbl_comment WHERE no = #{no}
+        DELETE FROM tbl_comment
+        WHERE no = #{no}
     </delete>
+
+    <delete id="contextallcommentDelete" parameterType="int">
+        DELETE FROM tbl_comment
+        WHERE p_no = #{p_no}
+    </delete>
+
 </mapper>

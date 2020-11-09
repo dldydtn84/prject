@@ -1,6 +1,8 @@
 package com.ys.appler.controller;
 
+import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.MemberDto;
+import com.ys.appler.service.BoardService;
 import com.ys.appler.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,27 +17,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @Slf4j
 public class HomeController {
 
     @Autowired
-    MemberService testService;
+    MemberService memberService;
+
+    @Autowired
+    BoardService boardService;
+
+
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/")
-    public String index(Model model, HttpSession session){
+    public String index(Model model, HttpSession session  ) {
 
-      /*  User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<BoardDto> contextList = boardService.IndexContextListService();
+        BoardDto boardDto = new BoardDto();
 
-        log.info("{} username " +user.getUsername());
-        log.info("{] getname " + user.getName());
 
-        model.addAttribute("userid",user.getUsername());*/
 
+
+
+        log.info("asdassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"+boardDto.getSubject() +"....... : "+boardDto.getBoard_code());
+        model.addAttribute("contextList",contextList);
 
         String pass ="test";
         String pass1 ="$2a$10$OprFunQpXXQdrofVkDkPAe.bTxQJX29tNlm3gwlcpg2VzRnI8BDay";

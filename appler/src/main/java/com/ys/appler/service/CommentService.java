@@ -34,4 +34,9 @@ public class CommentService {
         int result = commentMapper.commentDelete(no);
         return result;
     }
+    public int contextallcommentDeleteService(int p_no) throws Exception{
+        int result = commentMapper.contextallcommentDelete(p_no);
+        return result;
+    }
+
 }

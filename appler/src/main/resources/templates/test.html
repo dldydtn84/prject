@@ -2,100 +2,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+
     <meta charset="UTF-8">
     <title>Chating</title>
-    <style>
-		.chating{
-			background-color: #000;
-			width: 500px;
-			height: 500px;
-			overflow: auto;
-		}
-		.chating p{
-			color: #fff;
-			text-align: left;
-		}
-		input{
-			width: 330px;
-			height: 25px;
-		}
-		#yourMsg{
-			display: none;
-		}
-	</style>
+    <style type="text/css">
+
+ul.tabs {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    height: 32px;
+    border-bottom: 1px solid #eee;
+    border-left: 1px solid #eee;
+    width: 100%;
+    font-family:"dotum";
+    font-size:12px;
+}
+ul.tabs li {
+    float: left;
+    text-align:center;
+    cursor: pointer;
+    width:82px;
+    height: 31px;
+    line-height: 31px;
+    border: 1px solid #d0d0d0;
+    border-left: none;
+    font-weight: bold;
+    background: #fafafa;
+    overflow: hidden;
+    position: relative;
+}
+
+ul.tabs li.active{
+    background: #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+
+}
+.tab_container {
+    border: 1px solid #d0d0d0;
+    border-top: none;
+    clear: both;
+    float: left;
+    width:414px;
+    background: #FFFFFF;
+
+}
+.tab_content {
+    padding: 5px;
+    font-size: 12px;
+    display: none;
+}
+.tab_container .tab_content ul {
+    width:100%; margin:0px; padding:0px;
+}
+.tab_container .tab_content ul li{
+    padding:5px; list-style-type:none;
+}
+#container {
+    width: 249px; margin: 0 auto;
+}
+</style>
+
+
 </head>
 
-<script type="text/javascript">
-	var ws;
+<script>
+$(function() {
 
-	function wsOpen(){
-		ws = new WebSocket("ws://" + location.host + "/socker");
-		wsEvt();
-	}
+$(".tab_content").hide();                                                       // tab_content 부분을 "전부" 숨긴다. 클릭 했을때 보여주는 부분이죠.
+$(".tab_content:first").show();                                              // tab_content 전부 숨긴 것 중에 가장 첫번째껏만 보여준다.
 
-	function wsEvt() {
-		ws.onopen = function(data){
-			//소켓이 열리면 초기화 세팅하기
-		}
+$("ul.tabs li").click(function() {                                   // ul.tabs li  부분에 클릭 이벤트 생성
+$("ul.tabs li").removeClass("active").css("color","#333");              // ul.tabs li 에 "active"클래스를 삭제한다.
 
-		ws.onmessage = function(data) {
-			var msg = data.data;
-			if(msg != null && msg.trim() != ''){
-				$("#chating").append("<p>" + msg + "</p>");
-			}
-		}
-
-		document.addEventListener("keypress", function(e){
-			if(e.keyCode == 13){ //enter press
-				send();
-			}
-		});
-	}
-
-	function chatName(){
-		var userName = $("#userName").val();
-		if(userName == null || userName.trim() == ""){
-			alert("사용자 이름을 입력해주세요.");
-			$("#userName").focus();
-		}else{
-			wsOpen();
-			$("#yourName").hide();
-			$("#yourMsg").show();
-		}
-	}
-
-	function send() {
-		var uN = $("#userName").val();
-		var msg = $("#chatting").val();
-		ws.send(uN+" : "+msg);
-		$('#chatting').val("");
-	}
+//$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
+$(this).addClass("active").css("color","darkred");                       // ul.tabs li 에 "active"클래스를 대입한다.(".tab_content").hide()
+var activeTab = $(this).attr("rel");
+$(activeTab).fadeIn();
+});
+});
 </script>
-<body>
 
-    <h1>채팅</h1>
-    <div id="chating" class="chating">
-    </div>
+<body><div id="container">
+    <ul class="tabs">
+        <li class="active" rel="tab1">메뉴1</li>
+        <li rel="tab2">메뉴2</li>
+        <li rel="tab3">메뉴3</li>
+        <li rel="tab4">메뉴4</li>
+        <li rel="tab5">메뉴5</li>
+    </ul>
 
-    <div id="yourName">
-        <table class="inputTable">
-            <tr>
-                <th>사용자명</th>
-                <th><input type="text" name="userName" id="userName"></th>
-                <th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
-            </tr>
-        </table>
-    </div>
-    <div id="yourMsg">
-        <table class="inputTable">
-            <tr>
-                <th>메시지</th>
-                <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-                <th><button onclick="send()" id="sendBtn">보내기</button></th>
-            </tr>
-        </table>
+    <div class="tab_container">
+        <div id="tab1" class="tab_content">내용11</div>
+        <div id="tab2" class="tab_content">내용2</div>
+        <div id="tab3" class="tab_content">내용3</div>
+        <div id="tab4" class="tab_content">내용4</div>
+        <div id="tab5" class="tab_content">내용55</div>
     </div>
 </div>
+
+
+
 </body>
 </html>

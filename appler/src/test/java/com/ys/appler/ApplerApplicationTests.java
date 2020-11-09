@@ -37,6 +37,8 @@ public class ApplerApplicationTests {
 
 
 
+
+
 	@Autowired
 	NoticeBoardService noticeBoardService;
 
@@ -95,9 +97,9 @@ log.info("getpage: "+ criteria.getPage()+"getBper" + criteria.getPerPageNum());
 		for(int i =1; i<=1000; i++){
 			BoardDto boardDto = new BoardDto();
 			boardDto.setPosts_no(i);
-			boardDto.setSubject("인증게시판"+i+"번째 글 제목입니다.");
+			boardDto.setSubject("자유게시판"+i+"번째 글 제목입니다.");
 			boardDto.setEditordata(i+"번째 글내용입니다.");
-			boardDto.setBoard_code("CB");
+			boardDto.setBoard_code("FB");
 			boardDto.setNickname("nick");
 			boardDto.setComment("0");
 			boardDto.setReadcount(0);
@@ -147,6 +149,13 @@ comment.setBoard_code("FB");
 	}
 */
 
+
+	@Test
+	public void 게시글삭제시댓글삭제() throws Exception{
+
+		int result = commentService.contextallcommentDeleteService(1000);
+
+	}
 
 
 }

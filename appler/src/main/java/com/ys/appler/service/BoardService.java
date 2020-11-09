@@ -133,5 +133,12 @@ public class BoardService {
         return result;
     }
 
+    public List<BoardDto> IndexContextListService(){
+        List<BoardDto> result = boardMapper.IndexContextList();
+
+
+        return result;
+    }
+
 
 }

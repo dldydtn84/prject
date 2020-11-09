@@ -17,6 +17,8 @@ public interface CommentMapper {
     int commentUpdate(CommentDto commentDto) throws Exception;
     // 댓글 삭제
     int commentDelete(int no) throws Exception;
-
+    //게시글 삭제시 댓글삭제
+    int contextallcommentDelete (int p_no) throws Exception;
+    
 
 }
