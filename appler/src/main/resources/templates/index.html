@@ -4,14 +4,62 @@
 
 <!-- 공통 헤더-->
 <th:block th:replace="include/head :: head"></th:block>
+<style>
+
+		.chating{
+			height: 320px;
+			overflow: auto;
+		}
+		.chating p{
+
+			text-align: left;
+		}
+
+
+</style>
 
 <body id="page-top">
 <th:block th:replace="include/top :: top"></th:block>
 
+
 <div class="container layout">
     <div class="row">
-        <div class="col-sm-9">dasdasd</div>
-        <div class="col-sm-3">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">자유게시판</h4>
+
+
+
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">실시간 채팅</h4>
+                    <div id="chating" class="chating">
+                    </div>
+
+                    <div id="yourName">
+                        <table class="inputTable">
+                            <tr>
+                                <th>사용자명</th>
+                                <th><input type="text" name="userName" id="userName"></th>
+                                <th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="yourMsg">
+                        <table class="inputTable">
+                            <tr>
+                                <th>메시지</th>
+                                <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
+                                <th><button onclick="send()" id="sendBtn">보내기</button></th>
+                            </tr>
+                        </table>
+                    </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
             <!-- <button th:if="${session.greeting == null}" type="button" onclick="location.href='login' "id="login-submit" class="btn btn-secondary btn-block" />로그인</button>
              <button th:if="${session.greeting != null}" type="button" onclick="location.href='login' "id="login-submit" class="btn btn-secondary btn-block"  />로그아웃</button>
      -->
@@ -24,29 +72,64 @@
                 로그인</button>
 
             </div>
-            <button onclick="delete_button()" class="btn btn-danger">삭제하기</button>
 
 
         </div>
     </div>
 </div>
 </div>
-<script type="text/javascript">
- function delete_button(){
-if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-    document.form.submit();
-}else{   //취소
-    return;
-}
-}
 
-
-</script>
 
 <!-- 공통 하단-->
 <th:block th:replace="include/footer :: footer"></th:block>
 
 
+<script type="text/javascript">
+	var ws;
+
+	function wsOpen(){
+		ws = new WebSocket("ws://" + location.host + "/socker");
+		wsEvt();
+	}
+
+	function wsEvt() {
+		ws.onopen = function(data){
+			//소켓이 열리면 초기화 세팅하기
+		}
+
+		ws.onmessage = function(data) {
+			var msg = data.data;
+			if(msg != null && msg.trim() != ''){
+				$("#chating").append("<p>" + msg + "</p>");
+			}
+		}
+
+		document.addEventListener("keypress", function(e){
+			if(e.keyCode == 13){ //enter press
+				send();
+			}
+		});
+	}
+
+	function chatName(){
+		var userName = $("#userName").val();
+		if(userName == null || userName.trim() == ""){
+			alert("사용자 이름을 입력해주세요.");
+			$("#userName").focus();
+		}else{
+			wsOpen();
+			$("#yourName").hide();
+			$("#yourMsg").show();
+		}
+	}
+
+	function send() {
+		var uN = $("#userName").val();
+		var msg = $("#chatting").val();
+		ws.send(uN+" : "+msg);
+		$('#chatting').val("");
+	}
+</script>
 <!-- 공통 스크립트-->
 <th:block th:replace="include/script :: script"></th:block>
 </body>

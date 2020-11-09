@@ -59,6 +59,19 @@ public class HomeController {
 
         return "chat";
     }
+    @GetMapping("/test")
+    public String test(Model model){
+
+        /* User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();*/
+/*
+        log.info("{} username " +user.getUsername());
+        log.info("{] getname " + user.getName());
+
+        model.addAttribute("userid",user.getUsername());*/
+
+
+        return "test";
+    }
     @GetMapping("/admin/layout/default")
     public String defaults(Model model){
         //model.addAttribute("data","hello");

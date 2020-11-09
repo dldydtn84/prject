@@ -24,7 +24,7 @@ public class SockerHandler  extends TextWebSocketHandler {
         log.info("{}로 부터 {}받음 ", session.getId(), message.getPayload());
 
         for(WebSocketSession sess : sessionList){
-            sess.sendMessage(new TextMessage((session.getPrincipal().getName()+ "|" + message.getPayload())));
+            sess.sendMessage(new TextMessage(message.getPayload()));
             //세션을 principal 을 이용하여 불러온뒤 메세지는 전체전달한다.
         }
 
