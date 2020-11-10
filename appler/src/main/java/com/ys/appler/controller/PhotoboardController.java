@@ -1,8 +1,11 @@
 package com.ys.appler.controller;
 
 import com.google.gson.JsonObject;
+import com.ys.appler.commons.paging.Criteria;
+import com.ys.appler.commons.paging.Pageing;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.PhotoBoardDto;
+import com.ys.appler.service.BoardService;
 import com.ys.appler.service.PhotoBoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -32,13 +35,35 @@ public class PhotoboardController {
 
 
     @GetMapping("/list")
-    public String list(Model model) {
-      List<PhotoBoardDto> contextlist = photoBoardService.contextListService();
+    public String list(Model model , @RequestParam(value = "perPageNum", defaultValue = "9") int perPageNum,
+                       @RequestParam(value = "page", defaultValue = "1") int page) {
+
+        int totalcount = photoBoardService.totalcountService();
+log.info("totalcount : "+String.valueOf(totalcount));
+
+        Criteria criteria = new Criteria();
+        criteria.setPage(page);
+        criteria.setPerPageNum(perPageNum);
+        //criteria.setBoardCode(boardCode);
+
+        Pageing pageing = new Pageing();
+        pageing.setCriteria(criteria);
+        pageing.setTotalCount(totalcount);
+        int start = pageing.getStartPage();
+
+
+
+
+
+
+
+      List<PhotoBoardDto> contextlist = photoBoardService.contextListService(criteria);
       log.info("context :"+String.valueOf(contextlist));
 
 
-      model.addAttribute("contextlist",contextlist);
-
+      model.addAttribute("contextlists",contextlist);
+      model.addAttribute("pageing", pageing);
+      model.addAttribute("start", start);
 
 
         return "/photoboard/list";

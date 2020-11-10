@@ -10,6 +10,7 @@ import com.ys.appler.mapper.CommentMapper;
 import com.ys.appler.service.BoardService;
 import com.ys.appler.service.CommentService;
 import com.ys.appler.service.NoticeBoardService;
+import com.ys.appler.service.PhotoBoardService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -17,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
 
@@ -35,6 +38,8 @@ public class ApplerApplicationTests {
 	@Autowired
 	BoardService boardService;
 
+	@Autowired
+	PhotoBoardService photoBoardService;
 
 
 
@@ -156,6 +161,26 @@ comment.setBoard_code("FB");
 		int result = commentService.contextallcommentDeleteService(1000);
 
 	}
+
+	/*@Test
+	public void 사진입력() throws Exception{
+
+	MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+
+		 uploadfile ="dog.jpg";
+
+
+		String result = photoBoardService.saveFile(uploadfile);
+
+
+		photoBoardDto.setIp(photoBoardService.getIp(request));
+		photoBoardDto.setFile(result);
+
+		photoBoardService.contextWriteService(photoBoardDto);
+
+
+	}*/
+
 
 
 }

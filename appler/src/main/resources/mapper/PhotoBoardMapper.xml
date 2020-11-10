@@ -7,11 +7,19 @@
         INSERT INTO tbl_photo_board (board_code, nickname, subject, contents, file, ip,  readcount, reporting_date)
         VALUES ( 'PB', #{nickname}, #{subject},#{contents},#{file} ,#{ip} ,0,now())
     </insert>
+
     <select id="contextList" resultType="com.ys.appler.dto.PhotoBoardDto">
         SELECT no, board_code ,nickname ,subject ,contents ,file ,ip ,readcount,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
         FROM tbl_photo_board
         ORDER BY no desc
+        limit #{pageStart} , #{perPageNum}
     </select>
+
+    <select id="totalcount" resultType="int">
+        SELECT COUNT(no)
+        FROM tbl_photo_board
+    </select>
+
 
 
 

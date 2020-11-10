@@ -13,107 +13,62 @@
 <th:block th:replace="include/top :: top"></th:block>
 <div id="content" style="margin-top: 50px">
 
+
     <div class="container gallery-container">
 
         <h4>사진공유게시판</h4>
         <div class="text-right"><a th:href="@{/photoboard/write}"
                                    class="btn btn-primary">글쓰기</a></div>
 
-        <p class="page-description text-center">Clean Layout With Minimal Styles</p>
+        <p class="page-description text-center">이곳은 사진을 공유하는 공간입니다.</p>
 
         <div class="tz-gallery">
 
             <div class="row">
-
-                <p th:each="context: ${contextlist}">
-
-                    <p th:text="${context.subject}"></p>
-                    <p th:text="${context.nickname}" class="text-center d-none d-md-table-cell"></p>
-                    <p th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell"></p>
-                    <p th:text="${context.readcount}" class="text-center d-none d-md-table-cell"></p>
-                </p>
-
-
-
-                <div class="col-sm-6 col-md-4">
+                <div th:each="context: ${contextlists}" class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                        <a class="lightbox" href="/img/sky.jpg">
-                            <img src="/img/sky.jpg" alt="Park">
+                        <a class="lightbox" th:href="@{/static/}+${context.file}">
+                            <img th:src="@{/static/}+${context.file}">
                         </a>
                         <div class="caption">
-                            <h3>Thumbnail label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <a class="lightbox" href="/img/sky.jpg">
-                            <img src="/img/sky.jpg" alt="Bridge">
-                        </a>
-                        <div class="caption">
-                            <h3>Thumbnail label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <a class="lightbox" href="/img/sky.jpg">
-                            <img src="/img/sky.jpg" alt="Tuneel">
-                        </a>
-                        <div class="caption">
-                            <h3>Thumbnail label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <a class="lightbox" href="/img/sky.jpg">
-                            <img src="/img/sky.jpg" alt="Coast">
-                        </a>
-                        <div class="caption">
-                            <h3>Thumbnail label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <a class="lightbox" href="/img/sky.jpg">
-                            <img src="/img/sky.jpg" alt="Rails">
-                        </a>
-                        <div class="caption">
-                            <h3>Thumbnail label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <a class="lightbox" href="/img/sky.jpg">
-                            <img src="/img/sky.jpg" alt="Traffic">
-                        </a>
-                        <div class="caption">
-                            <h3>Thumbnail label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.</p>
+                            <h3 th:text="${context.subject}">제목</h3>
+                            <p th:text="${context.contents}">내용</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+
+            <div class="d-none d-md-block">
+                <ul class="pagination justify-content-center">
+                    <li th:if="${pageing.prev}" class="page-item"><a
+                            th:href="@{list(board=${board}, page=${pageing.startPage-1})}" class="page-link">이전</a></li>
+                    <th:block th:each="index: ${#numbers.sequence(pageing.startPage,pageing.endPage)}">
+                        <li class="page-item"><a class="page-link" th:text="${index}"
+                                                 th:href="@{list(board=${board}, page=${index})}"></a></li>
+
+                    </th:block>
+                    <li th:if="${pageing.next}" class="page-item"><a
+                            th:href="@{list(board=${board}, page=${pageing.endPage+1})}" class="page-link">다음</a></li>
+                </ul>
+            </div>
+            <div class="d-block d-md-none">
+                <ul class="pagination justify-content-center">
+                    <li th:if="${pageing.halfprev}" class="page-item"><a th:href="@{list(board=${board}, page=${pageing.halfstartPage-1})}" class="page-link">이전</a></li>
+                    <th:block th:each="index: ${#numbers.sequence(pageing.halfstartPage,pageing.halfendPage)}">
+                        <li class="page-item"><a class="page-link" th:text="${index}"  th:href="@{list(board=${board}, page=${index})}" ></a></li>
+
+                    </th:block>
+                    <li th:if="${pageing.halfnext}" class="page-item"><a th:href="@{list(board=${board}, page=${pageing.halfendPage+1})}" class="page-link">다음</a></li>
+                </ul>
+            </div>
+
+
         </div>
 
     </div>
-
 </div>
+
 
 <!-- 공통 하단-->
 <th:block th:replace="include/footer :: footer"></th:block>
@@ -123,6 +78,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
 <script>
     baguetteBox.run('.tz-gallery');
+
 
 </script>
 <th:block th:replace="include/script :: script"></th:block>

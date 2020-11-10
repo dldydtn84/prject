@@ -97,7 +97,7 @@ function commentList(){
             var a ='';
             $.each(data, function(key, value){
                 a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-                a += '<div class="commentInfo'+value.no+'">'+'댓글번호 : '+value.no+' / 작성자 : '+value.nickname;
+                a += '<div class="commentInfo">'+'작성자 : '+value.nickname;
                 a += '<a onclick="commentUpdate('+value.no+',\''+value.comments+'\');"> 수정 </a>';
                 a += '<a onclick="commentDelete('+value.no+');"> 삭제 </a> </div>';
                 a += '<div class="commentContent'+value.no+'"> <p> 내용 : '+value.comments +'</p>';

@@ -12,7 +12,8 @@ import java.util.Map;
 public interface PhotoBoardMapper {
 
     void contextWrite(PhotoBoardDto photoBoardDto);
-    List<PhotoBoardDto> contextList();
+    List<PhotoBoardDto> contextList(Criteria criteria);
+    int totalcount();
 
     /*List<BoardDto> contextList(String boardcode);
     int selectListno(String boardcode);

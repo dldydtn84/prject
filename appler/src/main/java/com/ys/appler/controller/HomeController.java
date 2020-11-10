@@ -23,8 +23,8 @@ import java.util.List;
 @Slf4j
 public class HomeController {
 
-    @Autowired
-    MemberService memberService;
+   /* @Autowired
+    MemberService memberService;*/
 
     @Autowired
     BoardService boardService;

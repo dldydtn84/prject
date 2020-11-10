@@ -41,7 +41,7 @@ public class PhotoBoardService {
 
         // 저장할 File 객체를 생성(껍데기 파일)
         File saveFile = new File(UPLOAD_PATH, saveName); // 저장할 폴더 이름, 저장할 파일 이름
-        log.info("저장파일 : "+String.valueOf(saveFile));
+        log.info("saveFile : "+String.valueOf(saveFile));
         try {
             file.transferTo(saveFile); // 업로드 파일에 saveFile이라는 껍데기 입힘
         } catch (IOException e) {
@@ -84,9 +84,9 @@ public class PhotoBoardService {
 
     }
 
-    public List<PhotoBoardDto> contextListService(){
+    public List<PhotoBoardDto> contextListService(Criteria criteria){
 
-        List<PhotoBoardDto> boardlist = photoBoardMapper.contextList();
+        List<PhotoBoardDto> boardlist = photoBoardMapper.contextList(criteria);
         return boardlist;
     }
 
@@ -96,6 +96,11 @@ public class PhotoBoardService {
         photoBoardMapper.contextWrite(photoBoardDto);
     }
 
+    public int totalcountService(){
+
+        int totalcount = photoBoardMapper.totalcount();
+        return totalcount;
+    }
 
     /*
     public List<BoardDto> contextListService(int board){
