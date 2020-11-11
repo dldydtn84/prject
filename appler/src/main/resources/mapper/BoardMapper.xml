@@ -59,7 +59,7 @@
     <select id="IndexContextList" resultType="com.ys.appler.dto.BoardDto">
         SELECT no, posts_no ,board_code , subject ,nickname ,editordata ,files ,readcount ,(select count(*) from tbl_comment b  where a.board_code= b.board_code and a.posts_no =b.p_no) as comment,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
         FROM tbl_board a
-        WHERE board_code= 'FB'
+        WHERE board_code= #{boardCode}
         ORDER BY posts_no desc
         limit 7
     </select>

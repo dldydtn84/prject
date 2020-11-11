@@ -37,15 +37,13 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model, HttpSession session  ) {
 
-        List<BoardDto> contextList = boardService.IndexContextListService();
-        BoardDto boardDto = new BoardDto();
+        List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
+        List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
+        List<BoardDto> cbcontextList = boardService.IndexContextListService("CB");
 
-
-
-
-
-        log.info("asdassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"+boardDto.getSubject() +"....... : "+boardDto.getBoard_code());
-        model.addAttribute("contextList",contextList);
+        model.addAttribute("fbcontextList",fbcontextList);
+        model.addAttribute("qbcontextList",qbcontextList);
+        model.addAttribute("cbcontextList",cbcontextList);
 
         String pass ="test";
         String pass1 ="$2a$10$OprFunQpXXQdrofVkDkPAe.bTxQJX29tNlm3gwlcpg2VzRnI8BDay";
@@ -72,15 +70,12 @@ public class HomeController {
     @GetMapping("/test")
     public String test(Model model){
 
-        /* User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();*/
-/*
-        log.info("{} username " +user.getUsername());
-        log.info("{] getname " + user.getName());
-
-        model.addAttribute("userid",user.getUsername());*/
-
-
         return "test";
+    }
+    @GetMapping("/test2")
+    public String test2(Model model){
+
+        return "test2";
     }
     @GetMapping("/admin/layout/default")
     public String defaults(Model model){
@@ -93,14 +88,5 @@ public class HomeController {
         return "default";
     }
 
-    @GetMapping("/login")
-    public String login(){
 
-        return "/user/login";
-    }
-    @PostMapping("/login")
-    public String loginp(){
-
-        return "/user/login";
-    }
 }

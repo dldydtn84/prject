@@ -1,110 +1,66 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+    <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
     <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
 
     <meta charset="UTF-8">
     <title>Chating</title>
     <style type="text/css">
+*{margin:0; padding:0;}
+ul,li {list-style:none;}
+a { text-decoration:none; color:#000;}
+.tab { boarder:1px solid #ddd; border-left:none; background:#fff; overflow:hidden;}
+.tab li { float:left; width:33.3%; border-left:1px solid #ddd; text-align:center; box-sizing:border-box;}
+.tab li { display:inline-block; padding:20px; cursor:pointer;}
+.tab li.on { background-color:#eee; color:#f00;}
+.tab_con { clear:both; margin-top:5px; border:1px solid #ddd;}
+.tab_con div { display:none; height:100px; background:#fff; line-height:100px; text-align:center;}
 
-ul.tabs {
-    margin: 0;
-    padding: 0;
-    float: left;
-    list-style: none;
-    height: 32px;
-    border-bottom: 1px solid #eee;
-    border-left: 1px solid #eee;
-    width: 100%;
-    font-family:"dotum";
-    font-size:12px;
-}
-ul.tabs li {
-    float: left;
-    text-align:center;
-    cursor: pointer;
-    width:82px;
-    height: 31px;
-    line-height: 31px;
-    border: 1px solid #d0d0d0;
-    border-left: none;
-    font-weight: bold;
-    background: #fafafa;
-    overflow: hidden;
-    position: relative;
-}
-
-ul.tabs li.active{
-    background: #FFFFFF;
-    border-bottom: 1px solid #FFFFFF;
-
-}
-.tab_container {
-    border: 1px solid #d0d0d0;
-    border-top: none;
-    clear: both;
-    float: left;
-    width:414px;
-    background: #FFFFFF;
-
-}
-.tab_content {
-    padding: 5px;
-    font-size: 12px;
-    display: none;
-}
-.tab_container .tab_content ul {
-    width:100%; margin:0px; padding:0px;
-}
-.tab_container .tab_content ul li{
-    padding:5px; list-style-type:none;
-}
-#container {
-    width: 249px; margin: 0 auto;
-}
-</style>
+    </style>
 
 
 </head>
 
 <script>
-$(function() {
+$(function (){
+    tab('#tab', 0);
+    });
+  function tab(e,num){
+    var num = num || 0;
+    var menu = $(e).children();
+    var con = $(e+'_con').children();
+    var select =$(menu).eq(num);
+    var i =num;
+    select.addClass('on');
+    con.eq(num).show();
+    menu.click(function(){
+        if(select!==null){
+            select.removeClass("on");
+            con.eq(i).hide();
+            }
+         select =$(this);
+         i =$(this).index();
+         select.addClass('on');
+         con.eq(i).show();
+    });
+  }
 
-$(".tab_content").hide();                                                       // tab_content 부분을 "전부" 숨긴다. 클릭 했을때 보여주는 부분이죠.
-$(".tab_content:first").show();                                              // tab_content 전부 숨긴 것 중에 가장 첫번째껏만 보여준다.
-
-$("ul.tabs li").click(function() {                                   // ul.tabs li  부분에 클릭 이벤트 생성
-$("ul.tabs li").removeClass("active").css("color","#333");              // ul.tabs li 에 "active"클래스를 삭제한다.
-
-//$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
-$(this).addClass("active").css("color","darkred");                       // ul.tabs li 에 "active"클래스를 대입한다.(".tab_content").hide()
-var activeTab = $(this).attr("rel");
-$(activeTab).fadeIn();
-});
-});
 </script>
 
-<body><div id="container">
-    <ul class="tabs">
-        <li class="active" rel="tab1">메뉴1</li>
-        <li rel="tab2">메뉴2</li>
-        <li rel="tab3">메뉴3</li>
-        <li rel="tab4">메뉴4</li>
-        <li rel="tab5">메뉴5</li>
-    </ul>
+<body>
 
-    <div class="tab_container">
-        <div id="tab1" class="tab_content">내용11</div>
-        <div id="tab2" class="tab_content">내용2</div>
-        <div id="tab3" class="tab_content">내용3</div>
-        <div id="tab4" class="tab_content">내용4</div>
-        <div id="tab5" class="tab_content">내용55</div>
-    </div>
+<ul class="tab" id="tab">
+    <li>A</li>
+    <li>B</li>
+    <li>C</li>
+</ul>
+<div class="tab_con" id="tab_con">
+    <div>1st Contents</div>
+    <div>2st Contents</div>
+    <div>3st Contents</div>
+
 </div>
-
-
 
 </body>
 </html>

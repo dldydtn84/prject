@@ -18,35 +18,159 @@
 
 
 </style>
+<style>
+    .sc_login {
+    padding: 16px 16px 12px 17px;
+    background-color: #f7f9fa;
+    border: 1px solid #dae1e6;
+}
+.blind {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
+.sc_login .login_msg {
+    padding-left: 3px;
+    color: grey;
+}
+.sc_login .link_login {
+    display: block;
+    padding: 15px 0;
+    margin-top: 11px;
+    background-color: #19ce60;
+    border: 1px solid #15c654;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    font-size: 13px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+}
+.sc_login .ico_naver {
+    display: inline-block;
+    width: 60px;
+    height: 12px;
+    background-position: -271px -267px;
+    background-repeat: no-repeat;
+    vertical-align: top;
+    margin: 2px 5px 0 0;
+}
+.sc_login .sub_area {
+    margin: 14px 8px 0 4px;
+}
+.sc_login .sub_area .look_box {
+    float: left;
+}
+.sc_login .sub_area .link_look {
+    color: #404040;
+}
+.sc_login .sub_area .link_look+.link_look:before {
+    background-color: #d7dce0;
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    vertical-align: top;
+    content: '';
+    margin: 0 5px 0 2px;
+    vertical-align: 3px;
+}
+.sc_login .sub_area .look_box:before {
+    display: inline-block;
+    width: 10px;
+    height: 14px;
+    background-position: -408px -55px;
+    background-repeat: no-repeat;
+    vertical-align: top;
+    content: '';
+    margin: -1px 1px 1px;
+}
+.sc_login .sub_area:after {
+    content: "";
+    display: table;
+    table-layout: fixed;
+    clear: both;
+}
+.sc_login .sub_area .link_join {
+    float: right;
+    color: #505050;
+}
+.sc_login .sub_area .link_join:before {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    background-position: -332px -308px;
+    background-repeat: no-repeat;
+    vertical-align: top;
+    content: '';
+    margin: 2px 5px 0 0;
+}
+</style>
+
+<style type="text/css">
+
+ul,li {list-style:none;}
+a { text-decoration:none; color:#000;}
+.tab { boarder:1px solid #ddd; border-left:none; background:#fff; overflow:hidden;}
+.tab li { float:left; width: 15%; border-left:1px solid #ddd; text-align:center; box-sizing:border-box;}
+.tab li { display:inline-block; padding: 10px; cursor:pointer;}
+.tab li.on { background-color:#eee; color:#f00;}
+.tab_con { clear:both; margin-top:5px; }
+.tab_con div {     display: none; line-height: 30px;}
+
+    </style>
 
 <body id="page-top">
 <th:block th:replace="include/top :: top"></th:block>
 
 
+
 <div class="container" style="margin-top: 50px">
     <div class="row">
         <div class="col-sm-8">
+
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">자유게시판</h4>
-                    <table class="table-hover" id="conextlist">
-                        <tr th:each="context: ${contextList}">
+                    <ul class="tab" id="tab" style="padding:0;">
+                        <li>자유게시판</li>
+                        <li>질문게시판</li>
+                        <li>인증게시판</li>
+                    </ul>
+                    <div class="tab_con" id="tab_con">
+                        <div>
+                            <th:block th:each="fbcontext: ${fbcontextList}">
+                                        <a th:href="@{/board/read(posts_no=${fbcontext.posts_no},board=1)}">
+                                            <span th:text="${fbcontext.subject}+' ['+ ${fbcontext.comment}+']'"></span></a>
+                                        <span th:text="${fbcontext.reporting_date}" style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span><br>
+                            </th:block>
+                        </div>
+                        <div>
+                            <th:block th:each="qbcontext: ${qbcontextList}">
+                                <a th:href="@{/board/read(posts_no=${qbcontext.posts_no},board=2)}">
+                                    <span th:text="${qbcontext.subject}+' ['+ ${qbcontext.comment}+']'"></span></a>
+                                <span th:text="${qbcontext.reporting_date}" style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span><br>
+                            </th:block>
+                        </div>
+                        <div>
+                            <th:block th:each="cbcontext: ${cbcontextList}">
+                                <a th:href="@{/board/read(posts_no=${cbcontext.posts_no},board=3)}">
+                                    <span th:text="${cbcontext.subject}+' ['+ ${cbcontext.comment}+']'"></span></a>
+                                <span th:text="${cbcontext.reporting_date}" style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span><br>
+                            </th:block>
+                        </div>
 
-                            <td style="border-bottom:1px">
-                                <div>
-                                <a th:href="@{/board/read(posts_no=${context.posts_no},board=${context.board_code})}">
-                                <span th:text="${context.subject}+' ['+ ${context.comment}+']'"></span></a>
-                                <span th:text="${context.reporting_date}" style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span>
-                                </div>
-                            </td>
+                    </div>
 
-                        </tr>
-
-
-                    </table>
 
                 </div>
             </div>
+
+
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">실시간 채팅</h4>
@@ -77,6 +201,15 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">사진공유</h4>
+
+                </div>
+            </div>
+
+
         </div>
 
         <div class="col-sm-4">
@@ -86,8 +219,22 @@
                 로그아웃</button>
             </div>
             <div th:unless="${session.greeting}">
-                <button type="button" onclick="location.href='login'" class="btn btn-secondary btn-block"/>
-                로그인</button>
+
+                <div id="account" class="sc_login">
+
+
+                    <p class="login_msg">Appler 로그인 안전하게 이용하세요</p>
+                    <a href="login" class="link_login"><img th:src="@{/img/}+logo.png" style="display: inline-block; width: 60px; height: 12px;">로그인</a>
+                    <div class="sub_area">
+                        <div class="look_box">
+                            <a href="#" class="link_look">아이디</a>
+                            <a href="#" class="link_look">비밀번호찾기</a>
+                        </div>
+                        <a href="#" class="link_join">회원가입</a>
+                    </div>
+                </div>
+
+
 
             </div>
 
@@ -100,16 +247,37 @@
 
 <!-- 공통 하단-->
 <th:block th:replace="include/footer :: footer"></th:block>
-<script type="text/javascript">
-    function test(){
 
-			$("#conextlist").hide();
 
-		}
-	}
 
+<script>
+$(function (){
+    tab('#tab', 0);
+    });
+  function tab(e,num){
+    var num = num || 0;
+    var menu = $(e).children();
+    var con = $(e+'_con').children();
+    var select =$(menu).eq(num);
+    var i =num;
+    select.addClass('on');
+    con.eq(num).show();
+    menu.click(function(){
+        if(select!==null){
+            select.removeClass("on");
+            con.eq(i).hide();
+            }
+         select =$(this);
+         i =$(this).index();
+         select.addClass('on');
+         con.eq(i).show();
+    });
+  }
 
 </script>
+
+
+
 
 <script type="text/javascript">
 	var ws;

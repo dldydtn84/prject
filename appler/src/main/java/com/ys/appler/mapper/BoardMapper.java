@@ -20,5 +20,5 @@ public interface BoardMapper {
     void contextDelete(Map<String, String> map);
     void contextUpdate(BoardDto boardDto);
     List<BoardDto> listPaging(Criteria criteria);
-    List<BoardDto> IndexContextList();
+    List<BoardDto> IndexContextList(String boardcode);
 }
