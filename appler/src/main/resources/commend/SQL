@@ -24,3 +24,16 @@ r_date datetime not null,
 ip varchar(50) not null,
 primary key(no)
 );
+
+  create table tbl_notice_board(
+no int not null auto_increment,
+board_code varchar(50) not null ,
+nickname varchar(50) not null,
+subject varchar(500) not null,
+contents varchar(500) not null,
+file varchar(500) null,
+ip varchar(50) not null,
+readcount int not null,
+reporting_date datetime not null,
+primary key(no)
+);

@@ -36,6 +36,8 @@ public class ApplerApplicationTests {
 	@Autowired
 	BoardService boardService;
 
+
+
 	@Autowired
 	MemberService memberService;
 
@@ -51,14 +53,16 @@ public class ApplerApplicationTests {
 
 	@Test
 	public void 테스트(){
-		NoticeBoardDto noticeBoardDto=new NoticeBoardDto();
-		noticeBoardDto.setNickname("nick");
-		noticeBoardDto.setSubject("제목");
-		noticeBoardDto.setContents("내용입니다.");
-		noticeBoardDto.setFile(null);
-		noticeBoardDto.setIp("127.0.0.1");
+		for(int i =1; i<=1000; i++) {
+			NoticeBoardDto noticeBoardDto = new NoticeBoardDto();
+			noticeBoardDto.setNickname("nick");
+			noticeBoardDto.setSubject("공지사항"+i+"번째 글 제목입니다.");
+			noticeBoardDto.setContents(i+"내용입니다.");
+			noticeBoardDto.setFile(null);
+			noticeBoardDto.setIp("127.0.0.1");
 
-		noticeBoardService.contextWriteService(noticeBoardDto);
+			noticeBoardService.contextWriteService(noticeBoardDto);
+		}
 	}
 
 	/*@Test
@@ -98,7 +102,7 @@ log.info("getpage: "+ criteria.getPage()+"getBper" + criteria.getPerPageNum());
 
 	}*/
 
-	@Test
+	/*@Test
 	public void testCreate() throws Exception{
 		for(int i =1; i<=1000; i++){
 			BoardDto boardDto = new BoardDto();
@@ -113,7 +117,7 @@ log.info("getpage: "+ criteria.getPage()+"getBper" + criteria.getPerPageNum());
 			boardMapper.contextWrite(boardDto);
 		}
 
-	}
+	}*/
 /*
 
 	@Test
@@ -156,12 +160,14 @@ comment.setBoard_code("FB");
 */
 
 
+/*
 	@Test
 	public void 게시글삭제시댓글삭제() throws Exception{
 
 		int result = commentService.contextallcommentDeleteService(1000);
 
 	}
+*/
 
 	/*@Test
 	public void 사진입력() throws Exception{
@@ -181,21 +187,22 @@ comment.setBoard_code("FB");
 
 
 	}*/
+/*
 	@Test
 	public void 회원가입(MemberDto memberDto) throws Exception{
-		memberDto.setId("test");
-		memberDto.setPass("asdas");
+		memberDto.setUserid("1");
+		memberDto.setPassword("1");
 		memberDto.setNickname("nick");
 		memberDto.setName("이름");
 		memberDto.setEmail("asda@ads.cas");
-		memberDto.setLevel('1');
-		memberDto.setPoint(0);
-		memberDto.setDatetime("2020-11-12");
+
+
 
 
 		memberService.memberSingupService(memberDto);
 
 	}
+*/
 
 
 

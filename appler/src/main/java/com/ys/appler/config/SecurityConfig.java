@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-              /*  .antMatchers("/css/**","/img/**", "/script/**", "/","/static/**","/user/singup");*/
+                /*.antMatchers("/css/**","/img/**", "/script/**", "/","/static/**","/user/singup");*/
                 .antMatchers("**");
                       //.antMatchers("/css/**", "/script/**", "/");
     }
@@ -53,8 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        String userQuery="select id as username,  pass as password, enabled from tbl_member where id =? ";
-        String authQuery="select id as username, authority FROM tbl_member  where id=?";
+        String userQuery="select userid as username,   password, enabled from tbl_member where userid =? ";
+        String authQuery="select userid as username, authority FROM tbl_member  where userid=?";
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery(userQuery)

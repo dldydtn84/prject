@@ -31,6 +31,8 @@ public class MemberController {
     @PostMapping("/login")
     public String loginp(){
 
+
+
         return "redirect:/";
     }
     @GetMapping("/singup")
@@ -39,7 +41,7 @@ public class MemberController {
         return "/user/singup";
     }
 
-    @GetMapping("/singuppro")
+    @PostMapping("/singuppro")
     public String singuppro(@Valid MemberDto memberDto , Errors errors, Model model){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

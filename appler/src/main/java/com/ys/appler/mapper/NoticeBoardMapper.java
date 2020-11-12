@@ -1,6 +1,8 @@
 package com.ys.appler.mapper;
 
 
+import com.ys.appler.commons.paging.Criteria;
+import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.NoticeBoardDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,15 +13,11 @@ import java.util.Map;
 public interface NoticeBoardMapper {
 
     void contextWrite(NoticeBoardDto noticeBoardDto);
-
-
-/*    List<BoardDto> contextList(String boardcode);
-    int selectListno(String boardcode);
-    BoardDto contextRead(String boardcode, int no);
-    void contextWrite(BoardDto boardDto);
-    int postnoOne(String board_code);
+    int ListCount();
+    List<NoticeBoardDto> listPaging(Criteria criteria);
+    NoticeBoardDto contextRead(int no);
     void readcountUp(int reviewNo);
+    void contextUpdate(NoticeBoardDto noticeBoardDto);
     void contextDelete(Map<String, String> map);
-    void contextUpdate(BoardDto boardDto);
-    List<BoardDto> listPaging(Criteria criteria);*/
+    List<NoticeBoardDto> contextSearch(String Search);
 }

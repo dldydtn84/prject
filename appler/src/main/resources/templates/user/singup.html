@@ -14,7 +14,7 @@
 <body>
 
 <div class="signin-form">
-    <form action="#" th:action="@{/singuppro}" th:object="${MemberDto}" method="get" >
+    <form action="#" th:action="@{/singuppro}" th:object="${MemberDto}" method="post" >
         <a href="/"><img th:src="@{/img/}+logogray.png" style="display: block; margin: 0 auto; width: 240px; height: 80px;"></a>
         <h2>회원가입</h2>
         <div class="form-group">
@@ -26,18 +26,22 @@
         <div class="form-group">
             <h5><label for="userid">패스워드</label></h5>
             <input type="password" class="form-control input-lg" name="password" placeholder="Password" required="required"  >
+            <span th:text="${valid_password}"></span>
         </div>
         <div class="form-group">
             <h5><label for="userid">닉네임</label></h5>
             <input type="text" class="form-control input-lg" name="nickname" placeholder="nickname" required="required"  >
+            <span th:text="${valid_nickname}"></span>
         </div>
         <div class="form-group">
             <h5><label for="userid">이름</label></h5>
             <input type="text" class="form-control input-lg" name="name" placeholder="name" required="required">
+            <span th:text="${valid_name}"></span>
         </div>
         <div class="form-group">
             <h5><label for="userid">이메일</label></h5>
             <input type="text" class="form-control input-lg" name="email" placeholder="email" required="required" >
+            <span th:text="${valid_email}"></span>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">회원가입</button>

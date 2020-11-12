@@ -33,35 +33,42 @@
                             </tr>
                             </thead>
                             <tbody>
-                           <!-- <tr th:each="context: ${contextlist}">
+                            <tr th:each="context: ${contextlist}">
 
-                                <td><a th:href="@{/board/read(posts_no=${context.posts_no},board=${board})}"><p th:text="${context.subject}+' ['+ ${context.comment}+']'"></p></a>
+                                <td><a th:href="@{/noticeboard/read(no=${context.no})}"><p th:text="${context.subject}"></p></a>
                                 </td>
-                                <td th:text="${context.nickname}" class="text-center d-none d-md-table-cell"></td>
+
                                 <td th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell"></td>
-                                <td th:text="${context.readcount}" class="text-center d-none d-md-table-cell"></td>
-                            </tr>-->
+
+                            </tr>
                             </tbody>
                         </table>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                        <div style="margin-bottom: 3rem;">
+
+                        <form class="form-inline my-2 my-lg-0" th:action="@{/noticeboard/search}" method="get">
+                            <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
                             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                         </form>
-                       <!-- <div class="d-none d-md-block">
+                        </div>
+                      <div class="d-none d-md-block">
                             <ul class="pagination justify-content-center">
-                                <li th:if="${pageing.prev}" class="page-item"><a th:href="@{list(board=${board}, page=${pageing.startPage-1})}" class="page-link">이전</a></li>
+                                <li th:if="${pageing.prev}" class="page-item"><a th:href="@{list(page=${pageing.startPage-1})}" class="page-link">이전</a></li>
                                 <th:block th:each="index: ${#numbers.sequence(pageing.startPage,pageing.endPage)}">
-                                    <li class="page-item"><a class="page-link" th:text="${index}"  th:href="@{list(board=${board}, page=${index})}" ></a></li>
+                                    <li class="page-item"><a class="page-link" th:text="${index}"  th:href="@{list(page=${index})}" ></a></li>
 
                                 </th:block>
-                                <li th:if="${pageing.next}" class="page-item"><a th:href="@{list(board=${board}, page=${pageing.endPage+1})}" class="page-link">다음</a></li>
+                                <li th:if="${pageing.next}" class="page-item"><a th:href="@{list(page=${pageing.endPage+1})}" class="page-link">다음</a></li>
                             </ul>
-                        </div>-->
+                        </div>
 
                         <div class="d-block d-md-none">
                             <ul class="pagination justify-content-center">
-                                <li class="page-item"><a href="#" class="page-link">이전</a></li>
-                                <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                                <li th:if="${pageing.halfprev}" class="page-item"><a th:href="@{list(page=${pageing.halfstartPage-1})}" class="page-link">이전</a></li>
+                                <th:block th:each="index: ${#numbers.sequence(pageing.halfstartPage,pageing.halfendPage)}">
+                                    <li class="page-item"><a class="page-link" th:text="${index}"  th:href="@{list(page=${index})}" ></a></li>
+
+                                </th:block>
+                                <li th:if="${pageing.halfnext}" class="page-item"><a th:href="@{list(page=${pageing.halfendPage+1})}" class="page-link">다음</a></li>
                             </ul>
                         </div>
 

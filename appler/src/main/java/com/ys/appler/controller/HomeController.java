@@ -52,11 +52,12 @@ public class HomeController {
         model.addAttribute("cbcontextList",cbcontextList);
         model.addAttribute("photoList",photoList);
 
-        String pass ="test";
-        String pass1 ="$2a$10$OprFunQpXXQdrofVkDkPAe.bTxQJX29tNlm3gwlcpg2VzRnI8BDay";
+
+        String pass ="1";
+        String pass1 ="$2a$10$aa1NePEG25qs0oxCRyS1GOq5WF12fFrdel2ZxrTcqeeum5fu25Ljy";
         boolean pwmatch = passwordEncoder.matches(pass, pass1);
-        String asd=passwordEncoder.encode("1");
-        System.out.println(asd);
+
+
         System.out.println(pwmatch);
         return "index";
     }

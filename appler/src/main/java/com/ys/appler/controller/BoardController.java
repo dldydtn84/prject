@@ -50,8 +50,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(@RequestParam("board") int board, @RequestParam(value = "perPageNum", defaultValue = "15") int perPageNum,
-                       @RequestParam(value = "page", defaultValue = "1") int page, Model model, BoardDto boardDto
-    ) {
+                       @RequestParam(value = "page", defaultValue = "1") int page, Model model, BoardDto boardDto) {
         int totalcount = boardService.selectListnoService(board);
 
         String boardCode = boardCode(board);

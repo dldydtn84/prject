@@ -3,10 +3,7 @@ package com.ys.appler.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Getter @Setter
@@ -14,9 +11,15 @@ public class MemberDto {
 
     @NotBlank(message = "아이디를 입력해주세요")
     private String userid;
+    @Pattern(regexp="[a-zA-Z1-9]{6,12}", message = "비밀번호는 영어와 숫자로 포함해서 6~12자리 이내로 입력해주세요.")
     private String password;
+    @NotBlank(message = "닉네임을 입력해주세요.")
     private String nickname;
+    @NotBlank(message = "이름을 입력해주세요.")
     private String name;
+
+    @NotBlank(message = "이메일을 입력해주세요.")
+    @Email(message = "이메일 형식을 맞춰주세요.")
     private String email;
     private String enabled;
     private String authority;

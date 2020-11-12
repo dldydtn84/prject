@@ -17,7 +17,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h4 class="card-title">공지사항</h4>
-                        <form action="#" th:action="@{/noticetboard/writepro}" th:object="${NoticeBoardDto}" method="get">
+                        <form action="#" th:action="@{/noticeboard/write}" th:object="${NoticeBoardDto}" method="post">
 
                             <input type="hidden" name="nickname" id="nickname" th:value="${session.greeting}">
                             <label for="subject">제목</label><br>
