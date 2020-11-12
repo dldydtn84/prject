@@ -4,13 +4,11 @@ import com.ys.appler.commons.paging.Criteria;
 import com.ys.appler.commons.paging.Pageing;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.CommentDto;
+import com.ys.appler.dto.MemberDto;
 import com.ys.appler.dto.NoticeBoardDto;
 import com.ys.appler.mapper.BoardMapper;
 import com.ys.appler.mapper.CommentMapper;
-import com.ys.appler.service.BoardService;
-import com.ys.appler.service.CommentService;
-import com.ys.appler.service.NoticeBoardService;
-import com.ys.appler.service.PhotoBoardService;
+import com.ys.appler.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -37,6 +35,9 @@ public class ApplerApplicationTests {
 	CommentService commentService;
 	@Autowired
 	BoardService boardService;
+
+	@Autowired
+	MemberService memberService;
 
 	@Autowired
 	PhotoBoardService photoBoardService;
@@ -180,6 +181,23 @@ comment.setBoard_code("FB");
 
 
 	}*/
+	@Test
+	public void 회원가입(MemberDto memberDto) throws Exception{
+		memberDto.setId("test");
+		memberDto.setPass("asdas");
+		memberDto.setNickname("nick");
+		memberDto.setName("이름");
+		memberDto.setEmail("asda@ads.cas");
+		memberDto.setLevel('1');
+		memberDto.setPoint(0);
+		memberDto.setDatetime("2020-11-12");
+
+
+		memberService.memberSingupService(memberDto);
+
+	}
+
+
 
 
 

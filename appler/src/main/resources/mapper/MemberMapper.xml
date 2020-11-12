@@ -5,4 +5,14 @@
      select *
      from tbl_member
  </select>
+    <select id="idCheck" resultType="int">
+        SELECT  COUNT(*)
+        FROM tbl_member
+        WHERE userid = #{userid}
+    </select>
+
+   <insert id="memberSingup"  parameterType="com.ys.appler.dto.MemberDto" >
+        INSERT INTO tbl_member (userid, password, nickname, name, email, enabled, authority, point, lastdate, date)
+        VALUES (#{userid}, #{password}, #{nickname}, #{name},#{email},1, 'ROLE_USER' ,0 ,now(),now())
+    </insert>
 </mapper>

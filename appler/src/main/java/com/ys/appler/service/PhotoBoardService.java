@@ -5,6 +5,7 @@ import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.PhotoBoardDto;
 import com.ys.appler.mapper.PhotoBoardMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.graalvm.compiler.lir.LIR;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -100,6 +101,11 @@ public class PhotoBoardService {
 
         int totalcount = photoBoardMapper.totalcount();
         return totalcount;
+    }
+
+    public List<PhotoBoardDto> IndexPhotoListService(){
+        List<PhotoBoardDto> result = photoBoardMapper.IndexPhotoList();
+        return result;
     }
 
     /*

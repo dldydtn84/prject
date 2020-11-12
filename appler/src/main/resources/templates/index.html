@@ -14,7 +14,15 @@
 
 			text-align: left;
 		}
-
+.photo h4,
+.photo span{
+display: inline;
+}
+.photo span{
+    position: absolute;
+    right: 0;
+    margin: 0px 20px 0px 0px;
+    }
 
 
 </style>
@@ -110,6 +118,9 @@
     content: '';
     margin: 2px 5px 0 0;
 }
+
+
+
 </style>
 
 <style type="text/css">
@@ -204,7 +215,24 @@ a { text-decoration:none; color:#000;}
 
             <div class="card">
                 <div class="card-body">
+                    <div class="photo">
                     <h4 class="card-title">사진공유</h4>
+                    <span><a href="/photoboard/list">더보기</a></span>
+                    </div><br>
+
+                    <div class="row">
+                        <div th:each="context: ${photoList}" class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <a class="lightbox" th:href="@{/static/}+${context.file}">
+                                    <img th:src="@{/static/}+${context.file}">
+                                </a>
+                                <div class="caption">
+                                    <p th:text="${context.subject}" style="text-align: center;">제목</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>

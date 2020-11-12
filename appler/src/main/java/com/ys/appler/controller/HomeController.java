@@ -2,8 +2,10 @@ package com.ys.appler.controller;
 
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.MemberDto;
+import com.ys.appler.dto.PhotoBoardDto;
 import com.ys.appler.service.BoardService;
 import com.ys.appler.service.MemberService;
+import com.ys.appler.service.PhotoBoardService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class HomeController {
     @Autowired
     BoardService boardService;
 
+    @Autowired
+    PhotoBoardService photoBoardService;
 
 
     @Autowired
@@ -41,9 +45,12 @@ public class HomeController {
         List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
         List<BoardDto> cbcontextList = boardService.IndexContextListService("CB");
 
+        List<PhotoBoardDto> photoList = photoBoardService.IndexPhotoListService();
+
         model.addAttribute("fbcontextList",fbcontextList);
         model.addAttribute("qbcontextList",qbcontextList);
         model.addAttribute("cbcontextList",cbcontextList);
+        model.addAttribute("photoList",photoList);
 
         String pass ="test";
         String pass1 ="$2a$10$OprFunQpXXQdrofVkDkPAe.bTxQJX29tNlm3gwlcpg2VzRnI8BDay";
