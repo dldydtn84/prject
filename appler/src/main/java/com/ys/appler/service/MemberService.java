@@ -35,6 +35,7 @@ public class MemberService {
          int result =  memberMapper.idCheck(id);
         return result;
     }
+
     public Map<String, String> validateHandling(Errors errors) {
         Map<String, String> validatorResult = new HashMap<>();
 
@@ -44,6 +45,15 @@ public class MemberService {
         }
 
         return validatorResult;
+    }
+
+    public MemberDto memberReadService(String userid){
+        MemberDto result =  memberMapper.memberRead(userid);
+        return result;
+    }
+    public void memberAuthService(String userid){
+          memberMapper.memberAuth(userid);
+
     }
 
 }

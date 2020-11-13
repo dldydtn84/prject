@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- 공통 헤더-->
+<th:block th:replace="include/head :: head"></th:block>
+<style>
+.modal_wrap{
+        display: none;
+        width: 500px;
+        height: 500px;
+        position: absolute;
+        top:50%;
+        left: 50%;
+        margin: -250px 0 0 -250px;
+        background:#eee;
+        z-index: 2;
+    }
+    .black_bg{
+        display: none;
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color:rgba(0, 0,0, 0.5);
+        top:0;
+        left: 0;
+        z-index: 1;
+    }
+    .modal_close{
+        width: 26px;
+        height: 26px;
+        position: absolute;
+        top: -30px;
+        right: 0;
+    }
+    .modal_close> a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+        text-indent: -9999px;
+    }
+
+
+
+</style>
+
+<script>
+    window.onload = function() {
+
+    function onClick() {
+        document.querySelector('.modal_wrap').style.display ='block';
+        document.querySelector('.black_bg').style.display ='block';
+    }
+    function offClick() {
+        document.querySelector('.modal_wrap').style.display ='none';
+        document.querySelector('.black_bg').style.display ='none';
+    }
+
+    document.getElementById('modal_btn').addEventListener('click', onClick);
+    document.querySelector('.modal_close').addEventListener('click', offClick);
+ document.getElementById('close').addEventListener('click', offClick);
+};
+
+</script>
+
+
+<body id="page-top">
+<th:block th:replace="include/top :: top"></th:block>
+
+
+<div class="black_bg"></div>
+<div class="container" style="margin-top: 50px">
+    <div class="row">
+        <div class="col-sm-8">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4>마이페이지</h4>
+                    <hr>
+
+
+                    <table class="board-form va-m">
+                        <colgroup>
+                            <col style="width:200px;">
+                            <col style="width:100px;">
+                            <col style="width:400px;">
+                            <col style="width:100px;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th scope="row">
+                                <label>이메일</label>
+
+                            </th>
+                            <td colspan="2">
+                                <span th:text="${contextread.email}"></span>
+                            </td>
+                            <td>
+                                <div th:if="${contextread.emailauth.toString().equals('Y')}">인증완료</div>
+                                <div th:if="${contextread.emailauth.toString().equals('N')}"><a id="modal_btn">인증하기</a></div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <label>아이디</label>
+                            </th>
+                            <td colspan="2">
+                                <span th:text="${contextread.userid}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label>비밀번호</label>
+                            </th>
+                            <td colspan="2">
+                                PASSWORD
+                            </td>
+                            <td>
+                                비밀번호 변경
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label>닉네임</label>
+                            </th>
+                            <td colspan="2">
+                                <span th:text="${contextread.nickname}"></span>
+                            </td>
+                            <td>
+                                닉네임 변경
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label>이름</label>
+                            </th>
+                            <td colspan="2">
+                                <span th:text="${contextread.name}"></span>
+                            </td>
+                            <td>
+                                이름 변경
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+
+            <div th:if="${session.greeting}">
+                <div style="border: 1px solid #dae1e6;">
+                    <div class="box-body" style="display: flex; align-items: center;">
+                        <div style="float: left">
+                            <img th:src="@{/img/}+man.png" class="" style="width: 50px; height: 50px;">
+                        </div>
+                        <div>
+                            <div class="" th:text="${userid} + '님 환영합니다.!'"></div>
+                        </div>
+                    </div>
+                    <div class="box-footer" style="display: flex;">
+                        <div style="line-height: 34px; margin-left: 100px">
+                            <a th:href="@{/user/mypage(userid=${userid})}"><i class="fa fa-gear"></i>&nbsp&nbsp마이페이지</a>
+                        </div>
+                        <div style="margin-left: 100px">
+
+                            <button type="button" onclick="location.href='/logout'"
+                                    class="btn btn-secondary btn-block"/>
+                            로그아웃</button>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div th:unless="${session.greeting}">
+
+                <div id="account" class="sc_login">
+
+
+                    <p class="login_msg">Appler 로그인 안전하게 이용하세요</p>
+                    <a href="login" class="link_login"><img th:src="@{/img/}+logo.png"
+                                                            style="display: inline-block; width: 60px; height: 12px;">로그인</a>
+                    <div class="sub_area">
+                        <div class="look_box">
+                            <a href="#" class="link_look">아이디</a>
+                            <a href="#" class="link_look">비밀번호찾기</a>
+                        </div>
+                        <a href="/singup" class="link_join">회원가입</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- 공통 하단-->
+<th:block th:replace="include/footer :: footer"></th:block>
+
+<div class="modal_wrap">
+    <div class="modal_close"><a href="#">close</a></div>
+    <div>
+        <h4>이메일 인증</h4>
+        <hr>
+        <label>이메일</label>
+        <input type="text" name="email" id="email" value="qjsro3975@naver.com">
+        <button id="emailCheck" onclick="emailSend()">인증번호 보내기</button>
+        <br>
+        <label>인증번호</label>
+        <input type="text" name="authcode" id="authcode"><br>
+        <button type="button" id="close">취소</button>
+        <button type="button" onclick="emailCodeCheck()">인증하기</button>
+    </div>
+
+
+    <script>
+
+
+var userid = [[ ${userid} ]];
+
+function emailSend(){
+    var clientEmail = document.getElementById('email').value;
+    var emailYN = isEmail(clientEmail);
+    console.log('입력이메일' + clientEmail);
+
+    if(emailYN == true){
+        $.ajax({
+            type:"POST",
+            url:"/user/email",
+            data:{'userEmail':clientEmail},
+            success : function(data){
+
+            },error : function(e){
+            alert('오류가 발생했습니다.');
+            }
+            });
+      }else{
+      alert('이메일 형식이 아닙니다.');
+      }
+}
+function emailCodeCheck(){
+
+    var authcode = document.getElementById('authcode').value;
+
+    $.ajax({
+            type:"POST",
+            url:"/user/emailcheck",
+            data:{'authcode':authcode,'userid':userid},
+            success : function(data){
+
+            },error : function(e){
+            alert('오류가 발생했습니다.');
+            }
+            });
+
+}
+
+
+
+
+
+
+function isEmail(Value){
+    var regExp= /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    return regExp.test(Value);
+}
+
+
+    </script>
+
+
+    <!-- 공통 스크립트-->
+    <th:block th:replace="include/script :: script"></th:block>
+</body>
+
+</html>

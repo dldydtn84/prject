@@ -92,6 +92,9 @@ ul {
 .font-red { color : red;}
 
 
+label{
+margin: 0;
+}
 
 
 
@@ -159,17 +162,29 @@ ul {
 
 
                                         <tr>
-                                            <th scope="row"><label for="name">이름</label> <span class="font-red">*</span>
+                                            <th scope="row">
+                                                <label for="name">이름</label>
+                                                <span class="font-red">*</span>
                                             </th>
-                                            <td><input type="text" id="name" name="name" class="form-control mr-sm-2"
-                                                       value="" maxlength="15"/></td>
-                                            <th scope="row"><label for="email">이메일</label> <em class="font-red">*</em>
+                                            <td>
+                                                <input type="text" id="name" name="name" class="form-control mr-sm-2"
+                                                       value="" maxlength="15"/>
+                                                <span th:text="${valid_name}"></span>
+                                            </td>
+                                            <th scope="row">
+                                                <label for="email">이메일</label>
+                                                <em class="font-red">*</em>
                                             </th>
-                                            <td><input type="email" name="email" id="email" class="form-control2"
-                                                       value="" maxlength="50"/></td>
+                                            <td>
+                                                <input type="email" name="email" id="email" class="form-control2"
+                                                       value="" maxlength="50"/>
+                                                <span th:text="${valid_email}"></span>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row"><label for="pnum1">휴대전화</label> <em class="font-red">*</em>
+                                            <th scope="row">
+                                                <label for="pnum1">휴대전화</label>
+                                                <em class="font-red">*</em>
                                             </th>
                                             <td colspan="3">
                                                 <input type="text" name="pnum1" id="pnum1" class="form-control2 "
@@ -183,9 +198,9 @@ ul {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row"><label for="title">제목</label> <em class="font-red">*</em>
+                                            <th scope="row"><label for="subject">제목</label> <em class="font-red">*</em>
                                             </th>
-                                            <td colspan="3"><input type="text" name="title" id="title"
+                                            <td colspan="3"><input type="text" name="subject" id="subject"
                                                                    class="form-control" maxlength="100"/></td>
                                         </tr>
                                         <tr>
@@ -193,7 +208,7 @@ ul {
                                             </th>
                                             <td colspan="3">
                                                 <div class="textarea">
-                                                    <textarea id="textarea" name="custInqCn" rows="5" cols="30"
+                                                    <textarea id="textarea" name="contents" rows="5" cols="30"
                                                               title="내용입력"
                                                               placeholder="※ 불편사항이나 문의사항을 남겨주시면 최대한 신속하게 답변 드리겠습니다."
                                                               class="input-textarea"></textarea>

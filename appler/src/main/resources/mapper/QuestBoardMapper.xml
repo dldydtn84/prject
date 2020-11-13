@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ys.appler.mapper.QuestBoardMapper">
+
+
+    <insert id="contextWrite"  parameterType="com.ys.appler.dto.QuestBoardDto" >
+        INSERT INTO tbl_quest_board ( board_code, name, email, phone,subject, contents, file, ip,readcount, reporting_date)
+        VALUES ('IB',  #{name}, #{email},#{phone},#{subject} ,#{contents} ,null ,#{ip},0,now())
+    </insert>
+</mapper>

@@ -12,7 +12,18 @@
     </select>
 
    <insert id="memberSingup"  parameterType="com.ys.appler.dto.MemberDto" >
-        INSERT INTO tbl_member (userid, password, nickname, name, email, enabled, authority, point, lastdate, date)
-        VALUES (#{userid}, #{password}, #{nickname}, #{name},#{email},1, 'ROLE_USER' ,0 ,now(),now())
+        INSERT INTO tbl_member (userid, password, nickname, name, email, enabled, authority,emailauth, point, lastdate, date)
+        VALUES (#{userid}, #{password}, #{nickname}, #{name},#{email},1, 'ROLE_USER','N' ,0 ,now(),now())
     </insert>
+    <select id="memberRead" resultType="com.ys.appler.dto.MemberDto">
+        SELECT no, userid, password , nickname ,name ,email, enabled, authority,emailauth,point,DATE_FORMAT(lastdate, '%Y-%m-%d') as lastdate, DATE_FORMAT(date, '%Y-%m-%d') as date
+        FROM tbl_member
+        WHERE userid = #{userid}
+    </select>
+    <update id="memberAuth" parameterType="com.ys.appler.dto.MemberDto">
+        UPDATE tbl_member
+        SET
+        emailauth = 'Y'
+        WHERE userid = #{userid}
+    </update>
 </mapper>

@@ -9,6 +9,7 @@ import java.util.Date;
 @Getter @Setter
 public class MemberDto {
 
+    private int no;
     @NotBlank(message = "아이디를 입력해주세요")
     private String userid;
     @Pattern(regexp="[a-zA-Z1-9]{6,12}", message = "비밀번호는 영어와 숫자로 포함해서 6~12자리 이내로 입력해주세요.")
@@ -23,6 +24,7 @@ public class MemberDto {
     private String email;
     private String enabled;
     private String authority;
+    private String emailauth;
     private int point;
     private Date lastdate;
     private Date date;

@@ -46,12 +46,14 @@ public class HomeController {
         List<BoardDto> cbcontextList = boardService.IndexContextListService("CB");
 
         List<PhotoBoardDto> photoList = photoBoardService.IndexPhotoListService();
+        Object userid = session.getAttribute("greeting");
+
 
         model.addAttribute("fbcontextList",fbcontextList);
         model.addAttribute("qbcontextList",qbcontextList);
         model.addAttribute("cbcontextList",cbcontextList);
         model.addAttribute("photoList",photoList);
-
+        model.addAttribute("userid",userid);
 
         String pass ="1";
         String pass1 ="$2a$10$aa1NePEG25qs0oxCRyS1GOq5WF12fFrdel2ZxrTcqeeum5fu25Ljy";

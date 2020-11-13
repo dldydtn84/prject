@@ -8,4 +8,6 @@ public interface MemberMapper {
 
     int idCheck(String id);
     void memberSingup(MemberDto memberDto);
+    MemberDto memberRead(String userid);
+    void memberAuth(String userid);
 }

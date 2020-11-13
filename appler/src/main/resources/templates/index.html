@@ -243,8 +243,27 @@ a { text-decoration:none; color:#000;}
         <div class="col-sm-4">
 
             <div th:if="${session.greeting}">
-                <button type="button" onclick="location.href='/logout'" class="btn btn-secondary btn-block"/>
-                로그아웃</button>
+                <div style="border: 1px solid #dae1e6;">
+                    <div class="box-body" style="display: flex; align-items: center;">
+                        <div style="float: left">
+                            <img th:src="@{/img/}+man.png" class=""  style="width: 50px; height: 50px;">
+                        </div>
+                        <div>
+                            <div class="" th:text="${userid} + '님 환영합니다.!'"></div>
+                        </div>
+                    </div>
+                    <div class="box-footer" style="display: flex;">
+                        <div style="line-height: 34px; margin-left: 100px">
+                            <a th:href="@{/user/mypage(userid=${userid})}"><i class="fa fa-gear"></i>&nbsp&nbsp마이페이지</a>
+                        </div>
+                        <div style="margin-left: 100px">
+
+                            <button type="button" onclick="location.href='/logout'" class="btn btn-secondary btn-block"/>
+                            로그아웃</button>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <div th:unless="${session.greeting}">
 
