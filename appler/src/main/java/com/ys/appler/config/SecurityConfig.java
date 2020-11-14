@@ -27,8 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/css/**","/img/**", "/script/**", "/","/static/**","/user/singup");
-                /*.antMatchers("**");*/
+                /*.antMatchers("/css/**","/img/**", "/script/**", "/","/static/**","/user/singup","/user/idsearch","/user/pwsearch");*/
+                .antMatchers("**");
                       //.antMatchers("/css/**", "/script/**", "/");
     }
     @Override
@@ -37,17 +37,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                     .disable()
                 .authorizeRequests()
-                    .antMatchers("/login")
+                    .antMatchers("/user/login")
                         .permitAll()
                     .anyRequest()
                     .authenticated()
                 .and()
                 .formLogin()
-                    .loginPage("/login")
+                    .loginPage("/user/login")
                     .successHandler(new LoginSuccessHandler())
                     .and()
                 .logout()
-                    .logoutUrl("/logout")
+                    .logoutUrl("/user/logout")
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true);
     }

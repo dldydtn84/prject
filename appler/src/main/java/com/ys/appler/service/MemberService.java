@@ -55,5 +55,14 @@ public class MemberService {
           memberMapper.memberAuth(userid);
 
     }
+    public String memberIdSearchService(String name,String email){
+        String userid= memberMapper.memberIdSearch(name, email);
+        return userid;
+    }
+    public int memberAccountSearchService(String id,String email){
+        int result= memberMapper.memberAccountSearch(id, email);
+        log.info("asdasda"+id+"asd : " + email);
+        return result;
+    }
 
 }

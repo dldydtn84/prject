@@ -117,6 +117,7 @@ function commentInsert(insertData){
         type : 'post',
         data : insertData,
         success : function(data){
+        console.log(data);
              if(data == 1) {
                 commentList(); //댓글 작성 후 댓글 목록 reload
                 $('[name=content]').val('');

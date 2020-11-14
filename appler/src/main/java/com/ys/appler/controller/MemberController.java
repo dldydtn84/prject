@@ -6,6 +6,7 @@ import com.ys.appler.service.MailService;
 import com.ys.appler.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,26 +31,27 @@ public class MemberController {
     MailService mailService;
 
 
-    @GetMapping("/login")
+    @GetMapping("/user/login")
     public String login(){
 
         return "/user/login";
     }
-    @PostMapping("/login")
+
+    @PostMapping("/user/login")
     public String loginp(){
 
 
 
         return "redirect:/";
     }
-    @GetMapping("/singup")
+    @GetMapping("/user/singup")
     public String singup(){
 
         return "/user/singup";
     }
 
-    @PostMapping("/singuppro")
-    public String singuppro(@Valid MemberDto memberDto , Errors errors, Model model){
+    @PostMapping("/user/singuppro")
+    public String singuppro(@Valid MemberDto memberDto , Errors errors, Model model,HttpSession session){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         String inputPass=memberDto.getPassword();
@@ -73,8 +75,10 @@ public class MemberController {
         }
         else {
         String userid =memberDto.getUserid();
+           session.setAttribute("greeting", userid);
            memberService.memberSingupService(memberDto);
-            return "/user/mypage?userid"+userid;
+
+            return "redirect:/user/mypage?userid="+userid;
         }
 
         /*return "redirect:/";*/
@@ -131,6 +135,39 @@ public class MemberController {
 
         return result;
     }
+    @GetMapping("/user/idsearch")
+    public String idsearch(){
 
+        return "/user/idsearch";
+    }
+    @GetMapping("/user/pwsearch")
+    public String pwsearch(){
+
+        return "/user/idsearch";
+    }
+
+    @PostMapping("/user/id_search")
+    @ResponseBody
+    public String id_search(String id_name,String id_email, Model model){
+
+        String userid=memberService.memberIdSearchService(id_name, id_email);
+        System.out.println(userid);
+        model.addAttribute(userid,"userid");
+        return userid ;
+    }
+
+   @GetMapping("/user/account_search")
+    @ResponseBody
+    public int account_search(String pw_id,String pw_email, Model model){
+        //계정존재여부 확인
+       int result=memberService.memberAccountSearchService(pw_id, pw_email); //count
+
+       if(result ==1){
+           return 0 ;
+       }
+       else{
+           return result ;
+       }
+    }
 
 }

@@ -10,4 +10,6 @@ public interface MemberMapper {
     void memberSingup(MemberDto memberDto);
     MemberDto memberRead(String userid);
     void memberAuth(String userid);
+    String memberIdSearch(String name,String email);
+    int memberAccountSearch(String id, String email);
 }

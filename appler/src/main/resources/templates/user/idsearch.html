@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:replace="include/head :: head"></th:block>
+<link th:href="@{/css/login.css}" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.test {
+        border-radius: 5px;
+    margin-bottom: 20px;
+    background: #fff;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    }
+</style>
+<body>
+
+<div class="signin-form">
+    <div class="test">
+        <a href="/"><img th:src="@{/img/}+logogray.png" style="display: block; margin: 0 auto; width: 240px; height: 80px;"></a>
+        <h2>아이디 찾기</h2>
+
+
+        <div class="form-group">
+            <label for="id_name">이름</label>
+            <input type="text" class="form-control input-lg" name="id_name" id="id_name" placeholder="name" required="required">
+        </div>
+        <div class="form-group">
+            <label for="id_email">이메일</label>
+            <input type="text" class="form-control input-lg" name="id_email" id="id_email" placeholder="email" required="required">
+        </div>
+        <div class="form-group">
+            <span th:text="${userid}"></span>
+            <div class="id_searcher"></div>
+        </div>
+        <hr>
+        <h2>비밀번호 찾기</h2>
+
+
+        <div class="form-group">
+            <label for="pw_id">아이디</label>
+            <input type="text" class="form-control input-lg" name="pw_id" id="pw_id" placeholder="ID" required="required">
+        </div>
+        <div class="form-group">
+            <label for="pw_email">이메일</label>
+            <input type="text" class="form-control input-lg" name="pw_email" id="pw_email" placeholder="email" required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">비밀번호 찾기</button>
+        </div>
+
+
+    </div>
+    <div class="text-center small"><a href="/user/login">로그인</a></div>
+</div>
+<th:block th:replace="include/footer :: footer"></th:block>
+
+<script>
+//아이디찾기 ajax
+	$("#id_email").blur(function() {
+	    var id_name = $('#id_name').val();
+		var id_email = $('#id_email').val();
+
+		$.ajax({
+			url : '/user/id_search',
+			type : 'post',
+			data:{'id_name':id_name,'id_email':id_email},
+			success : function(data) {
+			 var a ='';
+                  a += '<p>입력하신 정보의 ID : '+ data +'</p>';
+   $(".id_searcher").html(a);
+
+				}, error : function() {
+						alert('에러가 발생했습니다.');
+				}
+			});
+		});
+
+</script>
+<script>
+//패스워드 계정정보 일치여부확인 ajax
+	$("#pw_email").blur(function() {
+	    var pw_id = $('#pw_id').val();
+		var pw_email = $('#pw_email').val();
+		alert(pw_id)
+			alert(pw_email)
+		$.ajax({
+			url : '/user/account_search',
+			type : 'get',
+			data:{'pw_id':pw_id,'pw_email':pw_email},
+			success : function(data) {
+
+			     if(data == '0'){
+					var a ='';
+                    a += '<p>입력하신 정보의 존재하지 않습니다.</p>';
+                    $(".id_searcher").html(a);
+				 }
+				else{
+                    var a ='';
+                    a += '<p>아오!!!!!!!!!!!</p>';
+                    $(".id_searcher").html(a);
+				}
+			}, error : function() {
+					alert('에러가 발생했습니다.');
+				}
+			});
+		});
+
+</script>
+
+<!-- 공통 스크립트-->
+<th:block th:replace="include/script :: script"></th:block>
+</body>
+
+</html>

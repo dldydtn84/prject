@@ -258,8 +258,9 @@ a { text-decoration:none; color:#000;}
                         </div>
                         <div style="margin-left: 100px">
 
-                            <button type="button" onclick="location.href='/logout'" class="btn btn-secondary btn-block"/>
+                            <button type="button" onclick="location.href='/user/logout'" class="btn btn-secondary btn-block"/>
                             로그아웃</button>
+
 
                         </div>
                     </div>
@@ -271,13 +272,13 @@ a { text-decoration:none; color:#000;}
 
 
                     <p class="login_msg">Appler 로그인 안전하게 이용하세요</p>
-                    <a href="login" class="link_login"><img th:src="@{/img/}+logo.png" style="display: inline-block; width: 60px; height: 12px;">로그인</a>
+                    <a href="/user/login" class="link_login"><img th:src="@{/img/}+logo.png" style="display: inline-block; width: 60px; height: 12px;">로그인</a>
                     <div class="sub_area">
                         <div class="look_box">
-                            <a href="#" class="link_look">아이디</a>
-                            <a href="#" class="link_look">비밀번호찾기</a>
+                            <a href="/user/idsearch" class="link_look">아이디</a>
+                            <a href="/user/pwsearch" class="link_look">비밀번호찾기</a>
                         </div>
-                        <a href="/singup" class="link_join">회원가입</a>
+                        <a href="/user/singup" class="link_join">회원가입</a>
                     </div>
                 </div>
 

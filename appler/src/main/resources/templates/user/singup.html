@@ -21,8 +21,9 @@
             <h5><label for="userid">아이디</label></h5>
             <input type="text" class="form-control input-lg" id="userid" name="userid" placeholder="ID"  >
             <span th:text="${valid_userid}"></span>
+            <div class="check_font" id="id_check"></div>
         </div>
-        <div class="check_font" id="id_check"></div>
+
         <div class="form-group">
             <h5><label for="userid">패스워드</label></h5>
             <input type="password" class="form-control input-lg" name="password" placeholder="Password" required="required"  >
@@ -59,6 +60,7 @@
 			url : '/user/idCheck?userid='+ userid,
 			type : 'get',
 			success : function(data) {
+console.log(data);
 				if (data == 1) {
 						// 1 : 아이디가 중복되는 문구
 						$("#id_check").text("사용중인 아이디입니다");

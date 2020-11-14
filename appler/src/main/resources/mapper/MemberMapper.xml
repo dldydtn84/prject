@@ -26,4 +26,15 @@
         emailauth = 'Y'
         WHERE userid = #{userid}
     </update>
+    <select id="memberIdSearch" resultType="String">
+        select userid
+        from tbl_member
+        where name=#{name} and email = #{email}
+    </select>
+
+    <select id="memberAccountSearch" resultType="int">
+        SELECT count(*)
+        FROM tbl_member
+        WHERE userid = #{id} and email =#{email}
+    </select>
 </mapper>

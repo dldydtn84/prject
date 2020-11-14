@@ -8,7 +8,7 @@
 <body>
 
 <div class="signin-form">
-    <form action="/login" method="post">
+    <form action="/user/login" method="post">
         <a href="/"><img th:src="@{/img/}+logogray.png" style="display: block; margin: 0 auto; width: 240px; height: 80px;"></a>
         <h2>로그인</h2>
         <p class="hint-text">소셜 미디어 계정으로 로그인</p>
@@ -29,7 +29,7 @@
         </div>
         <div class="text-center small"><a href="#">패스워드 찾기</a></div>
     </form>
-    <div class="text-center small"><a href="/singup">회원가입</a></div>
+    <div class="text-center small"><a href="/user/singup">회원가입</a></div>
 </div>
 <th:block th:replace="include/footer :: footer"></th:block>
 
