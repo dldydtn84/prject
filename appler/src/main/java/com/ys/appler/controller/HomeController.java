@@ -55,12 +55,12 @@ public class HomeController {
         model.addAttribute("photoList",photoList);
         model.addAttribute("userid",userid);
 
-        String pass ="1";
-        String pass1 ="$2a$10$aa1NePEG25qs0oxCRyS1GOq5WF12fFrdel2ZxrTcqeeum5fu25Ljy";
+        String pass ="s8s0XQcD";
+        String pass1 ="$2a$10$O2UPzPKGKYtA56l2wLiDAuZOxKVXbTxDaMuqjkSBzaJTJksQiFlx.";
         boolean pwmatch = passwordEncoder.matches(pass, pass1);
 
 
-        System.out.println(pwmatch);
+        System.out.println("pass : "+pwmatch);
         return "index";
     }
 

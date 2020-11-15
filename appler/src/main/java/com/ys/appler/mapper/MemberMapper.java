@@ -12,4 +12,6 @@ public interface MemberMapper {
     void memberAuth(String userid);
     String memberIdSearch(String name,String email);
     int memberAccountSearch(String id, String email);
+    int temporaryPassword(String id, String temporaryPass);
+
 }

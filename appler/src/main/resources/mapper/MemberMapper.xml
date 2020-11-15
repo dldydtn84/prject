@@ -37,4 +37,12 @@
         FROM tbl_member
         WHERE userid = #{id} and email =#{email}
     </select>
+    <update id="temporaryPassword" >
+        UPDATE tbl_member
+        SET
+        password = #{temporaryPass}
+        WHERE userid = #{id}
+    </update>
+
+
 </mapper>

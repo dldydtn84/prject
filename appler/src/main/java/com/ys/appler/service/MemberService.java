@@ -65,4 +65,11 @@ public class MemberService {
         return result;
     }
 
+    public int temporaryPasswordService(String id,String temporaryPass){
+        int result= memberMapper.temporaryPassword(id, temporaryPass);
+
+        return result;
+    }
+
+
 }

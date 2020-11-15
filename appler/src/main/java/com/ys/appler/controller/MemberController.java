@@ -115,7 +115,8 @@ public class MemberController {
     @ResponseBody
     public String sendEmail(HttpServletRequest request, String userEmail) throws Exception {
         log.info("useremail"+ userEmail);
-         mailService.createMessage(userEmail);
+        String type ="auth";
+         mailService.createMessage(userEmail, type);
 
         return "success";
     }
@@ -183,11 +184,19 @@ public class MemberController {
 
     @PostMapping("/user/account_search")
     @ResponseBody
-    public int account_success(String userid, String useremail, Model model){
-        log.info("user id : "+userid);
-        log.info("user email : "+useremail);
+    public int account_success(String userid, String useremail, Model model) throws Exception {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String type="account";
+        mailService.createMessage(useremail, type);
 
-        return 1;
+
+        String temporaryPass= passwordEncoder.encode(MailService.pass);
+
+       int result =  memberService.temporaryPasswordService(userid,temporaryPass);   //임시비밀번호 변경
+
+
+
+        return result;
 
      /*  if(result == 1){
 
