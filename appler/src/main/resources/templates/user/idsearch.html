@@ -47,6 +47,7 @@
             <input type="text" class="form-control input-lg" name="pw_email" id="pw_email" placeholder="email" required="required">
         </div>
         <div class="form-group">
+            <div class="pw_searcher"></div>
             <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">비밀번호 찾기</button>
         </div>
 
@@ -83,32 +84,75 @@
 	$("#pw_email").blur(function() {
 	    var pw_id = $('#pw_id').val();
 		var pw_email = $('#pw_email').val();
-		alert(pw_id)
-			alert(pw_email)
+
 		$.ajax({
 			url : '/user/account_search',
 			type : 'get',
 			data:{'pw_id':pw_id,'pw_email':pw_email},
 			success : function(data) {
 
-			     if(data == '0'){
-					var a ='';
-                    a += '<p>입력하신 정보의 존재하지 않습니다.</p>';
-                    $(".id_searcher").html(a);
-				 }
-				else{
-                    var a ='';
-                    a += '<p>아오!!!!!!!!!!!</p>';
-                    $(".id_searcher").html(a);
-				}
+                if(data.result == 1){
+                      account_search(data.id, data.email);
+                }else{
+                   var a ='';
+                   a += '<p>입력하신 계정정보가 없습니다.</p>';
+                      $(".pw_searcher").html(a);
+                }
+
+
+
+
+
+
+
 			}, error : function() {
 					alert('에러가 발생했습니다.');
 				}
 			});
 		});
 
+
+function account_search(id,email){
+
+        $.ajax({
+        type:"POST",
+        url:"/user/account_search",
+        data:{'userid':id,'useremail':email},
+        success : function(data){
+            alert('과연');
+        },error : function(e){
+            alert('오류가 발생했습니다.');
+        }
+        });
+
+}
+
+
+
 </script>
 
+<!--
+if(data == 1){
+                    alert(data+'zzz');
+                }else{
+                     alert(data+'zzasdaz');
+                }
+
+
+function account_search(){
+
+$.ajax({
+type:"POST",
+url:"/user/account_search",
+data:{'authcode':authcode,'userid':userid},
+success : function(data){
+
+},error : function(e){
+alert('오류가 발생했습니다.');
+}
+});
+
+}-->
 <!-- 공통 스크립트-->
 <th:block th:replace="include/script :: script"></th:block>
 </body>

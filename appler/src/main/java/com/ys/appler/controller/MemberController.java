@@ -1,23 +1,22 @@
 package com.ys.appler.controller;
 
 import com.ys.appler.dto.MemberDto;
-import com.ys.appler.dto.NoticeBoardDto;
 import com.ys.appler.service.MailService;
 import com.ys.appler.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -158,16 +157,45 @@ public class MemberController {
 
    @GetMapping("/user/account_search")
     @ResponseBody
-    public int account_search(String pw_id,String pw_email, Model model){
+    public Object  account_search(String pw_id, String pw_email, Model model){
         //계정존재여부 확인
        int result=memberService.memberAccountSearchService(pw_id, pw_email); //count
+   /*    log.info("result : "+result);
+       String asd = String.valueOf(result)+pw_id +pw_email;
+       log.info("result2 : "+asd);*/
 
-       if(result ==1){
-           return 0 ;
-       }
-       else{
-           return result ;
-       }
+       Map<String, Object> list = new HashMap<String, Object>();
+       list.put("result", result);
+       list.put("id", pw_id);
+       list.put("email", pw_email);
+
+       log.info("Object : "+String.valueOf(list));
+       return list;
+
+     /*  if(result == 1){
+
+            return result ;
+        }else{
+            return result ;
+        }*/
+
+    }
+
+    @PostMapping("/user/account_search")
+    @ResponseBody
+    public int account_success(String userid, String useremail, Model model){
+        log.info("user id : "+userid);
+        log.info("user email : "+useremail);
+
+        return 1;
+
+     /*  if(result == 1){
+
+            return result ;
+        }else{
+            return result ;
+        }*/
+
     }
 
 }

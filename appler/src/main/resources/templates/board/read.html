@@ -94,7 +94,7 @@ function commentList(){
         type : 'get',
         data : {'bno':bno},
         success : function(data){
-            var a ='';
+             var a ='';
             $.each(data, function(key, value){
                 a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
                 a += '<div class="commentInfo">'+'작성자 : '+value.nickname;
