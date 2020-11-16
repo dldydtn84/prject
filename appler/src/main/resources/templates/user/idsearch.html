@@ -48,7 +48,7 @@
         </div>
         <div class="form-group">
             <div class="pw_searcher"></div>
-            <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">비밀번호 찾기</button>
+            <button type="submit" onclick="account()" class="btn btn-success btn-lg btn-block signup-btn">비밀번호 찾기</button>
         </div>
 
 
@@ -68,9 +68,20 @@
 			type : 'post',
 			data:{'id_name':id_name,'id_email':id_email},
 			success : function(data) {
-			 var a ='';
+
+
+			if(data == 'null'){
+				  var a ='';
+                  a += '<p>입력하신 정보가 없습니다.</p>';
+                  $(".id_searcher").html(a);
+			}else{
+			      var a ='';
                   a += '<p>입력하신 정보의 ID : '+ data +'</p>';
-   $(".id_searcher").html(a);
+                  $(".id_searcher").html(a);
+
+			}
+
+
 
 				}, error : function() {
 						alert('에러가 발생했습니다.');
@@ -81,7 +92,7 @@
 </script>
 <script>
 //패스워드 계정정보 일치여부확인 ajax
-	$("#pw_email").blur(function() {
+	function account(){
 	    var pw_id = $('#pw_id').val();
 		var pw_email = $('#pw_email').val();
 
@@ -107,9 +118,9 @@
 
 			}, error : function() {
 					alert('에러가 발생했습니다.');
-				}
-			});
+			}
 		});
+	}
 
 
 function account_search(id,email){

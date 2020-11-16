@@ -151,7 +151,10 @@ public class MemberController {
     public String id_search(String id_name,String id_email, Model model){
 
         String userid=memberService.memberIdSearchService(id_name, id_email);
-        System.out.println(userid);
+
+        if(userid == null){
+            userid ="null";
+        }
         model.addAttribute(userid,"userid");
         return userid ;
     }

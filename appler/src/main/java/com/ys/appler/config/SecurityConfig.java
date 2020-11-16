@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-               .antMatchers("/css/**","/img/**", "/script/**", "/","/static/**","/user/singup","/user/idsearch","/user/pwsearch");
+                .antMatchers("/css/**","/img/**", "/script/**", "/","/static/**","/user/singup","/user/idsearch","/user/pwsearch");
                 /*.antMatchers("**");*/
                       //.antMatchers("/css/**", "/script/**", "/");
     }
