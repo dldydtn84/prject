@@ -12,9 +12,11 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Map;
 
 @Slf4j
@@ -36,7 +38,7 @@ public class QuestBoardController {
         return "/questboard/write";
     }
     @PostMapping("/write")
-    public String writepro(@Valid QuestBoardDto questBoardDto, Errors errors, Model model, HttpServletRequest request) {
+    public String writepro(@Valid QuestBoardDto questBoardDto, MultipartFile uploadfile, Errors errors, Model model, HttpServletRequest request) throws IOException {
 
 
 
@@ -44,7 +46,12 @@ public class QuestBoardController {
             // 회원가입 실패시, 입력 데이터를 유지
             model.addAttribute("questBoardDto", questBoardDto);
 
-            // 유효성 통과 못한 필드와 메시지를 핸들링
+
+                    log.info("quest ::"+ questBoardDto.getName());
+
+            log.info("quest email ::"+ questBoardDto.getEmail());
+
+           // 유효성 통과 못한 필드와 메시지를 핸들링
             Map<String, String> validatorResult = questBoardService.validateHandling(errors);
             for (String key : validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));
@@ -55,7 +62,8 @@ public class QuestBoardController {
             return "/questboard/write";
         }
         else {
-
+log.info("......Tlqkf");
+            questBoardDto.setFile(questBoardService.saveFile(uploadfile));
             questBoardDto.setIp(boardService.getIp(request));
             String phone = questBoardDto.getPnum1()+questBoardDto.getPnum2()+ questBoardDto.getPnum3();
             questBoardDto.setPhone(phone);

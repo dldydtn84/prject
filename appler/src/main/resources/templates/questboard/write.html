@@ -167,7 +167,7 @@ margin: 0;
                                                 <span class="font-red">*</span>
                                             </th>
                                             <td>
-                                                <input type="text" id="name" name="name" class="form-control mr-sm-2"
+                                                <input type="text" id="name"  name="name" class="form-control mr-sm-2"
                                                        value="" maxlength="15"/>
                                                 <span th:text="${valid_name}"></span>
                                             </td>
@@ -178,6 +178,7 @@ margin: 0;
                                             <td>
                                                 <input type="email" name="email" id="email" class="form-control2"
                                                        value="" maxlength="50"/>
+                                                <br>
                                                 <span th:text="${valid_email}"></span>
                                             </td>
                                         </tr>
@@ -189,19 +190,23 @@ margin: 0;
                                             <td colspan="3">
                                                 <input type="text" name="pnum1" id="pnum1" class="form-control2 "
                                                        maxlength="3" title="핸드폰번호 첫자리 입력">
+
                                                 <span>-</span>
                                                 <input type="text" name="pnum2" id="pnum2" class="form-control2 "
                                                        maxlength="4" title="핸드폰번호 중간자리 입력">
                                                 <span>-</span>
                                                 <input type="text" name="pnum3" id="pnum3" class="form-control2 "
                                                        maxlength="4" title="핸드폰번호 마지막자리 입력">
+                                                <br>
+                                                <span th:text="${valid_pnum1}"></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><label for="subject">제목</label> <em class="font-red">*</em>
                                             </th>
                                             <td colspan="3"><input type="text" name="subject" id="subject"
-                                                                   class="form-control" maxlength="100"/></td>
+                                                                   class="form-control" maxlength="100"/>
+                                                <span th:text="${valid_subject}"></span></td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><label for="textarea">내용</label> <em class="font-red">*</em>
@@ -212,6 +217,7 @@ margin: 0;
                                                               title="내용입력"
                                                               placeholder="※ 불편사항이나 문의사항을 남겨주시면 최대한 신속하게 답변 드리겠습니다."
                                                               class="input-textarea"></textarea>
+                                                    <span th:text="${valid_contents}"></span>
 
                                                 </div>
                                             </td>
@@ -223,13 +229,11 @@ margin: 0;
                                                 <div class="upload-image-box">
 
                                                     <div class="info-txt">
-                                                        <p>* JPEG, PNG 형식의 5M 이하의 파일만 첨부 가능합니다. (최대 5개)</p>
+                                                        <p>* JPEG, PNG 형식의 5M 이하의 파일만 첨부 가능합니다. </p>
 
                                                         <!-- to 개발 : 이미지 추가가 5개가 되면 버튼 숨김 -->
-                                                        <button type="button" id="uploadBtn" class="btn-image-add">
-                                                            <span>파일선택</span></button>
+                                                        <input type="file" name="uploadfile" accept="image/*" placeholder="파일 선택" onchange="checkFile(this)" /><br/>
                                                         <!--// to 개발 : 이미지 추가가 5개가 되면 버튼 숨김 -->
-                                                        <p>* 개인정보가 포함된 이미지 등록은 자제하여 주시기 바랍니다.</p>
                                                     </div>
 
                                                     <div id="imgList"></div>
@@ -268,4 +272,15 @@ margin: 0;
         <!-- 공통 스크립트-->
         <th:block th:replace="include/script :: script"></th:block>
 </body>
+<script>
+    function checkFile(f){
+
+        var file = f.files;
+        if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)) alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+
+        else return;
+
+        f.outerHTML = f.outerHTML;
+    }
+</script>
 </html>

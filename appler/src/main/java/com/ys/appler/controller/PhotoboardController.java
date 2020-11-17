@@ -39,7 +39,7 @@ public class PhotoboardController {
                        @RequestParam(value = "page", defaultValue = "1") int page) {
 
         int totalcount = photoBoardService.totalcountService();
-log.info("totalcount : "+String.valueOf(totalcount));
+        log.info("totalcount : "+String.valueOf(totalcount));
 
         Criteria criteria = new Criteria();
         criteria.setPage(page);
