@@ -43,6 +43,33 @@
         password = #{temporaryPass}
         WHERE userid = #{id}
     </update>
+    <select id="nowpassCheck" resultType="int">
+        SELECT count(*)
+        FROM tbl_member
+        WHERE userid = #{id} and password =#{nowpass}
+    </select>
+    <update id="changePass" >
+        UPDATE tbl_member
+        SET
+        password = #{changpass}
+        WHERE userid = #{id}
+    </update>
+    <select id="nicknameCheck" resultType="int">
+        SELECT count(*)
+        FROM tbl_member
+        WHERE nickname = #{nickname}
+    </select>
+    <update id="nicknameChange" >
+        UPDATE tbl_member
+        SET
+        nickname = #{nickname}
+        WHERE userid = #{userid}
+    </update>
 
-
+    <update id="nameChange" >
+        UPDATE tbl_member
+        SET
+        name = #{name}
+        WHERE userid = #{userid}
+    </update>
 </mapper>

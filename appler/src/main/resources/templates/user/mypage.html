@@ -4,66 +4,44 @@
 
 <!-- 공통 헤더-->
 <th:block th:replace="include/head :: head"></th:block>
+
 <style>
-.modal_wrap{
-        display: none;
-        width: 500px;
-        height: 500px;
-        position: absolute;
-        top:50%;
-        left: 50%;
-        margin: -250px 0 0 -250px;
-        background:#eee;
-        z-index: 2;
-    }
-    .black_bg{
-        display: none;
-        position: absolute;
-        content: "";
-        width: 100%;
-        height: 100%;
-        background-color:rgba(0, 0,0, 0.5);
-        top:0;
-        left: 0;
-        z-index: 1;
-    }
-    .modal_close{
-        width: 26px;
-        height: 26px;
-        position: absolute;
-        top: -30px;
-        right: 0;
-    }
-    .modal_close> a{
-        display: block;
-        width: 100%;
-        height: 100%;
-        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
-        text-indent: -9999px;
-    }
-
-
+   .cumodal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        /* Modal Content/Box */
+        .cumodal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 13px;
+            width: 50%; /* Could be more or less, depending on screen size */
+        }
+        /* The Close Button */
+        .cuclose {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .cuclose:hover,
+        .cuclose:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
 </style>
-
-<script>
-    window.onload = function() {
-
-    function onClick() {
-        document.querySelector('.modal_wrap').style.display ='block';
-        document.querySelector('.black_bg').style.display ='block';
-    }
-    function offClick() {
-        document.querySelector('.modal_wrap').style.display ='none';
-        document.querySelector('.black_bg').style.display ='none';
-    }
-
-    document.getElementById('modal_btn').addEventListener('click', onClick);
-    document.querySelector('.modal_close').addEventListener('click', offClick);
- document.getElementById('close').addEventListener('click', offClick);
-};
-
-</script>
 
 
 <body id="page-top">
@@ -86,7 +64,7 @@
                             <col style="width:200px;">
                             <col style="width:100px;">
                             <col style="width:400px;">
-                            <col style="width:100px;">
+                            <col style="width:130px;">
                         </colgroup>
                         <tbody>
                         <tr>
@@ -99,7 +77,38 @@
                             </td>
                             <td>
                                 <div th:if="${contextread.emailauth.toString().equals('Y')}">인증완료</div>
-                                <div th:if="${contextread.emailauth.toString().equals('N')}"><a id="modal_btn">인증하기</a></div>
+                                <div th:if="${contextread.emailauth.toString().equals('N')}">
+
+
+                                    <span class="cubtn btn btn-outline-primary">인증하기</span>
+
+                                    <!-- 첫 번째 Modal -->
+                                    <div class="cumodal">
+
+                                        <!-- 첫 번째 Modal의 내용 -->
+                                        <div class="cumodal-content">
+                                            <div class="cumodal-header">
+                                                <span class="cuclose">&times;</span>
+                                                <h3 class="cumodal-title">이메일 인증</h3>
+
+                                            </div>
+                                            <hr>
+                                            <label>이메일&nbsp;</label>
+                                            <input type="text" name="email" id="email" th:value="${contextread.email}" class="form-control2" readonly/>
+                                            <button id="emailCheck" onclick="emailSend()" class="btn btn-outline-success">인증번호 보내기</button>
+                                            <br>
+                                            <label for="authcode">인증번호&nbsp;</label>
+                                            <input type="text" name="authcode" id="authcode" class="form-control2"><br>
+                                            <hr>
+                                           <div class="text-right">
+
+                                            <button type="button" onclick="emailCodeCheck()" class="btn btn-success">인증하기</button>
+                                           </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
 
                             </td>
                         </tr>
@@ -119,31 +128,35 @@
                             </td>
                             <td>
 
-                                <button id="testBtn" class="btn">비밀번호 변경</button>
-                                <!-- 회원가입 확인 Modal-->
-                                <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
 
-                                                <h3 class="modal-title" id="exampleModalLabel">비밀번호 변경</h3>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <input type="text">
-                                                </form>
+                                <span class="cubtn btn btn-outline-primary">비밀번호 변경</span>
 
+                                <!-- 두 번째 Modal -->
+                                <div class="cumodal">
 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a class="btn" id="modalY" href="#">예</a>
-                                                <button class="btn" type="button" data-dismiss="modal">아니요</button>
-                                            </div>
+                                    <div class="cumodal-content">
+                                        <div class="cumodal-header">
+                                            <span class="cuclose">&times;</span>
+                                            <h3 class="cumodal-title">비밀번호 변경</h3>
+
+                                        </div>
+                                        <hr>
+                                        <label for="nowpass">현재 비밀번호</label>
+                                        <input type="password" name="nowpass" id="nowpass" class="form-control2">
+                                        <div class="nowpassck"></div>
+                                        <hr>
+                                        <br>
+                                        <label for="newpass">새 비밀번호</label>
+                                        <input type="password" name="newpass" id="newpass" class="form-control2"><br>
+                                        <label for="againpass">새 비밀번호 확인</label>
+                                        <input type="password" name="againpass" id="againpass" class="form-control2"><br>
+                                        <hr>
+
+                                        <div class="text-right">
+                                        <button type="button" class="btn btn-success" id="changepass">인증하기</button>
                                         </div>
                                     </div>
                                 </div>
-
-
                             </td>
                         </tr>
                         <tr>
@@ -153,7 +166,32 @@
                                 <span th:text="${contextread.nickname}"></span>
                             </td>
                             <td>
-                                닉네임 변경
+
+                                <span class="cubtn btn btn-outline-primary">닉네임 변경</span>
+
+                                <!-- 두 번째 Modal -->
+                                <div class="cumodal">
+
+                                    <div class="cumodal-content">
+                                        <div class="cumodal-header">
+                                            <span class="cuclose">&times;</span>
+                                            <h3 class="cumodal-title">닉네임 변경</h3>
+
+                                        </div>
+                                        <hr>
+                                        <label for="nickname">닉네임</label>
+                                        <input type="text" name="nickname" id="nickname" class="form-control2">
+                                        <button id="nicknameCheck"class="btn btn-outline-success">중복확인</button>
+                                        <div class="nickcheck"></div>
+                                        <br>
+                                        <hr>
+                                        <div class="text-right">
+                                        <button id="nickchange" class="btn btn-success">변경하기</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </td>
                         </tr>
                         <tr>
@@ -163,28 +201,34 @@
                                 <span th:text="${contextread.name}"></span>
                             </td>
                             <td>
-                                이름 변경
+
+                                <span class="cubtn btn btn-outline-primary">이름 변경</span>
+
+                                <!-- 두 번째 Modal -->
+                                <div class="cumodal">
+
+                                    <div class="cumodal-content">
+                                        <div class="cumodal-header">
+                                            <span class="cuclose">&times;</span>
+                                            <h3 class="cumodal-title">이름 변경</h3>
+
+                                        </div>
+                                        <hr>
+                                        <label>이름</label>
+                                        <input type="text" name="name" id="name" class="form-control2">
+                                        <br>
+                                        <hr>
+                                        <div class="text-right">
+                                        <button id="namechange" class="btn btn-success">변경하기</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </td>
                         </tr>
                         </tbody>
                     </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                 </div>
@@ -250,32 +294,54 @@
 <th:block th:replace="include/footer :: footer"></th:block>
 
 
-<div class="modal_wrap">
-    <div class="modal_close"><a href="#">close</a></div>
-    <div>
-        <h4>이메일 인증</h4>
-        <hr>
-        <label>이메일</label>
-        <input type="text" name="email" id="email" value="qjsro3975@naver.com">
-        <button id="emailCheck" onclick="emailSend()">인증번호 보내기</button>
-        <br>
-        <label>인증번호</label>
-        <input type="text" name="authcode" id="authcode"><br>
-        <button type="button" id="close">취소</button>
-        <button type="button" onclick="emailCodeCheck()">인증하기</button>
-    </div>
+<script>
+    var modals = document.getElementsByClassName("cumodal");
+// Modal을 띄우는 클래스 이름을 가져옵니다.
+var btns = document.getElementsByClassName("cubtn");
+// Modal을 닫는 close 클래스를 가져옵니다.
+var spanes = document.getElementsByClassName("cuclose");
+var funcs = [];
 
-    <script>
-		$('#testBtn').click(function(e){
-			e.preventDefault();
-			$('#testModal').modal("show");
-		});
-	</script>
+// Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
+function Modal(num) {
+  return function() {
+    // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
+    btns[num].onclick =  function() {
+        modals[num].style.display = "block";
+        console.log(num);
+    };
+
+    // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.
+    spanes[num].onclick = function() {
+        modals[num].style.display = "none";
+
+    };
+  };
+}
+
+// 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의합니다.
+for(var i = 0; i < btns.length; i++) {
+  funcs[i] = Modal(i);
+}
+
+// 원하는 Modal 수만큼 funcs 함수를 호출합니다.
+for(var j = 0; j < btns.length; j++) {
+  funcs[j]();
+}
+
+// Modal 영역 밖을 클릭하면 Modal을 닫습니다.
+window.onclick = function(event) {
+  if (event.target.className == "cumodal") {
+      event.target.style.display = "none";
+  }
+};
+
+</script>
 
 
-    <script>
+<script>
 
-
+//이메일 인증
 var userid = [[ ${userid} ]];
 
 function emailSend(){
@@ -289,7 +355,7 @@ function emailSend(){
             url:"/user/email",
             data:{'userEmail':clientEmail},
             success : function(data){
-
+                alert('이메일을 확인해주세요');
             },error : function(e){
             alert('오류가 발생했습니다.');
             }
@@ -298,20 +364,32 @@ function emailSend(){
       alert('이메일 형식이 아닙니다.');
       }
 }
+
 function emailCodeCheck(){
 
     var authcode = document.getElementById('authcode').value;
 
-    $.ajax({
-            type:"POST",
-            url:"/user/emailcheck",
-            data:{'authcode':authcode,'userid':userid},
-            success : function(data){
+    if(authcode == ""){
+     alert("인증번호를 입력해주세요");
+    }else{
+        $.ajax({
+                type:"POST",
+                url:"/user/emailcheck",
+                data:{'authcode':authcode,'userid':userid},
+                success : function(data){
 
-            },error : function(e){
-            alert('오류가 발생했습니다.');
-            }
-            });
+                    if(data == 0){
+                      alert('인증번호가 일치하지 않습니다.');
+                    }else {
+                       alert('인증번호가 일치합니다.');
+                    }
+
+
+                },error : function(e){
+                alert('오류가 발생했습니다.');
+                }
+                });
+    }
 
 }
 
@@ -326,11 +404,135 @@ function isEmail(Value){
 }
 
 
-    </script>
+
+</script>
+<script>
+    $(document).ready(function(){
+
+     $("#changepass").click(function(){
+            var userid = [[ ${userid} ]];
+            var nowpass = document.getElementById('nowpass').value;
+            var newpass = document.getElementById('newpass').value;
+            var againpass = document.getElementById('againpass').value;
+
+               $.ajax({
+                        type:"POST",
+                        url:"/user/nowpassCheck",
+                        data:{'nowpass':nowpass,'userid':userid},
+                        success : function(data){
+
+                            if(data == 1){
+                              var a ='';
+                              a += '<p>확인되었습니다.</p>';
+                              $(".nowpassck").html(a);
+                            }else{
+                              var a ='';
+                              a += '<p>비밀번호가 맞지않습니다.</p>';
+                              $(".nowpassck").html(a);
+                            }
 
 
-    <!-- 공통 스크립트-->
-    <th:block th:replace="include/script :: script"></th:block>
+                        },error : function(e){
+                        alert('오류가 발생했습니다.');
+                        }
+               });
+
+
+			if($("#newpass").val() !== $("#againpass").val()){
+				alert("비밀번호가 다릅니다.");
+				$("#newpass").val("").focus();
+				$("#againpass").val("");
+				return false;
+			}else if ($("#newpass").val().length < 8) {
+				alert("비밀번호는 8자 이상으로 설정해야 합니다.");
+				$("#newpass").val("").focus();
+				return false;
+			}else if($.trim($("#newpass").val()) !== $("#newpass").val()){
+				alert("공백은 입력이 불가능합니다.");
+				return false;
+			}else {
+
+			       $.ajax({
+                        type:"POST",
+                        url:"/user/changePass",
+                        data:{'newpass':newpass,'againpass':againpass, 'userid':userid},
+                        success : function(data){
+                            if(data ==1){
+                                alert('정상적으로 변경되었습니다.');
+                            }else{
+                                alert('에러가 발생했습니다.');
+                            }
+
+
+
+                        },error : function(e){
+                        alert('오류가 발생했습니다.');
+                        }
+                        });
+			}
+		});
+	})
+
+	 $("#nicknameCheck").click(function(){
+        var nickname = $("#nickname").val();
+
+             $.ajax({
+                  type:"POST",
+                      url:"/user/nicknameCheck",
+                      data:{'nickname':nickname},
+                      success : function(data){
+                           if(data ==1){
+                            alert('사용이 불가능한 닉네임입니다.');
+                          } else{
+                              var a ='';
+                              a += '<p>사용가능한 닉네임입니다.</p>';
+                              $(".nickcheck").html(a);
+                           }
+
+                      },error : function(e){
+                      alert('오류가 발생했습니다.');
+                      }
+             });
+
+	 });
+
+    $("#nickchange").click(function(){
+        var nickname = $("#nickname").val();
+        var userid = [[ ${userid} ]];
+             $.ajax({
+                  type:"POST",
+                      url:"/user/nicknamechange",
+                      data:{'nickname':nickname,'userid':userid},
+                      success : function(data){
+
+                      },error : function(e){
+                      alert('오류가 발생했습니다.');
+                      }
+             });
+
+	 });
+
+     $("#namechange").click(function(){
+        var name = $("#name").val();
+        var userid = [[ ${userid} ]];
+             $.ajax({
+                  type:"POST",
+                      url:"/user/namechange",
+                      data:{'name':name,'userid':userid},
+                      success : function(data){
+alert('수정완료');
+                      },error : function(e){
+                      alert('오류가 발생했습니다.');
+                      }
+             });
+
+	 });
+
+</script>
+
+
+<!-- 공통 스크립트-->
+<th:block th:replace="include/script :: script"></th:block>
 </body>
 
 </html>

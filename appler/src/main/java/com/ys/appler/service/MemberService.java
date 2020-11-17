@@ -70,6 +70,29 @@ public class MemberService {
 
         return result;
     }
+    public int nowpassCheckService(String id,String nowpass){
+        int result= memberMapper.nowpassCheck(id, nowpass);
 
+        return result;
+    }
+    public int changePassService(String id,String changpass){
+        int result= memberMapper.changePass(id, changpass);
 
+        return result;
+    }
+    public int nicknameCheckService(String nickname){
+        int result= memberMapper.nicknameCheck(nickname);
+
+        return result;
+    }
+    public int nicknameChangeService(String nickname,String userid){
+        int result= memberMapper.nicknameChange(nickname, userid);
+
+        return result;
+    }
+    public int nameChangeService(String name,String userid){
+        int result= memberMapper.nameChange(name, userid);
+
+        return result;
+    }
 }

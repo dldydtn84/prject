@@ -5,111 +5,132 @@
     <title>Title</title>
 </head>
 <style>
-    .sc_login {
-    padding: 16px 16px 12px 17px;
-    background-color: #f7f9fa;
-    border: 1px solid #dae1e6;
-}
-.blind {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-}
-.sc_login .login_msg {
-    padding-left: 3px;
-    color: grey;
-}
-.sc_login .link_login {
-    display: block;
-    padding: 15px 0;
-    margin-top: 11px;
-    background-color: #19ce60;
-    border: 1px solid #15c654;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    font-size: 13px;
-    color: #fff;
-    font-weight: 700;
-    text-align: center;
-    text-decoration: none;
-}
-.sc_login .ico_naver {
-    display: inline-block;
-    width: 60px;
-    height: 12px;
-    background-position: -271px -267px;
-    background-repeat: no-repeat;
-    vertical-align: top;
-    margin: 2px 5px 0 0;
-}
-.sc_login .sub_area {
-    margin: 14px 8px 0 4px;
-}
-.sc_login .sub_area .look_box {
-    float: left;
-}
-.sc_login .sub_area .link_look {
-    color: #404040;
-}
-.sc_login .sub_area .link_look+.link_look:before {
-    background-color: #d7dce0;
-    display: inline-block;
-    width: 3px;
-    height: 3px;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    vertical-align: top;
-    content: '';
-    margin: 0 5px 0 2px;
-    vertical-align: 3px;
-}
-.sc_login .sub_area .look_box:before {
-    display: inline-block;
-    width: 10px;
-    height: 14px;
-    background-position: -408px -55px;
-    background-repeat: no-repeat;
-    vertical-align: top;
-    content: '';
-    margin: -1px 1px 1px;
-}
-.sc_login .sub_area:after {
-    content: "";
-    display: table;
-    table-layout: fixed;
-    clear: both;
-}
-.sc_login .sub_area .link_join {
-    float: right;
-    color: #505050;
-}
-.sc_login .sub_area .link_join:before {
-    display: inline-block;
-    width: 11px;
-    height: 11px;
-    background-position: -332px -308px;
-    background-repeat: no-repeat;
-    vertical-align: top;
-    content: '';
-    margin: 2px 5px 0 0;
-}
+   .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */
+        }
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
 </style>
 <body>
-<div id="account" class="sc_login">
-    <h2 class="blind">로그인</h2>
-    <p class="login_msg">네이버를 더 안전하고 편리하게 이용하세요</p>
-    <a href="https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com" class="link_login" data-clk="log_off.login"><i class="ico_naver"><span class="blind">네이버</span></i>로그인</a>
-    <div class="sub_area">
-        <div class="look_box">
-            <a href="https://nid.naver.com/user/help.nhn?todo=idinquiry" class="link_look" data-clk="log_off.searchid">아이디</a>
-            <a href="https://nid.naver.com/nidreminder.form" class="link_look" data-clk="log_off.searchpass">비밀번호찾기</a>
+<h1 class="btn">MODAL_1</h1>
+
+<!-- 첫 번째 Modal -->
+<div class="modal">
+
+    <!-- 첫 번째 Modal의 내용 -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h3 class="modal-title" >이메일 인증</h3>
+
         </div>
-        <a href="https://nid.naver.com/nidregister.form?url=https%3A%2F%2Fwww.naver.com" class="link_join" data-clk="log_off.registration">회원가입</a>
+        <hr>
+        <label>이메일</label>
+        <input type="text" name="email" id="email" value="qjsro3975@naver.com">
+        <button id="emailCheck" onclick="emailSend()">인증번호 보내기</button>
+        <br>
+        <label>인증번호</label>
+        <input type="text" name="authcode" id="authcode"><br>
+        <button type="button" id="close">취소</button>
+        <button type="button" onclick="emailCodeCheck()">인증하기</button>
     </div>
 </div>
 
+<hr>
+<!-- 두 번째 Modal을 여는 클래스 -->
+<h1 class="btn">MODAL_2</h1>
+
+<!-- 두 번째 Modal -->
+<div class="modal">
+
+    <!-- 두 번째 Modal의 내용 -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>두 번째 Modal</p>
+    </div>
+</div>
+
+<hr>
+<!-- 세 번째 Modal을 여는 클래스 -->
+<h1 class="btn">MODAL_3</h1>
+
+<!-- 세 번째 Modal -->
+<div class="modal">
+
+    <!-- 세 번째 Modal의 내용 -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>세 번째 Modal</p>
+    </div>
+</div>
+<script>
+    var modals = document.getElementsByClassName("modal");
+// Modal을 띄우는 클래스 이름을 가져옵니다.
+var btns = document.getElementsByClassName("btn");
+// Modal을 닫는 close 클래스를 가져옵니다.
+var spanes = document.getElementsByClassName("close");
+var funcs = [];
+
+// Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
+function Modal(num) {
+  return function() {
+    // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
+    btns[num].onclick =  function() {
+        modals[num].style.display = "block";
+        console.log(num);
+    };
+
+    // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.
+    spanes[num].onclick = function() {
+        modals[num].style.display = "none";
+    };
+  };
+}
+
+// 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의합니다.
+for(var i = 0; i < btns.length; i++) {
+  funcs[i] = Modal(i);
+}
+
+// 원하는 Modal 수만큼 funcs 함수를 호출합니다.
+for(var j = 0; j < btns.length; j++) {
+  funcs[j]();
+}
+
+// Modal 영역 밖을 클릭하면 Modal을 닫습니다.
+window.onclick = function(event) {
+  if (event.target.className == "modal") {
+      event.target.style.display = "none";
+  }
+};
+</script>
 </body>
 </html>

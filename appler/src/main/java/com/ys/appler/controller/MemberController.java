@@ -23,6 +23,8 @@ import java.util.Map;
 @Slf4j
 public class MemberController {
 
+    private  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Autowired
     MemberService memberService;
 
@@ -51,7 +53,7 @@ public class MemberController {
 
     @PostMapping("/user/singuppro")
     public String singuppro(@Valid MemberDto memberDto , Errors errors, Model model,HttpSession session){
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 
         String inputPass=memberDto.getPassword();
         memberDto.setPassword(passwordEncoder.encode(inputPass));
@@ -73,7 +75,7 @@ public class MemberController {
             return "/user/singup";
         }
         else {
-        String userid =memberDto.getUserid();
+            String userid =memberDto.getUserid();
            session.setAttribute("greeting", userid);
            memberService.memberSingupService(memberDto);
 
@@ -188,7 +190,7 @@ public class MemberController {
     @PostMapping("/user/account_search")
     @ResponseBody
     public int account_success(String userid, String useremail, Model model) throws Exception {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
         String type="account";
         mailService.createMessage(useremail, type);
 
@@ -200,14 +202,71 @@ public class MemberController {
 
 
         return result;
+    }
 
-     /*  if(result == 1){
+    @PostMapping("/user/nowpassCheck")
+    @ResponseBody
+    public int nowpassCheck(String userid, String nowpass, Model model) throws Exception {
 
-            return result ;
-        }else{
-            return result ;
-        }*/
+        int result =  memberService.nowpassCheckService(userid,passwordEncoder.encode(nowpass));
+        //현재 비밀번호 체크
 
+        return result;
+    }
+
+    @PostMapping("/user/changePass")
+    @ResponseBody
+    public int changePass(String newpass, String againpass, String userid, Model model) throws Exception {
+        if(newpass.equals(againpass)) {
+            int result = memberService.changePassService(userid, passwordEncoder.encode(newpass));
+
+            log.info("result :"+result);
+
+
+            return result;
+        }else {
+
+            return 0;
+        }
+    }
+
+    @PostMapping("/user/nicknameCheck")
+    @ResponseBody
+    public int nicknameCheck(String nickname, Model model) throws Exception {
+
+        int result = memberService.nicknameCheckService(nickname);
+        //닉네임 중복확인
+        log.info("result ::"+result);
+
+
+
+    return result;
+    }
+    @PostMapping("/user/nicknamechange")
+    @ResponseBody
+    public int nicknamechange(String nickname,String userid, Model model) throws Exception {
+
+    int result = memberService.nicknameChangeService(nickname, userid);
+        //닉네임 중복확인
+       /* log.info("result ::"+result);*/
+log.info("nickname:: "+nickname);
+        log.info("userid:: "+userid);
+        log.info("result:: "+result);
+
+        return result;
+    }
+
+    @PostMapping("/user/namechange")
+    @ResponseBody
+    public int namechange(String name,String userid, Model model) throws Exception {
+
+        int result = memberService.nameChangeService(name, userid);
+
+        log.info("name:: "+name);
+        log.info("userid:: "+userid);
+        log.info("result:: "+result);
+
+        return result;
     }
 
 }
