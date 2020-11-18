@@ -1,5 +1,6 @@
 package com.ys.appler.controller;
 
+import com.ys.appler.config.auth.PrincipalDetails;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.MemberDto;
 import com.ys.appler.dto.PhotoBoardDto;
@@ -9,14 +10,19 @@ import com.ys.appler.service.PhotoBoardService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -38,6 +44,28 @@ public class HomeController {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
+    @GetMapping("/test/login")
+    public @ResponseBody String testLogin(Authentication authentication, @AuthenticationPrincipal PrincipalDetails userDetails){
+        System.out.println("testlogin ==============");
+        PrincipalDetails principalDetails =(PrincipalDetails)authentication.getPrincipal();
+        System.out.println("authentication :"+principalDetails.getMemberDto())  ;
+        System.out.println("userDetails :"+userDetails.getMemberDto())  ;
+        System.out.println("userDetails :"+userDetails.getPassword())  ;
+        return "세션정보확인";
+    }
+
+
+
+
+    @GetMapping("/test/oauth/login")
+    public @ResponseBody String testOAuthLogin(Authentication authentication){
+        System.out.println("testlogin ==============");
+        OAuth2User OAuth2User =(OAuth2User)authentication.getPrincipal();
+        System.out.println("authentication :"+OAuth2User.getAttributes())  ;
+        System.out.println("userDetails :"+OAuth2User.getName())  ;
+
+        return "세션정보확인";
+    }
 
 
 

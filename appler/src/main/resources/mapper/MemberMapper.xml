@@ -10,6 +10,11 @@
         FROM tbl_member
         WHERE userid = #{userid}
     </select>
+    <select id="findByusername" resultType="com.ys.appler.dto.MemberDto">
+        SELECT *
+        FROM tbl_member
+        WHERE userid = #{username}
+    </select>
 
    <insert id="memberSingup"  parameterType="com.ys.appler.dto.MemberDto" >
         INSERT INTO tbl_member (userid, password, nickname, name, email, enabled, authority,emailauth, point, lastdate, date)

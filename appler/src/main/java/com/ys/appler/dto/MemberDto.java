@@ -1,12 +1,13 @@
 package com.ys.appler.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.*;
 import java.util.Date;
 
-@Getter @Setter
+@Data
 public class MemberDto {
 
     private int no;

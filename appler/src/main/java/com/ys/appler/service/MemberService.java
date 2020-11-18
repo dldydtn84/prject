@@ -31,6 +31,11 @@ public class MemberService {
         memberMapper.memberSingup(memberDto);
     }
 
+
+    public MemberDto findByusernameService(String username){
+       MemberDto result =  memberMapper.findByusername(username);
+        return result;
+    }
     public int memberidCheckService(String id){
          int result =  memberMapper.idCheck(id);
         return result;

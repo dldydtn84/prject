@@ -38,7 +38,7 @@ public class MemberController {
         return "/user/login";
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("/login")
     public String loginp(){
 
 
@@ -53,7 +53,7 @@ public class MemberController {
 
     @PostMapping("/user/singuppro")
     public String singuppro(@Valid MemberDto memberDto , Errors errors, Model model,HttpSession session){
-
+        System.out.println("memberDto: "+memberDto);
 
         String inputPass=memberDto.getPassword();
         memberDto.setPassword(passwordEncoder.encode(inputPass));
@@ -82,7 +82,7 @@ public class MemberController {
             return "redirect:/user/mypage?userid="+userid;
         }
 
-        /*return "redirect:/";*/
+
     }
 
     @GetMapping("/user/idCheck")

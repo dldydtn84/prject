@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper {
 
     int idCheck(String id);
+    MemberDto findByusername(String username);
     void memberSingup(MemberDto memberDto);
     MemberDto memberRead(String userid);
     void memberAuth(String userid);
