@@ -63,7 +63,7 @@ public class QuestBoardController {
         }
         else {
 log.info("......Tlqkf");
-            questBoardDto.setFile(questBoardService.saveFile(uploadfile));
+           /* questBoardDto.setFile(questBoardService.saveFile(uploadfile));*/
             questBoardDto.setIp(boardService.getIp(request));
             String phone = questBoardDto.getPnum1()+questBoardDto.getPnum2()+ questBoardDto.getPnum3();
             questBoardDto.setPhone(phone);

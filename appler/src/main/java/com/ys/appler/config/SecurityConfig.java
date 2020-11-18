@@ -1,5 +1,6 @@
 package com.ys.appler.config;
 
+import com.ys.appler.config.oauth.PrincipalOauth2UserService;
 import com.ys.appler.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,12 +24,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
                 .antMatchers("/css/**","/img/**", "/script/**", "/","/static/**","/user/singup","/user/idsearch","/user/pwsearch");
-               /* .antMatchers("**");*/
+                /*.antMatchers("**");*/
                       //.antMatchers("/css/**", "/script/**", "/");
     }
     @Override
@@ -45,6 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("/user/login")
                     .successHandler(new LoginSuccessHandler())
+                    .and()
+                .oauth2Login()
+                    .loginPage("/user/login")
+                      .userInfoEndpoint()
+                     .userService(principalOauth2UserService)
                     .and()
                 .logout()
                     .logoutUrl("/user/logout")

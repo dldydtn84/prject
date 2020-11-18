@@ -38,6 +38,10 @@ public class HomeController {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
+
+
+
+
     @GetMapping("/")
     public String index(Model model, HttpSession session  ) {
 
