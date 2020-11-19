@@ -242,14 +242,14 @@ a { text-decoration:none; color:#000;}
 
         <div class="col-sm-4">
 
-            <div th:if="${session.greeting}">
+            <div th:if="${username}">
                 <div style="border: 1px solid #dae1e6;">
                     <div class="box-body" style="display: flex; align-items: center;">
                         <div style="float: left">
                             <img th:src="@{/img/}+man.png" class=""  style="width: 50px; height: 50px;">
                         </div>
                         <div>
-                            <div class="" th:text="${userid} + '님 환영합니다.!'"></div>
+                            <div class="" th:text="${username} + '님 환영합니다.!'"></div>
                         </div>
                     </div>
                     <div class="box-footer" style="display: flex;">
@@ -266,7 +266,7 @@ a { text-decoration:none; color:#000;}
                     </div>
                 </div>
             </div>
-            <div th:unless="${session.greeting}">
+            <div th:unless="${username}">
 
                 <div id="account" class="sc_login">
 

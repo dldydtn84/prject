@@ -45,12 +45,12 @@ public class HomeController {
     BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/test/login")
-    public @ResponseBody String testLogin(Authentication authentication, @AuthenticationPrincipal PrincipalDetails userDetails){
+    public @ResponseBody String testLogin( @AuthenticationPrincipal PrincipalDetails PrincipalDetails){
         System.out.println("testlogin ==============");
-        PrincipalDetails principalDetails =(PrincipalDetails)authentication.getPrincipal();
-        System.out.println("authentication :"+principalDetails.getMemberDto())  ;
-        System.out.println("userDetails :"+userDetails.getMemberDto())  ;
-        System.out.println("userDetails :"+userDetails.getPassword())  ;
+
+
+        System.out.println("userDetails :"+PrincipalDetails.getMemberDto())  ;
+        System.out.println("userDetails :"+PrincipalDetails.getPassword())  ;
         return "세션정보확인";
     }
 
@@ -58,11 +58,11 @@ public class HomeController {
 
 
     @GetMapping("/test/oauth/login")
-    public @ResponseBody String testOAuthLogin(Authentication authentication){
+    public @ResponseBody String testOAuthLogin(Model model,@AuthenticationPrincipal PrincipalDetails PrincipalDetails){
         System.out.println("testlogin ==============");
-        OAuth2User OAuth2User =(OAuth2User)authentication.getPrincipal();
-        System.out.println("authentication :"+OAuth2User.getAttributes())  ;
-        System.out.println("userDetails :"+OAuth2User.getName())  ;
+
+        System.out.println("PrincipalDetails :"+PrincipalDetails.getMemberDto())  ;
+
 
         return "세션정보확인";
     }
@@ -72,7 +72,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model, HttpSession session  ) {
-
+        System.out.println("한글테스트 ==============");
         List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
         List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
         List<BoardDto> cbcontextList = boardService.IndexContextListService("CB");
@@ -81,18 +81,18 @@ public class HomeController {
         Object userid = session.getAttribute("greeting");
 
 
+
+
+
+
+
         model.addAttribute("fbcontextList",fbcontextList);
         model.addAttribute("qbcontextList",qbcontextList);
         model.addAttribute("cbcontextList",cbcontextList);
         model.addAttribute("photoList",photoList);
         model.addAttribute("userid",userid);
 
-        String pass ="s8s0XQcD";
-        String pass1 ="$2a$10$O2UPzPKGKYtA56l2wLiDAuZOxKVXbTxDaMuqjkSBzaJTJksQiFlx.";
-        boolean pwmatch = passwordEncoder.matches(pass, pass1);
 
-
-        System.out.println("pass : "+pwmatch);
         return "index";
     }
 

@@ -9,6 +9,7 @@ public interface MemberMapper {
     int idCheck(String id);
     MemberDto findByusername(String username);
     void memberSingup(MemberDto memberDto);
+    int oauthJoin(MemberDto memberDto);
     MemberDto memberRead(String userid);
     void memberAuth(String userid);
     String memberIdSearch(String name,String email);

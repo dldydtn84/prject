@@ -30,7 +30,10 @@ public class MemberService {
 
         memberMapper.memberSingup(memberDto);
     }
-
+    public int oauthJoinService(MemberDto memberDto){
+       int result = memberMapper.oauthJoin(memberDto);
+        return result;
+    }
 
     public MemberDto findByusernameService(String username){
        MemberDto result =  memberMapper.findByusername(username);

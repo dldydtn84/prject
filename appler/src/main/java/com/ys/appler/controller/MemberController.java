@@ -23,7 +23,8 @@ import java.util.Map;
 @Slf4j
 public class MemberController {
 
-    private  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+   BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     MemberService memberService;

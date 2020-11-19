@@ -26,6 +26,8 @@ public class MemberDto {
     private String enabled;
     private String authority;
     private String emailauth;
+    private String provider;
+    private String providerid;
     private int point;
     private Date lastdate;
     private Date date;
