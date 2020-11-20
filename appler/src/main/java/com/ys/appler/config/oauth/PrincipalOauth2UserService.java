@@ -5,6 +5,7 @@ import com.ys.appler.dto.MemberDto;
 import com.ys.appler.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -12,8 +13,14 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 
 
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +28,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
+public class PrincipalOauth2UserService extends DefaultOAuth2UserService  {
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
@@ -37,6 +44,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     private String email;
     private String name;
     private String nickname;
+
 
 
     //구글로 부터 받은 데이터의 후처리 로직
@@ -85,15 +93,13 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
             provider = userRequest.getClientRegistration().getRegistrationId(); //naver
             providerId= String.valueOf(oauth2User.getAttributes().get("id"));
-            username = provider+"_"+providerId;
+             username = provider+"_"+providerId;
             password= passwordEncoder.encode("Appler");
             email= String.valueOf(Attributes.get("email"));
             name= String.valueOf(Attributes2.get("nickname"));
             nickname = nNick();
 
         }
-
-
 
 
         System.out.println("provider : "+provider);
@@ -133,5 +139,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String text = 닉.get(0)+네임.get(0);
         return text;
     }
+
 
 }

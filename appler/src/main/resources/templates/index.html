@@ -242,7 +242,7 @@ a { text-decoration:none; color:#000;}
 
         <div class="col-sm-4">
 
-            <div th:if="${username}">
+            <div th:if="${session.greeting}">
                 <div style="border: 1px solid #dae1e6;">
                     <div class="box-body" style="display: flex; align-items: center;">
                         <div style="float: left">
@@ -266,7 +266,7 @@ a { text-decoration:none; color:#000;}
                     </div>
                 </div>
             </div>
-            <div th:unless="${username}">
+            <div th:unless="${session.greeting}">
 
                 <div id="account" class="sc_login">
 

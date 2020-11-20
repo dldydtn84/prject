@@ -32,7 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/board/**").authenticated()
                 .anyRequest()
                 .permitAll()
-
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
@@ -42,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .loginPage("/user/login")
         .userInfoEndpoint()
-        .userService(principalOauth2UserService);
+        .userService(principalOauth2UserService)
+        ;
 
 
     }
