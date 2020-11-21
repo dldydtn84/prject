@@ -22,9 +22,19 @@ public class SockerHandler  extends TextWebSocketHandler {
 
         //session으로부터 메세지를 받음
         log.info("{}로 부터 {}받음 ", session.getId(), message.getPayload());
+        String text = session.getId()+message.getPayload();
+
+        System.out.println("dasdsadsa ::"+session.getAttributes());
+        System.out.println("dasdsadsasda ::"+ session.getPrincipal());
+
+
+        System.out.println("dasdsadasddassa ::"+session.getId());
+
+
+
 
         for(WebSocketSession sess : sessionList){
-            sess.sendMessage(new TextMessage(message.getPayload()));
+            sess.sendMessage(new TextMessage(text));
             //세션을 principal 을 이용하여 불러온뒤 메세지는 전체전달한다.
         }
 

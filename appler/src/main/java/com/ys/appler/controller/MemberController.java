@@ -1,10 +1,12 @@
 package com.ys.appler.controller;
 
+import com.ys.appler.config.auth.PrincipalDetails;
 import com.ys.appler.dto.MemberDto;
 import com.ys.appler.service.MailService;
 import com.ys.appler.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,9 +42,9 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String loginp(){
-
-
+    public String loginp(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        String test = String.valueOf(principalDetails.getAttributes().get("userid"));
+System.out.println("asdasd:: "+ test);
 
         return "redirect:/";
     }

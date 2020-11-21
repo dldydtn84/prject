@@ -71,7 +71,7 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String index(Model model, HttpSession session ,@AuthenticationPrincipal PrincipalDetails PrincipalDetails ) {
+    public String index(Model model, HttpSession session ,@AuthenticationPrincipal PrincipalDetails principalDetails ) {
         System.out.println("한글테스트 ==============");
         List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
         List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
@@ -79,10 +79,11 @@ public class HomeController {
 
         List<PhotoBoardDto> photoList = photoBoardService.IndexPhotoListService();
 
-
-        String test= String.valueOf(PrincipalDetails);
+  /*      String test2 = String.valueOf(principalDetails.getAttributes().get("id"));*/
+        String test= String.valueOf(principalDetails);
         System.out.println("ad"+ test);
-        System.out.println("aasdd"+ session.getAttribute("JSESSIONID"));
+     /*   System.out.println("adads"+ test2);*/
+
    if(test == "null"){
        System.out.println("adsasdadsadsadsdsadsa");
 
