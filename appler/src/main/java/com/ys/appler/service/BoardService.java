@@ -78,6 +78,24 @@ public class BoardService {
         return boardlist;
     }
 
+    public List<BoardDto> BestcontextListService(){
+
+        List<BoardDto> boardlist = boardMapper.BestcontextList();
+        return boardlist;
+    }
+    public List<BoardDto> NewcontextListService(){
+
+        List<BoardDto> boardlist = boardMapper.NewcontextList();
+        return boardlist;
+    }
+
+
+
+
+
+
+
+
     public int selectListnoService(int board){
 
         String boardcode = Boardnum(board);

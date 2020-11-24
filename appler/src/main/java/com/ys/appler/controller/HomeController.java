@@ -78,6 +78,8 @@ public class HomeController {
         List<BoardDto> cbcontextList = boardService.IndexContextListService("CB");
 
         List<PhotoBoardDto> photoList = photoBoardService.IndexPhotoListService();
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
 
   /*      String test2 = String.valueOf(principalDetails.getAttributes().get("id"));*/
         String test= String.valueOf(principalDetails);
@@ -95,6 +97,9 @@ public class HomeController {
         model.addAttribute("qbcontextList",qbcontextList);
         model.addAttribute("cbcontextList",cbcontextList);
         model.addAttribute("photoList",photoList);
+
+        model.addAttribute("bestcontextList",bestcontextList);
+        model.addAttribute("newcontextList",newcontextList);
 
 
 

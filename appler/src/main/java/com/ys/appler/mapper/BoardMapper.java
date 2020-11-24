@@ -12,6 +12,11 @@ import java.util.Map;
 public interface BoardMapper {
 
     List<BoardDto> contextList(String boardcode);
+    List<BoardDto> BestcontextList();
+    List<BoardDto> NewcontextList();
+
+
+
     int selectListno(String boardcode);
     BoardDto contextRead(String boardcode, int no);
     void contextWrite(BoardDto boardDto);

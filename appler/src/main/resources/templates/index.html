@@ -300,14 +300,21 @@ a { text-decoration:none; color:#000;}
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade" id="home">
-                            <th:block th:each="fbcontext: ${fbcontextList}">
-                                <a th:href="">
-                                    <span th:text="${fbcontext.subject}+' ['+ ${fbcontext.comment}+']'"></span></a>
+                            <th:block th:each="bestcontextList: ${bestcontextList}">
+
+                                    <span th:text="${bestcontextList.subject}+' ['+ ${bestcontextList.comment}+']'"></span><br>
 
                             </th:block>
                         </div>
                         <div class="tab-pane fade active show" id="profile">
-                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+                            <th:block th:each="newcontextList: ${newcontextList}">
+
+                                <span th:text="${newcontextList.subject}+' ['+ ${newcontextList.comment}+']'"></span><br>
+
+
+
+                            </th:block>
+
                         </div>
 
                     </div>
