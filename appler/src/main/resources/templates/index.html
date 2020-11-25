@@ -4,16 +4,31 @@
 
 <!-- 공통 헤더-->
 <th:block th:replace="include/head :: head"></th:block>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <style>
-<!--채팅 및 사진공유 -->
+
 		.chating{
 			height: 320px;
 			overflow: auto;
 		}
 		.chating p{
-margin: 0;
+            margin: 0;
 			text-align: left;
+			    max-width: 280px;
+    padding: 10px;
+    border-radius: 12px;
+    background-color: rgb(240, 240, 241);
+    color: rgb(36, 36, 40);
 		}
+		.chat h4,
+		.chat span{
+		    display: inline;
+		}
+        .chatimg {
+             font-size: 25px;
+             margin: 10px;
+        }
+
 .photo h4, .photo span{
 display: inline;
 }
@@ -125,7 +140,7 @@ display: inline;
 </style>
 
 <style type="text/css">
-<!--게시판 게시글 활성화창-->
+
 ul,li {list-style:none;}
 a { text-decoration:none; color:#000;}
 .tab { boarder:1px solid #ddd; border-left:none; background:#fff; overflow:hidden;}
@@ -189,19 +204,24 @@ a { text-decoration:none; color:#000;}
 
 
             <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">실시간 채팅</h4>
+                <div class="card-body chat">
+                    <h4 class="card-title">실시간 채팅</h4><span class="chatimg"><i class="far fa-comments"></i></span>
                     <div id="chating" class="chating">
                     </div>
-
+                    <i class="fas fa-user-circle"></i>
 
                     <div id="yourMsg">
                         <table class="inputTable">
+                            <colgroup>
+                                <col width="70px" />
+                                <col width="400px" />
+                                <col width="80px"  />
+                            </colgroup>
                             <tr>
                                 <th>메시지</th>
-                                <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
+                                <th><input id="chatting" class="form-control" placeholder="보내실 메시지를 입력하세요."></th>
                                 <th>
-                                    <button onclick="send()" id="sendBtn">보내기</button>
+                                    <button  class="btn btn-success" onclick="send()" id="sendBtn">보내기</button>
                                 </th>
                             </tr>
                         </table>
@@ -283,7 +303,7 @@ a { text-decoration:none; color:#000;}
 
             </div>
 
-            <div class="">
+            <div class="" style="">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#home">인기글</a>
@@ -384,6 +404,9 @@ $( document ).ready(function() {
 		});
 	}
 	function send() {
+
+
+
 
 		var msg = $("#chatting").val();
 		ws.send(msg);

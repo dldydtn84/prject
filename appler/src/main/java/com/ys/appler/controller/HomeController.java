@@ -98,17 +98,7 @@ public class HomeController {
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 
-     String test2 = String.valueOf(principalDetails.getAttributes());
-        String test= String.valueOf(principalDetails.getMemberDto().getNickname());
-        System.out.println("ad"+ test);
-     System.out.println("adads"+ test2);
 
-   if(test == "null"){
-       System.out.println("adsasdadsadsadsdsadsa");
-
-   }else{
-       System.out.println("success");
-   }
 
         model.addAttribute("fbcontextList",fbcontextList);
         model.addAttribute("qbcontextList",qbcontextList);
