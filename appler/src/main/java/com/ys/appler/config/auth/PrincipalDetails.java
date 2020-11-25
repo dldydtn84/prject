@@ -52,7 +52,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getUsername() {
-        return memberDto.getUserid();
+        return memberDto.getNickname();
     }
 
     @Override

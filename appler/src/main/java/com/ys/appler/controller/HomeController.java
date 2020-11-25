@@ -73,6 +73,23 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model, HttpSession session ,@AuthenticationPrincipal PrincipalDetails principalDetails ) {
         System.out.println("한글테스트 ==============");
+
+
+/*
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PrincipalDetails user = (PrincipalDetails) authentication.getPrincipal();
+
+        System.out.println("tt ::"+user.getUsername());*/
+/*
+
+        System.out.println("tasdasdasdat ::"+  principalDetails.getAttributes().get);
+*/
+
+
+
+
+
+
         List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
         List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
         List<BoardDto> cbcontextList = boardService.IndexContextListService("CB");
@@ -81,10 +98,10 @@ public class HomeController {
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 
-  /*      String test2 = String.valueOf(principalDetails.getAttributes().get("id"));*/
-        String test= String.valueOf(principalDetails);
+     String test2 = String.valueOf(principalDetails.getAttributes());
+        String test= String.valueOf(principalDetails.getMemberDto().getNickname());
         System.out.println("ad"+ test);
-     /*   System.out.println("adads"+ test2);*/
+     System.out.println("adads"+ test2);
 
    if(test == "null"){
        System.out.println("adsasdadsadsadsdsadsa");

@@ -5,17 +5,16 @@
 <!-- 공통 헤더-->
 <th:block th:replace="include/head :: head"></th:block>
 <style>
-
+<!--채팅 및 사진공유 -->
 		.chating{
 			height: 320px;
 			overflow: auto;
 		}
 		.chating p{
-
+margin: 0;
 			text-align: left;
 		}
-.photo h4,
-.photo span{
+.photo h4, .photo span{
 display: inline;
 }
 .photo span{
@@ -23,6 +22,7 @@ display: inline;
     right: 0;
     margin: 0px 20px 0px 0px;
     }
+
 
 
 </style>
@@ -121,10 +121,11 @@ display: inline;
 
 
 
+
 </style>
 
 <style type="text/css">
-
+<!--게시판 게시글 활성화창-->
 ul,li {list-style:none;}
 a { text-decoration:none; color:#000;}
 .tab { boarder:1px solid #ddd; border-left:none; background:#fff; overflow:hidden;}
@@ -134,11 +135,11 @@ a { text-decoration:none; color:#000;}
 .tab_con { clear:both; margin-top:5px; }
 .tab_con div {     display: none; line-height: 30px;}
 
-    </style>
+
+</style>
 
 <body id="page-top">
 <th:block th:replace="include/top :: top"></th:block>
-
 
 
 <div class="container" style="margin-top: 50px">
@@ -149,7 +150,6 @@ a { text-decoration:none; color:#000;}
                 <div class="card-body">
 
 
-
                     <ul class="tab" id="tab" style="padding:0;">
                         <li>자유게시판</li>
                         <li>질문게시판</li>
@@ -158,23 +158,26 @@ a { text-decoration:none; color:#000;}
                     <div class="tab_con" id="tab_con">
                         <div>
                             <th:block th:each="fbcontext: ${fbcontextList}">
-                                        <a th:href="@{/board/read(posts_no=${fbcontext.posts_no},board=1)}">
-                                            <span th:text="${fbcontext.subject}+' ['+ ${fbcontext.comment}+']'"></span></a>
-                                        <span th:text="${fbcontext.reporting_date}" style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span><br>
+                                <a th:href="@{/board/read(posts_no=${fbcontext.posts_no},board=1)}">
+                                    <span th:text="${fbcontext.subject}+' ['+ ${fbcontext.comment}+']'"></span></a>
+                                <span th:text="${fbcontext.reporting_date}"
+                                      style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span><br>
                             </th:block>
                         </div>
                         <div>
                             <th:block th:each="qbcontext: ${qbcontextList}">
                                 <a th:href="@{/board/read(posts_no=${qbcontext.posts_no},board=2)}">
                                     <span th:text="${qbcontext.subject}+' ['+ ${qbcontext.comment}+']'"></span></a>
-                                <span th:text="${qbcontext.reporting_date}" style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span><br>
+                                <span th:text="${qbcontext.reporting_date}"
+                                      style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span><br>
                             </th:block>
                         </div>
                         <div>
                             <th:block th:each="cbcontext: ${cbcontextList}">
                                 <a th:href="@{/board/read(posts_no=${cbcontext.posts_no},board=3)}">
                                     <span th:text="${cbcontext.subject}+' ['+ ${cbcontext.comment}+']'"></span></a>
-                                <span th:text="${cbcontext.reporting_date}" style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span><br>
+                                <span th:text="${cbcontext.reporting_date}"
+                                      style="position: absolute; right: 0; margin: 0px 15px 0px 0px;"></span><br>
                             </th:block>
                         </div>
 
@@ -191,17 +194,7 @@ a { text-decoration:none; color:#000;}
                     <div id="chating" class="chating">
                     </div>
 
-                    <div id="yourName">
-                        <table class="inputTable">
-                            <tr>
-                                <th>사용자명</th>
-                                <th><input type="text" name="userName" id="userName"></th>
-                                <th>
-                                    <button onclick="chatName()" id="startBtn">이름 등록</button>
-                                </th>
-                            </tr>
-                        </table>
-                    </div>
+
                     <div id="yourMsg">
                         <table class="inputTable">
                             <tr>
@@ -219,9 +212,10 @@ a { text-decoration:none; color:#000;}
             <div class="card">
                 <div class="card-body">
                     <div class="photo">
-                    <h4 class="card-title">사진공유</h4>
-                    <span><a href="/photoboard/list">더보기</a></span>
-                    </div><br>
+                        <h4 class="card-title">사진공유</h4>
+                        <span><a href="/photoboard/list">더보기</a></span>
+                    </div>
+                    <br>
 
                     <div class="row">
                         <div th:each="context: ${photoList}" class="col-sm-6 col-md-4">
@@ -249,7 +243,7 @@ a { text-decoration:none; color:#000;}
                 <div style="border: 1px solid #dae1e6;">
                     <div class="box-body" style="display: flex; align-items: center;">
                         <div style="float: left">
-                            <img th:src="@{/img/}+man.png" class=""  style="width: 50px; height: 50px;">
+                            <img th:src="@{/img/}+man.png" class="" style="width: 50px; height: 50px;">
                         </div>
                         <div>
                             <div class="" th:text="${username} + '님 환영합니다.!'"></div>
@@ -261,7 +255,8 @@ a { text-decoration:none; color:#000;}
                         </div>
                         <div style="margin-left: 100px">
 
-                            <button type="button" onclick="location.href='/user/logout'" class="btn btn-secondary btn-block"/>
+                            <button type="button" onclick="location.href='/user/logout'"
+                                    class="btn btn-secondary btn-block"/>
                             로그아웃</button>
 
 
@@ -275,7 +270,8 @@ a { text-decoration:none; color:#000;}
 
 
                     <p class="login_msg">Appler 로그인 안전하게 이용하세요</p>
-                    <a href="/user/login" class="link_login"><img th:src="@{/img/}+logo.png" style="display: inline-block; width: 60px; height: 12px;">로그인</a>
+                    <a href="/user/login" class="link_login"><img th:src="@{/img/}+logo.png"
+                                                                  style="display: inline-block; width: 60px; height: 12px;">로그인</a>
                     <div class="sub_area">
                         <div class="look_box">
                             <a href="/user/idsearch" class="link_look">아이디</a>
@@ -287,44 +283,34 @@ a { text-decoration:none; color:#000;}
 
             </div>
 
-            <div class="card-body">
+            <div class="">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#home">인기글</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#profile">최신글</a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade card-body card" id="home">
+                        <th:block th:each="bestcontextList: ${bestcontextList}">
 
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#profile">Profile</a>
-                        </li>
+                            <span th:text="${bestcontextList.subject}+' ['+ ${bestcontextList.comment}+']'"></span><br>
 
-                    </ul>
-                    <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane fade" id="home">
-                            <th:block th:each="bestcontextList: ${bestcontextList}">
+                        </th:block>
+                    </div>
+                    <div class="tab-pane fade card-body card active show" id="profile">
+                        <th:block th:each="newcontextList: ${newcontextList}">
 
-                                    <span th:text="${bestcontextList.subject}+' ['+ ${bestcontextList.comment}+']'"></span><br>
-
-                            </th:block>
-                        </div>
-                        <div class="tab-pane fade active show" id="profile">
-                            <th:block th:each="newcontextList: ${newcontextList}">
-
-                                <span th:text="${newcontextList.subject}+' ['+ ${newcontextList.comment}+']'"></span><br>
-
-
-
-                            </th:block>
-
-                        </div>
+                            <span th:text="${newcontextList.subject}+' ['+ ${newcontextList.comment}+']'"></span><br>
+                        </th:block>
 
                     </div>
 
+                </div>
+
             </div>
-
-
-
-
-
 
 
         </div>
@@ -335,7 +321,6 @@ a { text-decoration:none; color:#000;}
 
 <!-- 공통 하단-->
 <th:block th:replace="include/footer :: footer"></th:block>
-
 
 
 <script>
@@ -362,12 +347,17 @@ $(function (){
     });
   }
 
+
 </script>
 
 
-
-
 <script type="text/javascript">
+
+$( document ).ready(function() {
+
+     wsOpen();
+
+});
 	var ws;
 
 	function wsOpen(){
@@ -393,25 +383,13 @@ $(function (){
 			}
 		});
 	}
-
-	function chatName(){
-		var userName = $("#userName").val();
-		if(userName == null || userName.trim() == ""){
-			alert("사용자 이름을 입력해주세요.");
-			$("#userName").focus();
-		}else{
-			wsOpen();
-			$("#yourName").hide();
-			$("#yourMsg").show();
-		}
-	}
-
 	function send() {
-		var uN = $("#userName").val();
+
 		var msg = $("#chatting").val();
-		ws.send(uN+" : "+msg);
+		ws.send(msg);
 		$('#chatting').val("");
 	}
+
 
 </script>
 <!-- 공통 스크립트-->

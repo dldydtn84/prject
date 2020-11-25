@@ -1,6 +1,10 @@
 package com.ys.appler.handler;
 
+import com.ys.appler.config.auth.PrincipalDetails;
+import com.ys.appler.dto.MemberDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -9,6 +13,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -21,16 +26,8 @@ public class SockerHandler  extends TextWebSocketHandler {
         //클라이언트가 서버로 메세지를 보냈을때의 서버 처리 로직
 
         //session으로부터 메세지를 받음
-        log.info("{}로 부터 {}받음 ", session.getId(), message.getPayload());
-        String text = session.getId()+message.getPayload();
-
-        System.out.println("dasdsadsa ::"+session.getAttributes());
-        System.out.println("dasdsadsasda ::"+ session.getPrincipal());
-
-
-        System.out.println("dasdsadasddassa ::"+session.getId());
-
-
+        log.info("{}로 부터 {}받음 ", session.getPrincipal().getName(), message.getPayload());
+        String text = session.getPrincipal().getName()+" : "+message.getPayload();
 
 
         for(WebSocketSession sess : sessionList){
@@ -54,6 +51,7 @@ public class SockerHandler  extends TextWebSocketHandler {
         log.info("{} 연결됨", session.getId());
 
         log.info("채팅방 입장자 : "+ session.getPrincipal().getName());
+
     }
 
     @Override
