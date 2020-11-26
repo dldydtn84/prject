@@ -86,10 +86,6 @@ public class HomeController {
 */
 
 
-
-
-
-
         List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
         List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
         List<BoardDto> cbcontextList = boardService.IndexContextListService("CB");

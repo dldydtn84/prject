@@ -36,12 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/user/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/")
+                .successHandler(new LoginSuccessHandler("/"))
                 .and()
                 .oauth2Login()
                 .loginPage("/user/login")
         .userInfoEndpoint()
         .userService(principalOauth2UserService)
+                .and()
+                .successHandler(new LoginSuccessHandler("/"))
         ;
 
 

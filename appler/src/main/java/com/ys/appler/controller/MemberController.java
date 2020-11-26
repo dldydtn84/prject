@@ -36,18 +36,15 @@ public class MemberController {
 
 
     @GetMapping("/user/login")
-    public String login(){
+    public String login(HttpServletRequest request){
 
+        String referrer = request.getHeader("Referer");
+        System.out.println("referrer : "+referrer);
+        request.getSession().setAttribute("prevPage", referrer);
         return "/user/login";
     }
 
-    @PostMapping("/login")
-    public String loginp(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        String test = String.valueOf(principalDetails.getAttributes().get("userid"));
-System.out.println("asdasd:: "+ test);
 
-        return "redirect:/";
-    }
     @GetMapping("/user/singup")
     public String singup(){
 
