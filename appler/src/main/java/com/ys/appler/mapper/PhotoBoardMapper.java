@@ -15,6 +15,8 @@ public interface PhotoBoardMapper {
     List<PhotoBoardDto> contextList(Criteria criteria);
     int totalcount();
     List<PhotoBoardDto> IndexPhotoList();
+    PhotoBoardDto contextRead(int no);
+    void contextDelete(int no);
 
     /*List<BoardDto> contextList(String boardcode);
     int selectListno(String boardcode);

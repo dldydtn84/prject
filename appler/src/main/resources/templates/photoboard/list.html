@@ -31,7 +31,7 @@
                             <img th:src="@{/static/}+${context.file}">
                         </a>
                         <div class="caption">
-                            <h3 th:text="${context.subject}">제목</h3>
+                            <a th:href="@{/photoboard/read(no=${context.no})}"><h3 th:text="${context.subject}">제목</h3></a>
                             <p th:text="${context.contents}">내용</p>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
 
 </body>
 <!-- 공통 스크립트-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+<script th:src="@{/js/baguetteBox.js}"></script>
 <script>
     baguetteBox.run('.tz-gallery');
 

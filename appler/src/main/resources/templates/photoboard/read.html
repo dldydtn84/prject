@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- 공통 헤더-->
+<th:block th:replace="include/head :: head"></th:block>
+
+
+<body id="page-top">
+<th:block th:replace="include/top :: top"></th:block>
+<div id="content" style="margin-top: 50px">
+
+    <div class="container layout">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h3 th:text="${contextread.subject}"></h3>
+                        <span th:text="${contextread.nickname}"></span><br>
+                        조회수 : <span th:text="${contextread.readcount}"></span><br>
+                        작성일 : <span th:text="${contextread.reporting_date}"></span><br>
+                        내용 :
+                        <div th:text="${contextread.contents}"></div>
+                        <div class="" style="width: 500px; height: 350px; margin-top: 2rem; margin-bottom: 5rem;"> <img style="width: 100%; height: 100%;" th:src="@{/static/}+${contextread.file}"></div>
+                        <div class="form-group">
+                            <div class="text-right">
+                                <a th:href="@{/photoboard/list}" class="btn btn-primary">목록보기</a>
+                                <a th:href="@{/photoboard/modify(no=${contextread.no})}"
+                                   class="btn btn-info">수정하기</a>
+                                <button onclick="delete_button()" class="btn btn-danger">삭제하기</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+
+                <button type="button" id="login-submit" class="btn btn-secondary btn-block"/>
+                로그인</button>
+
+            </div>
+        </div>
+
+
+        <!-- 공통 하단-->
+        <th:block th:replace="include/footer :: footer"></th:block>
+
+</body>
+
+<!-- 공통 스크립트-->
+<th:block th:replace="include/script :: script"></th:block>
+<script>
+
+function post_to_url(path, params, method) {
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    for(var key in params) {
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", params[key]);
+        form.appendChild(hiddenField);
+    }
+    document.body.appendChild(form);
+    form.submit();
+}
+
+function delete_button(){
+
+var no = [[${contextread.no}]];
+
+if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+    post_to_url('/photoboard/deletePro', {'no':no});
+
+
+}else{   //취소
+return;
+}
+}
+</script>
+</html>

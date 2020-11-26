@@ -11,24 +11,34 @@
 			height: 320px;
 			overflow: auto;
 		}
+
+
 		.chating .me{
-            margin: 0;
-            float: right;
-			max-width: 280px;
-            padding: 10px;
-            border-radius: 12px;
-            background-color: rgb(240, 240, 241);
-            color: rgb(36, 36, 40);
+               display: flex;
+                align-items: flex-end;
+                -webkit-box-pack: end;
+                justify-content: flex-end;
+                margin-bottom: 4px;
 		}
 		.chating .oth{
-            margin: 0;
-            float: left;
-			max-width: 280px;
+            display: flex;
+            margin-bottom: 4px;
+		}
+		.chating .tooth{
+            max-width: 280px;
             padding: 10px;
             border-radius: 12px;
             background-color: rgb(240, 240, 241);
             color: rgb(36, 36, 40);
 		}
+       .chating  .tome {
+            max-width: 280px;
+            padding: 10px;
+            border-radius: 12px;
+            background-color: #18bc9c;
+            color: white;
+
+        }
 
 
 		.chat h4,
@@ -414,9 +424,9 @@ $( document ).ready(function() {
 					}
 				}else if(d.type == "message"){
 					if(d.sessionId == $("#sessionId").val()){
-						$("#chating").append(" <div class='me'><i class='fas fa-user-circle'></i>나 :" + d.msg + "</div>");
+						$("#chating").append(" <div class='me'><span class='chatimg'><i class='fas fa-user-circle'></i></span><span>" + d.userName + "</span><div class='tome'>" + d.msg + "</div></div>");
 					}else{
-						$("#chating").append(" <div class='oth'><i class='fas fa-user-circle'></i>" + d.userName + " :" + d.msg + "</div>");
+						$("#chating").append(" <div class='oth'><span class='chatimg'><i class='fas fa-user-circle'></i></span><span> " + d.userName + "</span><div class='tooth'>" + d.msg + "</div></div>");
 					}
 
 				}else{

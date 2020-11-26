@@ -15,6 +15,12 @@
         limit #{pageStart} , #{perPageNum}
     </select>
 
+    <select id="contextRead" resultType="com.ys.appler.dto.PhotoBoardDto">
+        SELECT no, board_code ,nickname ,subject ,contents ,file ,ip ,readcount,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
+        FROM tbl_photo_board
+        WHERE no=#{no}
+    </select>
+
     <select id="totalcount" resultType="int">
         SELECT COUNT(no)
         FROM tbl_photo_board
@@ -26,8 +32,11 @@
         ORDER BY no desc
         limit 3
     </select>
-
-
+    <delete id="contextDelete" parameterType="int" >
+        DELETE
+        FROM tbl_photo_board
+        WHERE no = #{no}
+    </delete>
 
 
 

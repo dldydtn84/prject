@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- 공통 헤더-->
+<th:block th:replace="include/head :: head"></th:block>
+
+
+<body id="page-top">
+<th:block th:replace="include/top :: top"></th:block>
+<div id="content" style="margin-top: 50px">
+
+    <div class="container layout">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="card shadow">
+                    <div class="card-body">
+
+                        <h4 class="card-title">사진공유게시판</h4>
+                        <form action="#" th:action="@{/photoboard/modify}" th:object="${PhotoBoardDto}" method="post" enctype="multipart/form-data">
+
+
+                            <input type="hidden" name="nickname" id="nickname" th:value="${contextread.nickname}" ><!--th:value="${session.greeting}"-->
+                            <label for="subject">제목</label><br>
+                            <input type="text" name="subject" id="subject" th:value="${contextread.subject}" class="form-control mr-sm-2"><br>
+
+                            <label for="contents">글내용</label><br>
+                            <textarea class="form-control" rows="10" name="contents" th:text="${contextread.contents}" id="contents"></textarea>
+
+                            <input type="file" name="uploadfile" accept="image/*" placeholder="이미지 선택" onchange="checkFile(this)" /><br/>
+
+                            <button type="submit" class="btn btn-success">입력완료</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+
+                <button type="button" id="login-submit" class="btn btn-secondary btn-block"/>
+                로그인</button>
+
+            </div>
+        </div>
+
+
+        <!-- 공통 하단-->
+        <th:block th:replace="include/footer :: footer"></th:block>
+
+</body>
+
+<!-- 공통 스크립트-->
+<th:block th:replace="include/script :: script"></th:block>
+<script>
+    function checkFile(f){
+
+        var file = f.files;
+        if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)) alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+
+        else return;
+
+        f.outerHTML = f.outerHTML;
+    }
+</script>
+
+</html>

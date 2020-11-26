@@ -1,30 +1,20 @@
 package com.ys.appler.controller;
 
-import com.google.gson.JsonObject;
+
 import com.ys.appler.commons.paging.Criteria;
 import com.ys.appler.commons.paging.Pageing;
-import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.PhotoBoardDto;
-import com.ys.appler.service.BoardService;
 import com.ys.appler.service.PhotoBoardService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -74,7 +64,7 @@ public class PhotoboardController {
         return "/photoboard/write";
     }
 
-    @RequestMapping(value = "/writepro",method = RequestMethod.POST)
+    @RequestMapping(value = "/writepro",method = RequestMethod.GET)
     public String writepro(MultipartFile uploadfile, Model model , PhotoBoardDto photoBoardDto, HttpServletRequest request ) throws IOException {
 
 
@@ -106,9 +96,44 @@ public class PhotoboardController {
 
         }
 
-        return "/photoboard/list";
+        return "redirect:/photoboard/list";
 
     }
+    @GetMapping("/read")
+    public String read(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto) {
+
+        PhotoBoardDto contextread = photoBoardService.contextReadService(no);
+
+        model.addAttribute("contextread", contextread);
+
+        return "/photoboard/read";
+    }
+
+    @GetMapping("/modify")
+    public String modify(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto) {
+
+        PhotoBoardDto contextread = photoBoardService.contextReadService(no);
+
+        model.addAttribute("contextread", contextread);
+
+        return "/photoboard/modify";
+    }
+    @PostMapping("/deletePro")
+    public String deletePro(@RequestParam("no") int no) {
+
+        photoBoardService.contextDeleteService(no);
+
+
+        return "redirect:/photoboard/list";
+    }
+
+
+
+
+
+
+
+
 
    /* @RequestMapping(value = "/fileupload2", method = RequestMethod.POST)
     public String multiupload(@RequestParam("uploadfiles") MultipartFile[] file, Model model) throws IOException {

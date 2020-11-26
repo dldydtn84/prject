@@ -108,55 +108,20 @@ public class PhotoBoardService {
         return result;
     }
 
-    /*
-    public List<BoardDto> contextListService(int board){
-        String boardcode = Boardnum(board);
-        List<BoardDto> boardlist = boardMapper.contextList(boardcode);
-        return boardlist;
+    public PhotoBoardDto contextReadService(int no){
+
+        PhotoBoardDto result = photoBoardMapper.contextRead(no);
+
+       return result;
+
+
     }
+    public void contextDeleteService(int no){
 
-    public int selectListnoService(int board){
+     photoBoardMapper.contextDelete(no);
 
-        String boardcode = Boardnum(board);
-        int listno = boardMapper.selectListno(boardcode);
-
-
-
-
-        return listno;
-    }
-
-    public BoardDto contextReadService(int no,int board){
-        String boardcode = Boardnum(board);
-
-        BoardDto boardread = boardMapper.contextRead(boardcode,no);
-        return  boardread;
     }
 
 
-    public int postnoOneService(String board_code) {
-        int boardpostno = boardMapper.postnoOne(board_code);
-        boardpostno += 1;
-        return boardpostno;
-    }
-
-    public void readcountUpService(int reviewNo){
-        boardMapper.readcountUp(reviewNo);
-
-    }
-    public void contextDeleteService(int board , int posts_no){
-        String boardcode = Boardnum(board);
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("boardcode", boardcode);
-        map.put("posts_no", String.valueOf(posts_no));
-
-
-        boardMapper.contextDelete(map);
-    }
-    public void contextUpdateService(BoardDto boardDto){
-        boardMapper.contextUpdate(boardDto);
-
-    }
- */
 
 }

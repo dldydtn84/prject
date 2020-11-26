@@ -66,13 +66,16 @@ public class BoardController {
 
 
         List<BoardDto> contextlist = boardService.listPagingService(criteria);
-
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
 
         model.addAttribute("pageing", pageing);
         model.addAttribute("contextlist", contextlist);
         model.addAttribute("board", board);
         model.addAttribute("start", start);
 
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
 
         return "/board/list";
     }
@@ -128,7 +131,7 @@ public class BoardController {
 
 
     @PostMapping("/deletePro")
-    public String deletePro(Model model, @RequestParam("board") int board, @RequestParam("posts_no") int posts_no, HttpServletResponse response) throws Exception {
+    public String deletePro(@RequestParam("board") int board, @RequestParam("posts_no") int posts_no, HttpServletResponse response) throws Exception {
         /*log.info(String.valueOf(posts_no));*/
         boardService.contextDeleteService(board, posts_no);
 
