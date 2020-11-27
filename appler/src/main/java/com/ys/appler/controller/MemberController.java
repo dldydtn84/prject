@@ -102,11 +102,25 @@ public class MemberController {
 
 
     @GetMapping("/user/mypage")
-    public String mypage(@RequestParam("userid") String userid, Model model ){
+    public String mypage(@RequestParam("userid") String userid, Model model,MemberDto memberDto ){
 
         MemberDto contextread = memberService.memberReadService(userid);
 
 
+        System.out.println("substring : "+ userid.substring(0,1));
+
+        if(userid.substring(0,1).equals("k")){
+            System.out.println("kakao");
+            model.addAttribute("id","kakao");
+        }else if(userid.substring(0,1).equals("n")){
+            System.out.println("naver");
+            model.addAttribute("id","naver");
+        }else if(userid.substring(0,1).equals("g")){
+            System.out.println("google");
+            model.addAttribute("id","google");
+        }else{
+            System.out.println("error");
+        }
         model.addAttribute("userid",userid);
         model.addAttribute("contextread",contextread);
 

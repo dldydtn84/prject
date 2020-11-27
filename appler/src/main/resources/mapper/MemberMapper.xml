@@ -27,7 +27,7 @@
 
 
     <select id="memberRead" resultType="com.ys.appler.dto.MemberDto">
-        SELECT no, userid, password , nickname ,name ,email, enabled, authority,emailauth,point,DATE_FORMAT(lastdate, '%Y-%m-%d') as lastdate, DATE_FORMAT(date, '%Y-%m-%d') as date
+        SELECT no, userid, password , nickname ,name ,email, enabled, authority,emailauth,provider,point,DATE_FORMAT(lastdate, '%Y-%m-%d') as lastdate, DATE_FORMAT(date, '%Y-%m-%d') as date
         FROM tbl_member
         WHERE userid = #{userid}
     </select>

@@ -10,15 +10,121 @@
 
         <link th:href="@{/css/foot.css}" rel="stylesheet">
         <link th:href="@{/css/style.css}" rel="stylesheet">
+        <link th:href="@{/css/indexlogin.css}" rel="stylesheet">
         <link th:href="@{/css/summernote/summernote-lite.css}" rel="stylesheet">
+        <style>
 
+		.side_chating{
+			height: 270px;
+			overflow: auto;
+		}
+		.side_chating .side_me{
+               display: flex;
+                align-items: flex-end;
+                -webkit-box-pack: end;
+                justify-content: flex-end;
+                margin-bottom: 4px;
+		}
+		.side_chating .side_oth{
+            display: flex;
+            margin-bottom: 4px;
+		}
+		.side_chating .side_tooth{
+            max-width: 280px;
+            padding: 10px;
+            border-radius: 12px;
+            background-color: rgb(240, 240, 241);
+            color: rgb(36, 36, 40);
+		}
+       .side_chating  .side_tome {
+            max-width: 280px;
+            padding: 10px;
+            border-radius: 12px;
+            background-color: #18bc9c;
+            color: white;
+
+        }
+
+
+		.side_chat h4,
+		.side_chat span{
+		    display: inline;
+		}
+        .side_chatimg {
+             font-size: 25px;
+             margin: 10px;
+        }
+
+
+
+</style>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js" type="text/javascript"></script>
         <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+        <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+        <script type="text/javascript">
+
+$( document ).ready(function() {
+
+     wsOpen();
+
+});
+	var ws;
+
+	function wsOpen(){
+		ws = new WebSocket("ws://" + location.host + "/socker");
+		wsEvt();
+	}
+
+		function wsEvt() {
+		ws.onopen = function(data){
+			//소켓이 열리면 동작
+		}
+
+		ws.onmessage = function(data) {
+			//메시지를 받으면 동작
+			var msg = data.data;
+			if(msg != null && msg.trim() != ''){
+				var d = JSON.parse(msg);
+				if(d.type == "getId"){
+					var si = d.sessionId != null ? d.sessionId : "";
+					if(si != ''){
+						$("#sessionId").val(si);
+					}
+				}else if(d.type == "message"){
+					if(d.sessionId == $("#sessionId").val()){
+						$("#chating").append(" <div class='side_me'><span class='side_chatimg'><i class='fas fa-user-circle'></i></span><span>" + d.userName + "</span><div class='side_tome'>" + d.msg + "</div></div>");
+					}else{
+						$("#chating").append(" <div class='side_oth'><span class='side_chatimg'><i class='fas fa-user-circle'></i></span><span> " + d.userName + "</span><div class='side_tooth'>" + d.msg + "</div></div>");
+					}
+
+				}else{
+					console.warn("unknown type!")
+				}
+			}
+		}
+		document.addEventListener("keypress", function(e){
+			if(e.keyCode == 13){ //enter press
+				send();
+			}
+		});
+	}
+		function send() {
 
 
+		var option ={
+			type: "message",
+			sessionId : $("#sessionId").val(),
+
+			msg : $("#chatting").val()
+		}
+		ws.send(JSON.stringify(option))
+		$('#chatting').val("");
+	}
+
+</script>
     </head>
 </th:block>
 </html>

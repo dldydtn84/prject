@@ -3,11 +3,14 @@ package com.ys.appler.controller;
 
 import com.ys.appler.commons.paging.Criteria;
 import com.ys.appler.commons.paging.Pageing;
+import com.ys.appler.config.auth.PrincipalDetails;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.service.BoardService;
 import com.ys.appler.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -50,7 +55,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(@RequestParam("board") int board, @RequestParam(value = "perPageNum", defaultValue = "15") int perPageNum,
-                       @RequestParam(value = "page", defaultValue = "1") int page, Model model, BoardDto boardDto) {
+                       @RequestParam(value = "page", defaultValue = "1") int page, Model model, BoardDto boardDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         int totalcount = boardService.selectListnoService(board);
 
         String boardCode = boardCode(board);
@@ -65,10 +70,17 @@ public class BoardController {
         int start = pageing.getStartPage();
 
 
+
+
+
+
+
+
         List<BoardDto> contextlist = boardService.listPagingService(criteria);
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 
+        model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         model.addAttribute("pageing", pageing);
         model.addAttribute("contextlist", contextlist);
         model.addAttribute("board", board);
@@ -82,7 +94,7 @@ public class BoardController {
 
 
     @GetMapping("/write")
-    public String write(@RequestParam("board") int boardnum, @ModelAttribute BoardDto boardDto, Model model, HttpServletRequest request) {
+    public String write(@RequestParam("board") int boardnum, @ModelAttribute BoardDto boardDto, Model model) {
         String boardcode = boardCode(boardnum);
 
         model.addAttribute("boardnum", boardnum);

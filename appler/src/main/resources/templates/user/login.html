@@ -13,9 +13,9 @@
         <h2>로그인</h2>
         <p class="hint-text">소셜 미디어 계정으로 로그인</p>
         <div class="social-btn text-center">
-            <a href="/oauth2/authorization/kakao" class="btn btn-primary btn-lg" title="Facebook"><i class="fa fa-facebook"></i></a>
-            <a href="/oauth2/authorization/naver" class="btn btn-info btn-lg" title="Twitter"><i class="fa fa-twitter"></i></a>
-            <a href="/oauth2/authorization/google" class="btn btn-danger btn-lg" title="Google"><i class="fa fa-google"></i></a>
+            <a href="/oauth2/authorization/kakao" class="btn btn-primary btn-lg" title="Kakao">   <img th:src="@{/img/kakao.png}" style="width:25px;"></a>
+            <a href="/oauth2/authorization/naver" class="btn btn-info btn-lg" title="Naver"><img th:src="@{/img/naver2.png}"style="width:25px;"></a>
+            <a href="/oauth2/authorization/google" class="btn btn-danger btn-lg" title="Google"> <span style="font-size: 25px;"> <i class="fab fa-google"></i></span></a>
         </div>
         <div class="or-seperator"><b>or</b></div>
         <div class="form-group">
@@ -27,7 +27,7 @@
         <div class="form-group">
             <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">로그인</button>
         </div>
-        <div class="text-center small"><a href="#">패스워드 찾기</a></div>
+        <div class="text-center small"><a href="/user/idsearch">아이디및 패스워드 찾기</a></div>
     </form>
     <div class="text-center small"><a href="/user/singup">회원가입</a></div>
 </div>

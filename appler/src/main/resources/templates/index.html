@@ -4,15 +4,13 @@
 
 <!-- 공통 헤더-->
 <th:block th:replace="include/head :: head"></th:block>
-<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
 <style>
 
 		.chating{
 			height: 320px;
 			overflow: auto;
 		}
-
-
 		.chating .me{
                display: flex;
                 align-items: flex-end;
@@ -62,103 +60,7 @@ display: inline;
 
 
 </style>
-<style>
-    .sc_login {
-    padding: 16px 16px 12px 17px;
-    background-color: #f7f9fa;
-    border: 1px solid #dae1e6;
-}
-.blind {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-}
-.sc_login .login_msg {
-    padding-left: 3px;
-    color: grey;
-}
-.sc_login .link_login {
-    display: block;
-    padding: 15px 0;
-    margin-top: 11px;
-    background-color: #19ce60;
-    border: 1px solid #15c654;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    font-size: 13px;
-    color: #fff;
-    font-weight: 700;
-    text-align: center;
-    text-decoration: none;
-}
-.sc_login .ico_naver {
-    display: inline-block;
-    width: 60px;
-    height: 12px;
-    background-position: -271px -267px;
-    background-repeat: no-repeat;
-    vertical-align: top;
-    margin: 2px 5px 0 0;
-}
-.sc_login .sub_area {
-    margin: 14px 8px 0 4px;
-}
-.sc_login .sub_area .look_box {
-    float: left;
-}
-.sc_login .sub_area .link_look {
-    color: #404040;
-}
-.sc_login .sub_area .link_look+.link_look:before {
-    background-color: #d7dce0;
-    display: inline-block;
-    width: 3px;
-    height: 3px;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    vertical-align: top;
-    content: '';
-    margin: 0 5px 0 2px;
-    vertical-align: 3px;
-}
-.sc_login .sub_area .look_box:before {
-    display: inline-block;
-    width: 10px;
-    height: 14px;
-    background-position: -408px -55px;
-    background-repeat: no-repeat;
-    vertical-align: top;
-    content: '';
-    margin: -1px 1px 1px;
-}
-.sc_login .sub_area:after {
-    content: "";
-    display: table;
-    table-layout: fixed;
-    clear: both;
-}
-.sc_login .sub_area .link_join {
-    float: right;
-    color: #505050;
-}
-.sc_login .sub_area .link_join:before {
-    display: inline-block;
-    width: 11px;
-    height: 11px;
-    background-position: -332px -308px;
-    background-repeat: no-repeat;
-    vertical-align: top;
-    content: '';
-    margin: 2px 5px 0 0;
-}
 
-
-
-
-</style>
 
 <style type="text/css">
 
@@ -282,22 +184,22 @@ a { text-decoration:none; color:#000;}
         <div class="col-sm-4">
 
             <div th:if="${session.greeting}">
-                <div style="border: 1px solid #dae1e6;">
-                    <div class="box-body" style="display: flex; align-items: center;">
+                <div class="box-top" >
+                    <div class="box-body" >
                         <div style="float: left">
-                            <img th:src="@{/img/}+man.png" class="" style="width: 50px; height: 50px;">
+                            <span class='chatimg'><i class='fas fa-user-circle'></i></span>
                         </div>
                         <div>
-                            <div class="" th:text="${username} + '님 환영합니다.!'"></div>
+                            <div class="" th:text="${nickname} + '님 환영합니다!'"></div>
                         </div>
                     </div>
                     <div class="box-footer" style="display: flex;">
                         <div style="line-height: 34px; margin-left: 100px">
-                            <a th:href="@{/user/mypage(userid=${userid})}"><i class="fa fa-gear"></i>&nbsp&nbsp마이페이지</a>
+                            <a th:href="@{/user/mypage(userid=${userid})}">&nbsp&nbsp마이페이지</a>
                         </div>
                         <div style="margin-left: 100px">
 
-                            <button type="button" onclick="location.href='/user/logout'"
+                            <button type="button" onclick="location.href='/logout'"
                                     class="btn btn-secondary btn-block"/>
                             로그아웃</button>
 
@@ -311,9 +213,8 @@ a { text-decoration:none; color:#000;}
                 <div id="account" class="sc_login">
 
 
-                    <p class="login_msg">Appler 로그인 안전하게 이용하세요</p>
-                    <a href="/user/login" class="link_login"><img th:src="@{/img/}+logo.png"
-                                                                  style="display: inline-block; width: 60px; height: 12px;">로그인</a>
+                    <p  style="padding-left: 3px; color: grey;">Appler 로그인 안전하게 이용하세요</p>
+                    <a href="/user/login" class="link_login">로그인</a>
                     <div class="sub_area">
                         <div class="look_box">
                             <a href="/user/idsearch" class="link_look">아이디</a>
@@ -441,12 +342,22 @@ $( document ).ready(function() {
 		});
 	}
 		function send() {
+sendas();
+
 		var option ={
 			type: "message",
 			sessionId : $("#sessionId").val(),
 
 			msg : $("#chatting").val()
 		}
+
+		function sendas() {
+
+		alert("asdasda");
+
+		}
+
+
 		ws.send(JSON.stringify(option))
 		$('#chatting').val("");
 	}

@@ -54,7 +54,10 @@ public class NoticeController {
 
         List<NoticeBoardDto> contextlist = NoticeboardService.listPagingService(criteria);
 
-
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
         model.addAttribute("pageing", pageing);
         model.addAttribute("contextlist", contextlist);
 
@@ -67,6 +70,10 @@ public class NoticeController {
 
         NoticeBoardDto contextread = NoticeboardService.contextReadService(no);
 
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
 
         model.addAttribute("contextread", contextread);
         model.addAttribute("no", no);
@@ -124,9 +131,14 @@ public class NoticeController {
         return "/noticeboard/write";
     }
     @PostMapping("/write")
-    public String writepro(NoticeBoardDto noticeBoardDto, HttpServletRequest request) {
+    public String writepro(NoticeBoardDto noticeBoardDto, HttpServletRequest request,Model model) {
 
         noticeBoardDto.setIp(boardService.getIp(request));
+
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
 
         NoticeboardService.contextWriteService(noticeBoardDto);
 
@@ -141,6 +153,10 @@ public class NoticeController {
         log.info("noasd : "+no);
         model.addAttribute("no", no);
 
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
 
         return "/noticeboard/modify";
     }

@@ -31,8 +31,11 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
+        System.out.println("?왜 여기 안타요?"+authentication.getPrincipal());
 
 System.out.println("?왜 여기 안타요?");
+
+        session.setAttribute("test", authentication.getAuthorities());
                 session.setAttribute("greeting", authentication.getName());
         resultRedirectStrategy(request, response, authentication);
 

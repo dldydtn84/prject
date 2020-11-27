@@ -1,5 +1,6 @@
 package com.ys.appler.controller;
 
+import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.MemberDto;
 import com.ys.appler.dto.QuestBoardDto;
 import com.ys.appler.service.BoardService;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -33,8 +35,11 @@ public class QuestBoardController {
 
 
     @GetMapping("/write")
-    public String write() {
-
+    public String write(Model model) {
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
         return "/questboard/write";
     }
     @PostMapping("/write")
@@ -62,7 +67,7 @@ public class QuestBoardController {
             return "/questboard/write";
         }
         else {
-log.info("......Tlqkf");
+
            /* questBoardDto.setFile(questBoardService.saveFile(uploadfile));*/
             questBoardDto.setIp(boardService.getIp(request));
             String phone = questBoardDto.getPnum1()+questBoardDto.getPnum2()+ questBoardDto.getPnum3();

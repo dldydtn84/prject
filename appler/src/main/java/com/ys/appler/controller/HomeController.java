@@ -71,20 +71,32 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String index(Model model, HttpSession session ,@AuthenticationPrincipal PrincipalDetails principalDetails ) {
+    public String index(Model model, HttpSession session ,@AuthenticationPrincipal PrincipalDetails principalDetails) {
         System.out.println("한글테스트 ==============");
 
 
-/*
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PrincipalDetails user = (PrincipalDetails) authentication.getPrincipal();
 
-        System.out.println("tt ::"+user.getUsername());*/
-/*
+        if(principalDetails == null){
+            System.out.println("test ::  .......");
+        }else{
+            System.out.println("test ::"+principalDetails.getMemberDto().getNickname());
+            System.out.println("test ::"+principalDetails.getMemberDto().getUserid());
+            model.addAttribute("nickname",principalDetails.getMemberDto().getNickname());
+            model.addAttribute("userid",principalDetails.getMemberDto().getUserid());
+        }
 
-        System.out.println("tasdasdasdat ::"+  principalDetails.getAttributes().get);
-*/
 
+
+
+
+
+
+
+
+
+
+        String test = String.valueOf(session.getAttribute("greeting"));
+        System.out.println("test ::"+test);
 
         List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
         List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
@@ -141,6 +153,12 @@ public class HomeController {
     public String defaultss(Model model){
         //model.addAttribute("data","hello");
         return "default";
+    }
+
+    @GetMapping("side")
+    public String side(Model model){
+        model.addAttribute("userid","userid");
+        return "side";
     }
 
 
