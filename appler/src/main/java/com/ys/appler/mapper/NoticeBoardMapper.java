@@ -19,5 +19,5 @@ public interface NoticeBoardMapper {
     void readcountUp(int reviewNo);
     void contextUpdate(NoticeBoardDto noticeBoardDto);
     void contextDelete(Map<String, String> map);
-    List<NoticeBoardDto> contextSearch(String Search);
+    List<NoticeBoardDto> contextSearch(String search);
 }

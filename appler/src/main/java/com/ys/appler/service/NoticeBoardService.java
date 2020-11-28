@@ -62,11 +62,11 @@ public class NoticeBoardService {
 
         noticeBoardMapper.contextDelete(map);
     }
-    public List<NoticeBoardDto> contextSearchService(String Search){
+    public List<NoticeBoardDto> contextSearchService(String search){
 
 
 
-        List<NoticeBoardDto> result=noticeBoardMapper.contextSearch(Search);
+        List<NoticeBoardDto> result=noticeBoardMapper.contextSearch(search);
         return result;
     }
 }

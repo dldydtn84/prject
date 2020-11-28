@@ -181,12 +181,12 @@ public class NoticeController {
         return "redirect:/noticeboard/list";
     }
     @GetMapping("/search")
-    public String search(Model model,@RequestParam("Search") String Search, NoticeBoardDto noticeBoardDto) {
-        List<NoticeBoardDto> searchcontextlist= NoticeboardService.contextSearchService(Search);
+    public String search(Model model,@RequestParam("search") String search, NoticeBoardDto noticeBoardDto) {
+        List<NoticeBoardDto> searchcontextlist= NoticeboardService.contextSearchService(search);
         model.addAttribute("searchcontextlist", searchcontextlist);
 
-        /*int no = noticeBoardDto.getNo();*/
-        return "/noticeboard/list";
+
+        return "redirect:/noticeboard/list";
     }
 
 
