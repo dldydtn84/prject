@@ -40,8 +40,8 @@
     <select id="contextSearch" resultType="com.ys.appler.dto.NoticeBoardDto">
         SELECT no, board_code  ,nickname,subject ,contents ,file ,ip, readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
         FROM tbl_notice_board
+        WHERE subject LIKE CONCAT('%',#{search},'%')
         ORDER BY no desc
-        limit #{pageStart} , #{perPageNum}
     </select>
 
 

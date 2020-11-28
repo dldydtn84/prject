@@ -186,7 +186,7 @@ public class NoticeController {
         model.addAttribute("searchcontextlist", searchcontextlist);
 
 
-        return "redirect:/noticeboard/list";
+        return "/noticeboard/list";
     }
 
 

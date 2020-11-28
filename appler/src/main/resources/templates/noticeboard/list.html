@@ -38,7 +38,7 @@
                                 <td><a th:href="@{/noticeboard/read(no=${context.no})}"><p th:text="${context.subject}"></p></a>
                                 </td>
 
-                                <td th:text="${context.reporting_date}" class="text-center d-none d-md-table-cell"></td>
+                                <td th:text="${#dates.format(context.reporting_date, 'yyyy-MM-dd')}" class="text-center d-none d-md-table-cell"></td>
 
                             </tr>
                             </tbody>
