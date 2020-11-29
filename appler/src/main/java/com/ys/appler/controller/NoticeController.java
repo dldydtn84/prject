@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -34,22 +36,32 @@ public class NoticeController {
 @Autowired
     BoardService boardService;
 
-    @GetMapping("/list")
+    @GetMapping("/list") //search_option 차후 개선가능
     public String list(Model model, NoticeBoardDto noticeBoardDto, @RequestParam(value = "perPageNum", defaultValue = "15") int perPageNum,
-                       @RequestParam(value = "page", defaultValue = "1") int page ) {
+                       @RequestParam(value = "page", defaultValue = "1") int page,  @RequestParam(defaultValue="all") String search_option,
+                       @RequestParam(defaultValue="") String keyword   ) {
 
-        int totalcount = NoticeboardService.ListCountService();
+        int totalcount = NoticeboardService.ListCountService(search_option,keyword);
 
 
         Criteria criteria = new Criteria();
         criteria.setPage(page);
         criteria.setPerPageNum(perPageNum);
+        criteria.setSearch_option(search_option);
+        criteria.setKeyword(keyword);
 
 
         Pageing pageing = new Pageing();
         pageing.setCriteria(criteria);
         pageing.setTotalCount(totalcount);
         int start = pageing.getStartPage();
+
+
+
+
+       /* Map<String,Object> map = new HashMap<>();
+        map.put("search_option", search_option);
+        map.put("keyword", keyword);*/
 
 
         List<NoticeBoardDto> contextlist = NoticeboardService.listPagingService(criteria);
@@ -180,14 +192,14 @@ public class NoticeController {
 
         return "redirect:/noticeboard/list";
     }
-    @GetMapping("/search")
+   /* @GetMapping("/search")
     public String search(Model model,@RequestParam("search") String search, NoticeBoardDto noticeBoardDto) {
         List<NoticeBoardDto> searchcontextlist= NoticeboardService.contextSearchService(search);
         model.addAttribute("searchcontextlist", searchcontextlist);
 
 
         return "/noticeboard/list";
-    }
+    }*/
 
 
 }

@@ -52,14 +52,19 @@ public class ApplerApplicationTests {
 
 
 	@Test
-	public void 회원가입(MemberDto memberDto) throws Exception{
-		memberDto.setUserid("1");
-		memberDto.setPassword("1");
-		memberDto.setNickname("nick");
-		memberDto.setName("이름");
-		memberDto.setEmail("asda@ads.cas");
+	public void 게시글테스트() throws Exception{
+		NoticeBoardDto noticeBoardDto =new NoticeBoardDto();
+		for(int i=1; i<10; i++){
 
-		memberService.memberSingupService(memberDto);
+		noticeBoardDto.setIp("127.0.0.1");
+		noticeBoardDto.setFile(null);
+		noticeBoardDto.setContents("aasdsadasd");
+		noticeBoardDto.setSubject("asd"+i+"입니다.");
+		noticeBoardDto.setBoard_code("NB");
+		noticeBoardDto.setNickname("test");
+
+			noticeBoardService.contextWriteService(noticeBoardDto);
+		}
 
 	}
 

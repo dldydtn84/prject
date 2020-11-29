@@ -27,10 +27,10 @@ public class NoticeBoardService {
     }
 
 
-    public int ListCountService( ){
+    public int ListCountService(String search_option,String keyword ){
 
 
-        return noticeBoardMapper.ListCount();
+        return noticeBoardMapper.ListCount(search_option,keyword);
     }
     public List<NoticeBoardDto> listPagingService(Criteria criteria){
 

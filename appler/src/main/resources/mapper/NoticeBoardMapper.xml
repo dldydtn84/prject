@@ -10,13 +10,31 @@
     <select id="ListCount" resultType="int">
         SELECT count(*)
         FROM tbl_notice_board
+        <include refid="search" />
     </select>
     <select id="listPaging" resultType="com.ys.appler.dto.NoticeBoardDto">
         SELECT no, board_code  ,nickname,subject ,contents ,file ,ip, readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
         FROM tbl_notice_board
+        <include refid="search" />
         ORDER BY no desc
         limit #{pageStart} , #{perPageNum}
     </select>
+
+    <sql id="search">
+        <choose>
+            <when test="search_option == 'all' ">
+                where
+                subject LIKE CONCAT('%',#{keyword},'%')
+                or contents LIKE CONCAT('%',#{keyword},'%')
+                or nickname LIKE CONCAT('%',#{keyword},'%')
+            </when>
+            <otherwise>
+                where ${search_option} like '%'||#{keyword}||'%'
+            </otherwise>
+        </choose>
+    </sql>
+
+
     <select id="contextRead" resultType="com.ys.appler.dto.NoticeBoardDto">
         SELECT no, nickname, subject , contents ,file ,ip, readcount, DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
         FROM tbl_notice_board
