@@ -3,7 +3,9 @@ package com.ys.appler.controller;
 
 import com.ys.appler.commons.paging.Criteria;
 import com.ys.appler.commons.paging.Pageing;
+import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.PhotoBoardDto;
+import com.ys.appler.service.BoardService;
 import com.ys.appler.service.PhotoBoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class PhotoboardController {
     @Autowired
     PhotoBoardService photoBoardService;
 
+    @Autowired
+    BoardService boardService;
 
     @GetMapping("/list")
     public String list(Model model , @RequestParam(value = "perPageNum", defaultValue = "9") int perPageNum,
@@ -59,7 +63,11 @@ public class PhotoboardController {
         return "/photoboard/list";
     }
     @GetMapping("/write")
-    public String write() {
+    public String write(Model model) {
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
 
         return "/photoboard/write";
     }

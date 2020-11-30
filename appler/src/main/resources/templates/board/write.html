@@ -23,7 +23,7 @@
                             <input type="hidden" name="board_code" id="board_code" th:value="${boardcode}">
                             <input type="hidden" name="nickname" id="nickname" th:value="${session.greeting}">
                             <label for="subject">제목</label><br>
-                            <input type="text" name="subject" id="subject" class="form-control mr-sm-2"><br>
+                            <input type="text" name="subject" id="subject" class="form-control mr-sm-2" required="required"><br>
 
                             <span>내용 </span>
                             <textarea id="summernote" name="editordata"></textarea><br>
@@ -80,7 +80,7 @@ $('#summernote').summernote({
 	* 이미지 파일 업로드
 	*/
 	function uploadSummernoteImageFile(file, editor) {
-		data = new FormData();
+		var data = new FormData();
 		data.append("file", file);
 		alert(file);
 		alert(data);

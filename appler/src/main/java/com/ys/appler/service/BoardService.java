@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -36,6 +38,18 @@ public class BoardService {
         }
         return boardcode;
     }
+
+    public Map<String, String> validateHandling(Errors errors) {
+        Map<String, String> validatorResult = new HashMap<>();
+
+        for (FieldError error : errors.getFieldErrors()) {
+            String validKeyName = String.format("valid_%s", error.getField());
+            validatorResult.put(validKeyName, error.getDefaultMessage());
+        }
+
+        return validatorResult;
+    }
+
 
     public String getIp(HttpServletRequest request) {
 

@@ -21,7 +21,7 @@ public class FileController {
 
     @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
     @ResponseBody
-    public void uploadSummernoteImageFile(@RequestParam("data") MultipartFile multipartFile) {
+    public void uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
          log.info("file : "+String.valueOf(multipartFile));
  /*      JsonObject jsonObject = new JsonObject();*/
 

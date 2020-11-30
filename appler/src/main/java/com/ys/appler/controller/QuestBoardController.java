@@ -52,10 +52,6 @@ public class QuestBoardController {
             model.addAttribute("questBoardDto", questBoardDto);
 
 
-                    log.info("quest ::"+ questBoardDto.getName());
-
-            log.info("quest email ::"+ questBoardDto.getEmail());
-
            // 유효성 통과 못한 필드와 메시지를 핸들링
             Map<String, String> validatorResult = questBoardService.validateHandling(errors);
             for (String key : validatorResult.keySet()) {

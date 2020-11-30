@@ -22,6 +22,7 @@
                             <input type="hidden" name="board_code" id="board_code" th:value="${boardcode}">
                             <label for="subject">제목</label><br>
                             <input type="text" name="subject" id="subject"  th:value="${contextread.subject}" class="form-control mr-sm-2" ><br>
+                            <input type="hidden" class="editordata" th:value="${contextread.editordata}">
 
                             <span>내용 </span>
                             <textarea id="summernote" name="editordata"></textarea><br>
@@ -50,6 +51,14 @@
 <script th:src="@{/js/summernote/lang/summernote-ko-KR.js}"></script>
 <script>
 $(document).ready(function() {
+
+    String.prototype.replaceAll = function(org, dest) {
+        return this.split(org).join(dest);
+    }
+
+    var editordata = $('.editordata').val();
+    var result = editordata.replaceAll(`"`, `'`);
+
 	//여기 아래 부분
 	$('#summernote').summernote({
 		  height: 300,                 // 에디터 높이
@@ -60,7 +69,7 @@ $(document).ready(function() {
 		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 
 	});
-		  $("#summernote").summernote('code',  "[[${contextread.editordata}]]");
+		  $("#summernote").summernote('code',  result);
 
 });
 

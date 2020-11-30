@@ -28,10 +28,10 @@ public class CommentController {
 
     @RequestMapping("/list") //댓글 리스트
     @ResponseBody
-    private List<CommentDto> commentList(@RequestParam int bno,Model model) throws Exception{
+    private List<CommentDto> commentList(@RequestParam int bno,Model model,CommentDto commentDto) throws Exception{
         List<CommentDto> result = commentService.CommentListService(bno);
 log.info("comment : "+result);
-
+model.addAttribute("commentDto",commentDto);
 
 
         return result;

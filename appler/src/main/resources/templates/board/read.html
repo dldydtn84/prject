@@ -19,14 +19,22 @@
                         <span th:text="${contextread.nickname}"></span><br>
                         조회수 : <span th:text="${contextread.readcount}"></span><br>
                         작성일 : <span th:text="${contextread.reporting_date}"></span><br>
-                        내용 :
+                        내용 : <br>
                         <div th:utext="${contextread.editordata}"></div>
+
                         <div class="form-group">
                             <div class="text-right">
                                 <a th:href="@{/board/list(board=${board})}" class="btn btn-primary">목록보기</a>
-                                <a th:href="@{/board/modify(board=${board}, posts_no=${posts_no})}"
-                                   class="btn btn-info">수정하기</a>
-                                <button onclick="delete_button()" class="btn btn-danger">삭제하기</button>
+                                <th:block th:if="${contextread.nickname.equals(session.greeting)}">
+
+                                    <a th:href="@{/board/modify(board=${board}, posts_no=${posts_no})}"
+                                       class="btn btn-info">수정하기</a>
+                                    <button onclick="delete_button()" class="btn btn-danger">삭제하기</button>
+                                </th:block>
+
+
+
+
                             </div>
                         </div>
                         <div class="container">
@@ -85,6 +93,7 @@ $('input[type="text"]').keydown(function() {  //input 엔터이벤트 생략
 });
 
 
+
 //댓글 목록
 function commentList(){
 
@@ -95,10 +104,14 @@ function commentList(){
         success : function(data){
              var a ='';
             $.each(data, function(key, value){
+                var see = [[${session.greeting }]] ;
+                var write = value.nickname;
                 a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
                 a += '<div class="commentInfo">'+'작성자 : '+value.nickname;
+                if(see == write){
                 a += '<a onclick="commentUpdate('+value.no+',\''+value.comments+'\');"> 수정 </a>';
                 a += '<a onclick="commentDelete('+value.no+');"> 삭제 </a> </div>';
+                }else{}
                 a += '<div class="commentContent'+value.no+'"> <p> 내용 : '+value.comments +'</p>';
                 a += '</div></div>';
             });

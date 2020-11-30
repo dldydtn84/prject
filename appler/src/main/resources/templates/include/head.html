@@ -114,6 +114,12 @@ $( document ).ready(function() {
 		});
 	}
 		function send() {
+var userid = "[[ ${session.greeting} ]]";
+
+if(userid ==""){
+    alert("로그인 후 이용해주세요");
+}
+
 
 
 		var option ={
@@ -122,6 +128,9 @@ $( document ).ready(function() {
 
 			msg : $("#chatting").val()
 		}
+
+
+
 		ws.send(JSON.stringify(option))
 		$('#chatting').val("");
 	}

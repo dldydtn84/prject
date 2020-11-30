@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +81,6 @@ public class BoardController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 
 
-
         model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         model.addAttribute("pageing", pageing);
         model.addAttribute("contextlist", contextlist);
@@ -109,18 +108,37 @@ public class BoardController {
     @GetMapping("/writepro")
     public String writepro(@RequestParam("board_code") String board_code,
                            @RequestParam("boardnum") String boardnum,
-                           @Valid BoardDto boardDto, BindingResult result,
-                           RedirectAttributes redirect, HttpServletRequest request,
-                           HttpServletResponse response, Model model) {
+                           @Valid BoardDto boardDto, Errors errors,
+                          HttpServletRequest request,
+                          Model model) {
         int boardpostno = boardService.postnoOneService(board_code);
-        String IP = boardService.getIp(request);
-        /*   log.info("아이피는 " + IP);*/
-        boardDto.setIp(IP);
-        boardDto.setPosts_no(boardpostno);
-        boardService.contextWriteService(boardDto);
+
+        if (errors.hasErrors()) {
+            // 회원가입 실패시, 입력 데이터를 유지
+            model.addAttribute("boardDto", boardDto);
 
 
-        return "redirect:/board/list?board=" + boardnum;
+            // 유효성 통과 못한 필드와 메시지를 핸들링
+            Map<String, String> validatorResult = boardService.validateHandling(errors);
+            for (String key : validatorResult.keySet()) {
+                model.addAttribute(key, validatorResult.get(key));
+                log.info("key : " +key);
+                log.info("key2 : " +validatorResult.get(key));
+            }
+
+            return "/board/write";
+        }
+        else {
+            boardDto.setIp(boardService.getIp(request));
+
+
+            boardDto.setPosts_no(boardpostno);
+            boardService.contextWriteService(boardDto);
+
+
+            return "redirect:/board/list?board=" + boardnum;
+        }
+
     }
 
     @GetMapping("/modify")
@@ -171,6 +189,9 @@ public class BoardController {
     public String read(@RequestParam("board") int board, @RequestParam("posts_no") int posts_no, Model model, BoardDto boardDto, HttpServletRequest request, HttpServletResponse response) {
 
         BoardDto contextread = boardService.contextReadService(posts_no, board);
+
+
+
 
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
         List<BoardDto> newcontextList = boardService.NewcontextListService();
