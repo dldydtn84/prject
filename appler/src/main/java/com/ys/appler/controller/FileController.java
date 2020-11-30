@@ -21,9 +21,9 @@ public class FileController {
 
     @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
     @ResponseBody
-    public void uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+    public void uploadSummernoteImageFile(@RequestParam("data") MultipartFile multipartFile) {
          log.info("file : "+String.valueOf(multipartFile));
-     /*   JsonObject jsonObject = new JsonObject();*/
+ /*      JsonObject jsonObject = new JsonObject();*/
 
         String fileRoot = "C:\\summernote_image\\";	//저장될 외부 파일 경로
         String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명

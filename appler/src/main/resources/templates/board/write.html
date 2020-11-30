@@ -82,6 +82,8 @@ $('#summernote').summernote({
 	function uploadSummernoteImageFile(file, editor) {
 		data = new FormData();
 		data.append("file", file);
+		alert(file);
+		alert(data);
 		$.ajax({
 			data : data,
 			type : "POST",

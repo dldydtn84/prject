@@ -14,6 +14,8 @@
         <link th:href="@{/css/summernote/summernote-lite.css}" rel="stylesheet">
         <style>
 
+
+
 		.side_chating{
 			height: 270px;
 			overflow: auto;
@@ -95,9 +97,9 @@ $( document ).ready(function() {
 					}
 				}else if(d.type == "message"){
 					if(d.sessionId == $("#sessionId").val()){
-						$("#chating").append(" <div class='side_me'><span class='side_chatimg'><i class='fas fa-user-circle'></i></span><span>" + d.userName + "</span><div class='side_tome'>" + d.msg + "</div></div>");
+						$("#chating").append(" <div class='side_me me'><span class='side_chatimg chatimg'><i class='fas fa-user-circle'></i></span><span>" + d.userName + "</span><div class='side_tome tome'>" + d.msg + "</div></div>");
 					}else{
-						$("#chating").append(" <div class='side_oth'><span class='side_chatimg'><i class='fas fa-user-circle'></i></span><span> " + d.userName + "</span><div class='side_tooth'>" + d.msg + "</div></div>");
+						$("#chating").append(" <div class='side_oth oth'><span class='side_chatimg chatimg'><i class='fas fa-user-circle'></i></span><span> " + d.userName + "</span><div class='side_tooth tooth'>" + d.msg + "</div></div>");
 					}
 
 				}else{

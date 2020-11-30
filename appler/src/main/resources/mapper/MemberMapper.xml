@@ -40,7 +40,7 @@
     <select id="memberIdSearch" resultType="String">
         select userid
         from tbl_member
-        where name=#{name} and email = #{email}
+        where name=#{name} and email = #{email} and provider is NULL
     </select>
 
     <select id="memberAccountSearch" resultType="int">

@@ -46,29 +46,29 @@
                         <div style="margin-bottom: 3rem;">
 
                         <form class="form-inline my-2 my-lg-0" th:action="@{/noticeboard/list}" method="get">
-                            <input class="form-control mr-sm-2" type="text" name="keyword">
+                            <input class="form-control mr-sm-2" type="text" name="keyword" th:attr="value = ${keyword}" >
                             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                         </form>
                         </div>
                       <div class="d-none d-md-block">
                             <ul class="pagination justify-content-center">
-                                <li th:if="${pageing.prev}" class="page-item"><a th:href="@{list(page=${pageing.startPage-1})}" class="page-link">이전</a></li>
+                                <li th:if="${pageing.prev}" class="page-item"><a th:href="@{list(page=${pageing.startPage-1},keyword=${keyword})}" class="page-link">이전</a></li>
                                 <th:block th:each="index: ${#numbers.sequence(pageing.startPage,pageing.endPage)}">
-                                    <li class="page-item"><a class="page-link" th:text="${index}"  th:href="@{list(page=${index})}" ></a></li>
+                                    <li class="page-item"><a class="page-link" th:text="${index}"  th:href="@{list(page=${index},keyword=${keyword})}" ></a></li>
 
                                 </th:block>
-                                <li th:if="${pageing.next}" class="page-item"><a th:href="@{list(page=${pageing.endPage+1})}" class="page-link">다음</a></li>
+                                <li th:if="${pageing.next}" class="page-item"><a th:href="@{list(page=${pageing.endPage+1},keyword=${keyword})}" class="page-link">다음</a></li>
                             </ul>
                         </div>
 
                         <div class="d-block d-md-none">
                             <ul class="pagination justify-content-center">
-                                <li th:if="${pageing.halfprev}" class="page-item"><a th:href="@{list(page=${pageing.halfstartPage-1})}" class="page-link">이전</a></li>
+                                <li th:if="${pageing.halfprev}" class="page-item"><a th:href="@{list(page=${pageing.halfstartPage-1},keyword=${keyword})}" class="page-link">이전</a></li>
                                 <th:block th:each="index: ${#numbers.sequence(pageing.halfstartPage,pageing.halfendPage)}">
-                                    <li class="page-item"><a class="page-link" th:text="${index}"  th:href="@{list(page=${index})}" ></a></li>
+                                    <li class="page-item"><a class="page-link" th:text="${index}"  th:href="@{list(page=${index},keyword=${keyword})}" ></a></li>
 
                                 </th:block>
-                                <li th:if="${pageing.halfnext}" class="page-item"><a th:href="@{list(page=${pageing.halfendPage+1})}" class="page-link">다음</a></li>
+                                <li th:if="${pageing.halfnext}" class="page-item"><a th:href="@{list(page=${pageing.halfendPage+1},keyword=${keyword})}" class="page-link">다음</a></li>
                             </ul>
                         </div>
 

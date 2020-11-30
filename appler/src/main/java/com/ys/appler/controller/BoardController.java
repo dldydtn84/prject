@@ -80,6 +80,8 @@ public class BoardController {
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 
+
+
         model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         model.addAttribute("pageing", pageing);
         model.addAttribute("contextlist", contextlist);
@@ -125,6 +127,12 @@ public class BoardController {
     public String modify(Model model, @RequestParam("board") int board, @RequestParam("posts_no") int posts_no) {
         String boardcode = boardCode(board);
         BoardDto contextread = boardService.contextReadService(posts_no, board);
+
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
+
         model.addAttribute("contextread", contextread);
         model.addAttribute("board", board);
         model.addAttribute("boardcode", boardcode);
@@ -164,6 +172,10 @@ public class BoardController {
 
         BoardDto contextread = boardService.contextReadService(posts_no, board);
 
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
 
         model.addAttribute("contextread", contextread);
         model.addAttribute("board", board);

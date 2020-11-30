@@ -39,7 +39,7 @@ public class NoticeController {
     @GetMapping("/list") //search_option 차후 개선가능
     public String list(Model model, NoticeBoardDto noticeBoardDto, @RequestParam(value = "perPageNum", defaultValue = "15") int perPageNum,
                        @RequestParam(value = "page", defaultValue = "1") int page,  @RequestParam(defaultValue="all") String search_option,
-                       @RequestParam(defaultValue="") String keyword   ) {
+                       @RequestParam(value = "keyword", defaultValue="") String keyword   ) {
 
         int totalcount = NoticeboardService.ListCountService(search_option,keyword);
 
@@ -70,10 +70,14 @@ public class NoticeController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
+
         model.addAttribute("pageing", pageing);
         model.addAttribute("contextlist", contextlist);
-
         model.addAttribute("start", start);
+
+        model.addAttribute("keyword", keyword);
+
+
         return "/noticeboard/list";
     }
 

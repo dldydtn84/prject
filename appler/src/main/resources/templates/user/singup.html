@@ -14,12 +14,13 @@
 <body>
 
 <div class="signin-form">
-    <form action="#" th:action="@{/user/singuppro}" th:object="${MemberDto}" method="post" >
+    <form action="#" th:action="@{/user/singuppro}" th:object="${memberDto}" method="post"  >
         <a href="/"><img th:src="@{/img/}+logogray.png" style="display: block; margin: 0 auto; width: 240px; height: 80px;"></a>
         <h2>회원가입</h2>
         <div class="form-group">
             <h5><label for="userid">아이디</label></h5>
-            <input type="text" class="form-control input-lg" id="userid" name="userid" placeholder="ID"  >
+            <input type="text" class="form-control input-lg" id="userid" name="userid" placeholder="ID"
+                >
             <span th:text="${valid_userid}"></span>
             <div class="check_font" id="id_check"></div>
         </div>
@@ -29,19 +30,20 @@
             <input type="password" class="form-control input-lg" name="password" placeholder="Password" required="required"  >
             <span th:text="${valid_password}"></span>
         </div>
+
         <div class="form-group">
             <h5><label for="userid">닉네임</label></h5>
-            <input type="text" class="form-control input-lg" name="nickname" placeholder="nickname" required="required"  >
+            <input type="text" class="form-control input-lg" name="nickname" placeholder="닉네임" required="required"  >
             <span th:text="${valid_nickname}"></span>
         </div>
         <div class="form-group">
             <h5><label for="userid">이름</label></h5>
-            <input type="text" class="form-control input-lg" name="name" placeholder="name" required="required">
+            <input type="text" class="form-control input-lg" name="name" placeholder="이름" required="required">
             <span th:text="${valid_name}"></span>
         </div>
         <div class="form-group">
             <h5><label for="userid">이메일</label></h5>
-            <input type="text" class="form-control input-lg" name="email" placeholder="email" required="required" >
+            <input type="text" class="form-control input-lg" name="email" placeholder="이메일" required="required" >
             <span th:text="${valid_email}"></span>
         </div>
         <div class="form-group">

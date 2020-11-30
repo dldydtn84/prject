@@ -55,8 +55,11 @@ public class MemberController {
     public String singuppro(@Valid MemberDto memberDto , Errors errors, Model model,HttpSession session){
         System.out.println("memberDto: "+memberDto);
 
-        String inputPass=memberDto.getPassword();
-        memberDto.setPassword(passwordEncoder.encode(inputPass));
+
+        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
+
+
+
 
 
 
@@ -119,7 +122,7 @@ public class MemberController {
             System.out.println("google");
             model.addAttribute("id","google");
         }else{
-            System.out.println("error");
+            model.addAttribute("id",userid);
         }
         model.addAttribute("userid",userid);
         model.addAttribute("contextread",contextread);
