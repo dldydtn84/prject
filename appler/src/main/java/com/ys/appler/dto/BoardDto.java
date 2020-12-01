@@ -24,7 +24,6 @@ public class BoardDto{
     private int readcount;
     private String reporting_date;
 
-
 }
 
 

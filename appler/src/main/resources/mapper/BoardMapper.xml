@@ -8,7 +8,7 @@
         ORDER BY posts_no desc
     </select>
     <select id="BestcontextList" resultType="com.ys.appler.dto.BoardDto">
-        SELECT no, posts_no ,subject ,nickname ,editordata ,files ,readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date, (select count(*) from tbl_comment b  where a.board_code= b.board_code and a.posts_no =b.p_no) as comment
+        SELECT no,board_code, posts_no ,subject ,nickname ,editordata ,files ,readcount ,DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date, (select count(*) from tbl_comment b  where a.board_code= b.board_code and a.posts_no =b.p_no) as comment
         FROM tbl_board a
         ORDER BY readcount desc
         limit 7

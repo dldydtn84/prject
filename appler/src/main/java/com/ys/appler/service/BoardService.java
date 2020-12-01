@@ -95,6 +95,7 @@ public class BoardService {
     public List<BoardDto> BestcontextListService(){
 
         List<BoardDto> boardlist = boardMapper.BestcontextList();
+
         return boardlist;
     }
     public List<BoardDto> NewcontextListService(){

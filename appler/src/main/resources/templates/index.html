@@ -239,7 +239,7 @@ a { text-decoration:none; color:#000;}
                     <div class="tab-pane fade card-body card" id="home">
                         <th:block th:each="bestcontextList: ${bestcontextList}">
 
-                            <span th:text="${bestcontextList.subject}+' ['+ ${bestcontextList.comment}+']'"></span><br>
+                            <a th:href="@{/board/read(posts_no=${bestcontextList.posts_no},board_code=${bestcontextList.board_code})}"><span th:text="${bestcontextList.subject}+' ['+ ${bestcontextList.comment}+']'"></span></a><br>
 
                         </th:block>
                     </div>

@@ -32,6 +32,14 @@
         ORDER BY no desc
         limit 3
     </select>
+
+    <update id="contextModify" parameterType="com.ys.appler.dto.PhotoBoardDto">
+        UPDATE tbl_photo_board
+        SET subject=#{subject}, contents=#{contents}, files=#{files}
+        WHERE no=#{no}
+    </update>
+
+
     <delete id="contextDelete" parameterType="int" >
         DELETE
         FROM tbl_photo_board

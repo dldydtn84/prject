@@ -72,8 +72,8 @@ public class PhotoboardController {
         return "/photoboard/write";
     }
 
-    @RequestMapping(value = "/writepro",method = RequestMethod.GET)
-    public String writepro(MultipartFile uploadfile, Model model , PhotoBoardDto photoBoardDto, HttpServletRequest request ) throws IOException {
+    @RequestMapping(value = "/writepro",method = RequestMethod.POST)
+    public String writepro(@RequestParam("uploadfile")MultipartFile uploadfile, Model model , PhotoBoardDto photoBoardDto, HttpServletRequest request ) throws IOException {
 
 
         log.info("파일 이름: {}", uploadfile.getOriginalFilename());
@@ -111,8 +111,12 @@ public class PhotoboardController {
     public String read(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto) {
 
         PhotoBoardDto contextread = photoBoardService.contextReadService(no);
-
         model.addAttribute("contextread", contextread);
+
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
 
         return "/photoboard/read";
     }
@@ -121,11 +125,30 @@ public class PhotoboardController {
     public String modify(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto) {
 
         PhotoBoardDto contextread = photoBoardService.contextReadService(no);
-
         model.addAttribute("contextread", contextread);
+
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
 
         return "/photoboard/modify";
     }
+
+    @PostMapping("/modify")
+    public String modifypro(MultipartFile uploadfile,PhotoBoardDto photoBoardDto, HttpServletRequest request ) throws IOException {
+        String result = photoBoardService.saveFile(uploadfile);
+
+        photoBoardDto.setIp(photoBoardService.getIp(request));
+        photoBoardDto.setFile(result);
+
+        photoBoardService.contextModifyService(photoBoardDto);
+
+
+
+        return "/photoboard/modify";
+    }
+
     @PostMapping("/deletePro")
     public String deletePro(@RequestParam("no") int no) {
 

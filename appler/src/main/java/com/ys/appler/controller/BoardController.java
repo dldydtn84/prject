@@ -53,6 +53,11 @@ public class BoardController {
     }
 
 
+
+
+
+
+
     @GetMapping("/list")
     public String list(@RequestParam("board") int board, @RequestParam(value = "perPageNum", defaultValue = "15") int perPageNum,
                        @RequestParam(value = "page", defaultValue = "1") int page, Model model, BoardDto boardDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -186,7 +191,16 @@ public class BoardController {
 
 
     @RequestMapping(value = "/read")
-    public String read(@RequestParam("board") int board, @RequestParam("posts_no") int posts_no, Model model, BoardDto boardDto, HttpServletRequest request, HttpServletResponse response) {
+    public String read(@RequestParam(value = "board", defaultValue = "") int board, @RequestParam("posts_no") int posts_no, Model model, BoardDto boardDto, HttpServletRequest request, HttpServletResponse response) {
+
+
+
+
+
+
+
+
+
 
         BoardDto contextread = boardService.contextReadService(posts_no, board);
 

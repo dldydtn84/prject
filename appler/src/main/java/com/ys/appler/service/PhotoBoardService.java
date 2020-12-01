@@ -116,6 +116,11 @@ public class PhotoBoardService {
 
 
     }
+    public void contextModifyService(PhotoBoardDto photoBoardDto){
+
+        photoBoardMapper.contextModify(photoBoardDto);
+    }
+
     public void contextDeleteService(int no){
 
      photoBoardMapper.contextDelete(no);

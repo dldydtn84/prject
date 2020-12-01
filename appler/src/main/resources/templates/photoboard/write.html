@@ -22,7 +22,7 @@
                             <p>2. 회원들만 사진을 보기및 저장이 가능합니다 이점에 주의해주세요.</p>
                         </div><br>
                         <h4 class="card-title">사진공유게시판</h4>
-                        <form action="#" th:action="@{/photoboard/writepro}" th:object="${PhotoBoardDto}" method="get" enctype="multipart/form-data">
+                        <form action="#" th:action="@{/photoboard/writepro}" th:object="${PhotoBoardDto}" method="post" enctype="multipart/form-data">
 
 
                             <input type="hidden" name="nickname" id="nickname" value="test" ><!--th:value="${session.greeting}"-->

@@ -71,7 +71,7 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String index(Model model, HttpSession session ,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String index(Model model, HttpSession session ,@AuthenticationPrincipal PrincipalDetails principalDetails,BoardDto boardDto) {
         System.out.println("한글테스트 ==============");
 
 
@@ -103,6 +103,7 @@ public class HomeController {
         List<BoardDto> cbcontextList = boardService.IndexContextListService("CB");
 
         List<PhotoBoardDto> photoList = photoBoardService.IndexPhotoListService();
+
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 

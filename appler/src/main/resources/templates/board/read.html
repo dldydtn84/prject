@@ -106,7 +106,7 @@ function commentList(){
             $.each(data, function(key, value){
                 var see = [[${session.greeting }]] ;
                 var write = value.nickname;
-                a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                a += '<div class="commentArea" style=" margin-bottom: 15px;">';
                 a += '<div class="commentInfo">'+'작성자 : '+value.nickname;
                 if(see == write){
                 a += '<a onclick="commentUpdate('+value.no+',\''+value.comments+'\');"> 수정 </a>';
