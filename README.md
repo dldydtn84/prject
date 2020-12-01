@@ -6,7 +6,7 @@
 - 애플제품을 사용하는 사용자들의 실시간 소통이 가능하며 각 게시판을 이용하여 정보공유및 자료공유가 가능하다.
 
 ## 메뉴 구조도
-![image](https://user-images.githubusercontent.com/63628253/95277041-cabe2c00-0887-11eb-98e7-810b14e21c7a.png)
+![menu](https://user-images.githubusercontent.com/63628253/100708127-1fe16e80-33ef-11eb-8a01-f3972bc0ff10.PNG)
 
 
 ## 개발환경
