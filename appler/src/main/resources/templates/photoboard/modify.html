@@ -20,7 +20,7 @@
                         <h4 class="card-title">사진공유게시판</h4>
                         <form action="#" th:action="@{/photoboard/modify}" th:object="${PhotoBoardDto}" method="post" enctype="multipart/form-data">
 
-
+                            <input type="hidden" name="no" id="no" th:value="${contextread.no}" >
                             <input type="hidden" name="nickname" id="nickname" th:value="${contextread.nickname}" ><!--th:value="${session.greeting}"-->
                             <label for="subject">제목</label><br>
                             <input type="text" name="subject" id="subject" th:value="${contextread.subject}" class="form-control mr-sm-2"><br>

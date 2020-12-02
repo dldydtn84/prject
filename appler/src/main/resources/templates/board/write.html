@@ -13,11 +13,11 @@
 
     <div class="container layout" style="margin-top: 50px">
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-sm-8">
                 <div class="card shadow">
                     <div class="card-body">
                         <h4 class="card-title">자유게시판</h4>
-                        <form action="#" th:action="@{/board/writepro}" th:object="${boardDto}" method="get">
+                        <form action="#" th:action="@{/board/writepro}" th:object="${boardDto}" method="post">
 
                             <input type="hidden" name="boardnum" id="boardnum" th:value="${boardnum}">
                             <input type="hidden" name="board_code" id="board_code" th:value="${boardcode}">
@@ -34,10 +34,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
 
-                <button type="button" id="login-submit" class="btn btn-secondary btn-block"/>
-                로그인</button>
+
+                <th:block th:replace="include/side :: side"></th:block>
 
             </div>
         </div>
@@ -93,7 +93,7 @@ $('#summernote').summernote({
 			success : function(data) {
             	//항상 업로드된 파일의 url이 있어야 한다.
             	console.log(data);
-				$(editor).summernote('editor.insertImage', data);
+				$(editor).summernote('editor.insertImage', "summernoteImage/84b21a41-3f87-4cc9-bf36-719a4ceafc73_google.png");
 
 			}
 		});

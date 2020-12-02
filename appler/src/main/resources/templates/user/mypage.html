@@ -299,7 +299,7 @@ window.onclick = function(event) {
 <script>
 
 //이메일 인증
-var userid = [[ ${userid} ]];
+var userid = "[[ ${userid} ]]";
 
 function emailSend(){
     var clientEmail = document.getElementById('email').value;
@@ -367,7 +367,7 @@ function isEmail(Value){
     $(document).ready(function(){
 
      $("#changepass").click(function(){
-            var userid = [[ ${userid} ]];
+            var userid = "[[ ${userid} ]]";
             var nowpass = document.getElementById('nowpass').value;
             var newpass = document.getElementById('newpass').value;
             var againpass = document.getElementById('againpass').value;
@@ -455,7 +455,7 @@ function isEmail(Value){
 
     $("#nickchange").click(function(){
         var nickname = $("#nickname").val();
-        var userid = [[ ${userid} ]];
+        var userid = "[[ ${userid} ]]";
              $.ajax({
                   type:"POST",
                       url:"/user/nicknamechange",
@@ -471,7 +471,7 @@ function isEmail(Value){
 
      $("#namechange").click(function(){
         var name = $("#name").val();
-        var userid = [[ ${userid} ]];
+        var userid = "[[ ${userid} ]]";
              $.ajax({
                   type:"POST",
                       url:"/user/namechange",

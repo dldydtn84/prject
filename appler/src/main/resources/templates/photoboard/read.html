@@ -19,7 +19,8 @@
                         <h3 th:text="${contextread.subject}"></h3>
                         <span th:text="${contextread.nickname}"></span><br>
                         조회수 : <span th:text="${contextread.readcount}"></span><br>
-                        작성일 : <span th:text="${contextread.reporting_date}"></span><br>
+
+                        작성일 : <span th:text="${#dates.format(contextread.reporting_date, 'yyyy-MM-dd')}"></span><br>
                         내용 :
                         <div th:text="${contextread.contents}"></div>
                         <div class="" style="width: 500px; height: 350px; margin-top: 2rem; margin-bottom: 5rem;"> <img style="width: 100%; height: 100%;" th:src="@{/static/}+${contextread.file}"></div>

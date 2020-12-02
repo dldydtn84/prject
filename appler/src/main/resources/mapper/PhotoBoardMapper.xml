@@ -33,9 +33,15 @@
         limit 3
     </select>
 
+    <update id="readcountUp" parameterType="int">
+        UPDATE tbl_photo_board
+        SET readcount = readcount + 1
+        WHERE no = #{reviewNo}
+    </update>
+
     <update id="contextModify" parameterType="com.ys.appler.dto.PhotoBoardDto">
         UPDATE tbl_photo_board
-        SET subject=#{subject}, contents=#{contents}, files=#{files}
+        SET subject=#{subject}, contents=#{contents}, file=#{file}
         WHERE no=#{no}
     </update>
 

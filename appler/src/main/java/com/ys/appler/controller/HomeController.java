@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -88,15 +89,8 @@ public class HomeController {
 
 
 
-
-
-
-
-
-
-
         String test = String.valueOf(session.getAttribute("greeting"));
-        System.out.println("test ::"+test);
+        System.out.println("test sessiong::"+test);
 
         List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
         List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
@@ -105,6 +99,8 @@ public class HomeController {
         List<PhotoBoardDto> photoList = photoBoardService.IndexPhotoListService();
 
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
+
+
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 
 

@@ -126,7 +126,10 @@ public class PhotoBoardService {
      photoBoardMapper.contextDelete(no);
 
     }
+    public void readcountUpService(int reviewNo){
+        photoBoardMapper.readcountUp(reviewNo);
 
+    }
 
 
 }

@@ -146,7 +146,7 @@ margin: 0;
                                     <p>개인정보 활용에 대한 내용을 모두 읽고 동의 해주세요.</p>
                                     <p>※ 고객님은 동의를 거부할 권리가 있으나, 이 경우 서비스를 이용하실 수 없습니다. </p>
                                     <div class="chBoxCheck">
-                                        <label for="agree" class="icheck"><input type="checkbox" id="agree"/>동의</label>
+                                        <label for="agree" class="icheck"><input type="checkbox" id="agree" required="required"/>동의</label>
                                     </div>
                                 </div>
 
@@ -168,7 +168,7 @@ margin: 0;
                                             </th>
                                             <td>
                                                 <input type="text" id="name"  name="name" class="form-control mr-sm-2"
-                                                       value="" maxlength="15"/>
+                                                       value="" maxlength="15" required="required"/>
                                                 <span th:text="${valid_name}"></span>
                                             </td>
                                             <th scope="row">
@@ -177,7 +177,7 @@ margin: 0;
                                             </th>
                                             <td>
                                                 <input type="email" name="email" id="email" class="form-control2"
-                                                       value="" maxlength="50"/>
+                                                       value="" maxlength="50" required="required"/>
                                                 <br>
                                                 <span th:text="${valid_email}"></span>
                                             </td>
@@ -189,14 +189,14 @@ margin: 0;
                                             </th>
                                             <td colspan="3">
                                                 <input type="text" name="pnum1" id="pnum1" class="form-control2 "
-                                                       maxlength="3" title="핸드폰번호 첫자리 입력">
+                                                       maxlength="3" title="핸드폰번호 첫자리 입력" required="required">
 
                                                 <span>-</span>
                                                 <input type="text" name="pnum2" id="pnum2" class="form-control2 "
-                                                       maxlength="4" title="핸드폰번호 중간자리 입력">
+                                                       maxlength="4" title="핸드폰번호 중간자리 입력" required="required">
                                                 <span>-</span>
                                                 <input type="text" name="pnum3" id="pnum3" class="form-control2 "
-                                                       maxlength="4" title="핸드폰번호 마지막자리 입력">
+                                                       maxlength="4" title="핸드폰번호 마지막자리 입력" required="required">
                                                 <br>
                                                 <span th:text="${valid_pnum1}"></span>
                                             </td>
@@ -205,7 +205,7 @@ margin: 0;
                                             <th scope="row"><label for="subject">제목</label> <em class="font-red">*</em>
                                             </th>
                                             <td colspan="3"><input type="text" name="subject" id="subject"
-                                                                   class="form-control" maxlength="100"/>
+                                                                   class="form-control" maxlength="100" required="required"/>
                                                 <span th:text="${valid_subject}"></span></td>
                                         </tr>
                                         <tr>
@@ -216,7 +216,7 @@ margin: 0;
                                                     <textarea id="textarea" name="contents" rows="5" cols="30"
                                                               title="내용입력"
                                                               placeholder="※ 불편사항이나 문의사항을 남겨주시면 최대한 신속하게 답변 드리겠습니다."
-                                                              class="input-textarea"></textarea>
+                                                              class="input-textarea" required="required"></textarea>
                                                     <span th:text="${valid_contents}"></span>
 
                                                 </div>

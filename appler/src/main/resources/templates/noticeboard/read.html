@@ -24,9 +24,11 @@
                         <div class="form-group">
                             <div class="text-right">
                                 <a th:href="@{/noticeboard/list}" class="btn btn-primary">목록보기</a>
+                                <th:block th:if="${Authority} =='ROLE_ADMIN'">
                                 <a th:href="@{/noticeboard/modify(no=${no})}"
                                    class="btn btn-info">수정하기</a>
                                 <button onclick="delete_button()" class="btn btn-danger">삭제하기</button>
+                                </th:block>
                             </div>
                         </div>
                     </div>

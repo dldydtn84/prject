@@ -18,6 +18,7 @@ public interface PhotoBoardMapper {
     PhotoBoardDto contextRead(int no);
     void contextDelete(int no);
     void contextModify(PhotoBoardDto photoBoardDto);
+    void readcountUp(int reviewNo);
 
     /*List<BoardDto> contextList(String boardcode);
     int selectListno(String boardcode);

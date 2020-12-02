@@ -21,9 +21,10 @@
 
                             <div class="text-right">
                                 <!-- 게시판 종류별 인덱싱 -->
-                                <a th:href="@{/noticeboard/write}"
-                                   class="btn btn-primary">글쓰기</a>
-
+                                  <th:block th:if="${Authority} =='ROLE_ADMIN'">
+                                    <a th:href="@{/noticeboard/write}"
+                                       class="btn btn-primary">글쓰기</a>
+                                  </th:block>
                             </div>
                             <br>
                             <tr>

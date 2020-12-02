@@ -7,4 +7,6 @@
         INSERT INTO tbl_quest_board ( board_code, name, email, phone,subject, contents, file, ip,readcount, reporting_date)
         VALUES ('IB',  #{name}, #{email},#{phone},#{subject} ,#{contents} ,null ,#{ip},0,now())
     </insert>
+
+
 </mapper>

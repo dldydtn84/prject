@@ -29,9 +29,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/board/**").authenticated()
-                .anyRequest()
-                .permitAll()
+
+                .antMatchers("/noticeboard/write").hasRole("ADMIN")
+                .antMatchers("/questboard/write").permitAll()
+                .antMatchers("/**/write/**").authenticated()
+                .antMatchers("/**/modify/**").authenticated()
+
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/user/login")

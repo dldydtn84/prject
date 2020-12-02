@@ -1,7 +1,9 @@
 package com.ys.appler.controller;
 
 import com.ys.appler.config.auth.PrincipalDetails;
+import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.MemberDto;
+import com.ys.appler.service.BoardService;
 import com.ys.appler.service.MailService;
 import com.ys.appler.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,10 @@ import java.util.Map;
 @Controller
 @Slf4j
 public class MemberController {
+
+    @Autowired
+    BoardService boardService;
+
 
     @Autowired
    BCryptPasswordEncoder passwordEncoder;
@@ -108,6 +114,12 @@ public class MemberController {
     public String mypage(@RequestParam("userid") String userid, Model model,MemberDto memberDto ){
 
         MemberDto contextread = memberService.memberReadService(userid);
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
+
+
 
 
         System.out.println("substring : "+ userid.substring(0,1));

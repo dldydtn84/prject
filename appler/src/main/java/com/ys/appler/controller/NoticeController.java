@@ -4,12 +4,16 @@ package com.ys.appler.controller;
 
 import com.ys.appler.commons.paging.Criteria;
 import com.ys.appler.commons.paging.Pageing;
+import com.ys.appler.config.auth.PrincipalDetails;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.NoticeBoardDto;
 import com.ys.appler.service.BoardService;
 import com.ys.appler.service.NoticeBoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +43,7 @@ public class NoticeController {
     @GetMapping("/list") //search_option 차후 개선가능
     public String list(Model model, NoticeBoardDto noticeBoardDto, @RequestParam(value = "perPageNum", defaultValue = "15") int perPageNum,
                        @RequestParam(value = "page", defaultValue = "1") int page,  @RequestParam(defaultValue="all") String search_option,
-                       @RequestParam(value = "keyword", defaultValue="") String keyword   ) {
+                       @RequestParam(value = "keyword", defaultValue="") String keyword ,@AuthenticationPrincipal PrincipalDetails principalDetails ) {
 
         int totalcount = NoticeboardService.ListCountService(search_option,keyword);
 
@@ -56,7 +60,11 @@ public class NoticeController {
         pageing.setTotalCount(totalcount);
         int start = pageing.getStartPage();
 
+        if(principalDetails != null){
+            model.addAttribute("Authority", principalDetails.getMemberDto().getAuthority());
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
 
+        }
 
 
        /* Map<String,Object> map = new HashMap<>();
@@ -82,7 +90,13 @@ public class NoticeController {
     }
 
     @GetMapping(value = "/read")
-    public String read(@RequestParam("no") int no, Model model, NoticeBoardDto noticeBoardDto, HttpServletRequest request, HttpServletResponse response) {
+    public String read(@RequestParam("no") int no, Model model, NoticeBoardDto noticeBoardDto, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        if(principalDetails != null){
+            model.addAttribute("Authority", principalDetails.getMemberDto().getAuthority());
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+
+        }
 
         NoticeBoardDto contextread = NoticeboardService.contextReadService(no);
 
@@ -139,10 +153,19 @@ public class NoticeController {
 
 
 
-
+@Secured("ROLE_ADMIN")
     @GetMapping("/write")
-    public String write() {
+    public String write(Model model,@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
+    if(principalDetails != null) {
+        model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+    }
+
+
+    List<BoardDto> bestcontextList = boardService.BestcontextListService();
+    List<BoardDto> newcontextList = boardService.NewcontextListService();
+    model.addAttribute("bestcontextList", bestcontextList);
+    model.addAttribute("newcontextList", newcontextList);
 
         return "/noticeboard/write";
     }
@@ -162,7 +185,12 @@ public class NoticeController {
     }
 
     @GetMapping("/modify")
-    public String modify(Model model,  @RequestParam("no") int no) {
+    public String modify(Model model,  @RequestParam("no") int no,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        if(principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
+
 
         NoticeBoardDto contextread = NoticeboardService.contextReadService(no);
         model.addAttribute("contextread", contextread);

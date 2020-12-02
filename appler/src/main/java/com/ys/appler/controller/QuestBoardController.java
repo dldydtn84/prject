@@ -1,5 +1,6 @@
 package com.ys.appler.controller;
 
+import com.ys.appler.config.auth.PrincipalDetails;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.MemberDto;
 import com.ys.appler.dto.QuestBoardDto;
@@ -7,12 +8,14 @@ import com.ys.appler.service.BoardService;
 import com.ys.appler.service.QuestBoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +38,10 @@ public class QuestBoardController {
 
 
     @GetMapping("/write")
-    public String write(Model model) {
+    public String write(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        if(principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);
@@ -71,9 +77,22 @@ public class QuestBoardController {
 
             questBoardService.contextWriteService(questBoardDto);
 
-            return "/questboard/writesussce";
+            return "redirect:/questboard/writesussce?email="+questBoardDto.getEmail();
         }
 
+    }
+
+    @GetMapping("/writesussce")
+    public String writesussce(@RequestParam("email") String email, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        if(principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
+model.addAttribute("email",email);
+        return "/questboard/writesussce";
     }
 
 }

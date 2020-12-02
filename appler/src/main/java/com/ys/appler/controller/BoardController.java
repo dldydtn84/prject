@@ -23,6 +23,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +87,11 @@ public class BoardController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 
 
-        model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+if(principalDetails != null) {
+    model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+}
+
+
         model.addAttribute("pageing", pageing);
         model.addAttribute("contextlist", contextlist);
         model.addAttribute("board", board);
@@ -100,8 +105,18 @@ public class BoardController {
 
 
     @GetMapping("/write")
-    public String write(@RequestParam("board") int boardnum, @ModelAttribute BoardDto boardDto, Model model) {
+    public String write(@RequestParam("board") int boardnum, @ModelAttribute BoardDto boardDto, Model model,@AuthenticationPrincipal PrincipalDetails principalDetails) {
         String boardcode = boardCode(boardnum);
+
+        if(principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
+
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
+
 
         model.addAttribute("boardnum", boardnum);
         model.addAttribute("boardcode", boardcode);
@@ -110,7 +125,7 @@ public class BoardController {
         return "/board/write";
     }
 
-    @GetMapping("/writepro")
+    @PostMapping("/writepro")
     public String writepro(@RequestParam("board_code") String board_code,
                            @RequestParam("boardnum") String boardnum,
                            @Valid BoardDto boardDto, Errors errors,
@@ -134,6 +149,8 @@ public class BoardController {
             return "/board/write";
         }
         else {
+
+
             boardDto.setIp(boardService.getIp(request));
 
 
@@ -147,7 +164,7 @@ public class BoardController {
     }
 
     @GetMapping("/modify")
-    public String modify(Model model, @RequestParam("board") int board, @RequestParam("posts_no") int posts_no) {
+    public String modify(Model model, @RequestParam("board") int board, @RequestParam("posts_no") int posts_no, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String boardcode = boardCode(board);
         BoardDto contextread = boardService.contextReadService(posts_no, board);
 
@@ -155,6 +172,10 @@ public class BoardController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
+        if(principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
+
 
         model.addAttribute("contextread", contextread);
         model.addAttribute("board", board);
@@ -191,22 +212,14 @@ public class BoardController {
 
 
     @RequestMapping(value = "/read")
-    public String read(@RequestParam(value = "board", defaultValue = "") int board, @RequestParam("posts_no") int posts_no, Model model, BoardDto boardDto, HttpServletRequest request, HttpServletResponse response) {
+    public String read(@RequestParam(value = "board", defaultValue = "") int board, @RequestParam("posts_no") int posts_no, Model model, BoardDto boardDto, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
 
-
-
-
-
-
-
-
+        if(principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
 
         BoardDto contextread = boardService.contextReadService(posts_no, board);
-
-
-
-
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);

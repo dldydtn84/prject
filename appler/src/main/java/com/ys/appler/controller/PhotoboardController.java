@@ -3,18 +3,22 @@ package com.ys.appler.controller;
 
 import com.ys.appler.commons.paging.Criteria;
 import com.ys.appler.commons.paging.Pageing;
+import com.ys.appler.config.auth.PrincipalDetails;
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.PhotoBoardDto;
 import com.ys.appler.service.BoardService;
 import com.ys.appler.service.PhotoBoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -108,7 +112,7 @@ public class PhotoboardController {
 
     }
     @GetMapping("/read")
-    public String read(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto) {
+    public String read(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto , HttpServletRequest request, HttpServletResponse response , @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         PhotoBoardDto contextread = photoBoardService.contextReadService(no);
         model.addAttribute("contextread", contextread);
@@ -117,12 +121,54 @@ public class PhotoboardController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
+        if(principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
+
+
+        //쿠키가져오기
+        Cookie[] cookies = request.getCookies();
+
+        // 새로운쿠키 생성하여 비교
+        Cookie viewCookie = null;
+
+        // 쿠키가 있을 경우
+        if (cookies != null && cookies.length > 0) {
+            for (int i = 0; i < cookies.length; i++) {
+                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌
+                if (cookies[i].getName().equals("cookie" + no)) {
+                    viewCookie = cookies[i];
+                }
+            }
+        }
+        // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+        if (viewCookie == null) {
+
+            // 쿠키 생성(이름, 값)
+            Cookie newCookie = new Cookie("cookie" + no, "|" + no + "|");
+            // 쿠키 추가
+            response.addCookie(newCookie);
+
+
+            photoBoardService.readcountUpService(no);
+        }
+        // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+        else {
+            // 쿠키 값 받아옴.
+            String value = viewCookie.getValue();
+        }
+
+
+
+
+
+
 
         return "/photoboard/read";
     }
 
     @GetMapping("/modify")
-    public String modify(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto) {
+    public String modify(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto , @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         PhotoBoardDto contextread = photoBoardService.contextReadService(no);
         model.addAttribute("contextread", contextread);
@@ -131,12 +177,15 @@ public class PhotoboardController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
+        if(principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
 
         return "/photoboard/modify";
     }
 
     @PostMapping("/modify")
-    public String modifypro(MultipartFile uploadfile,PhotoBoardDto photoBoardDto, HttpServletRequest request ) throws IOException {
+    public String modifypro(@RequestParam("no") int no, MultipartFile uploadfile,PhotoBoardDto photoBoardDto, HttpServletRequest request ) throws IOException {
         String result = photoBoardService.saveFile(uploadfile);
 
         photoBoardDto.setIp(photoBoardService.getIp(request));
@@ -146,7 +195,7 @@ public class PhotoboardController {
 
 
 
-        return "/photoboard/modify";
+        return "redirect:/photoboard/read?no="+no;
     }
 
     @PostMapping("/deletePro")

@@ -10,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.io.File;
 
 @Configuration
-@Import({FileConfig.class})
 @ComponentScan(basePackages = {"com.ys.appler"})
 @EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
