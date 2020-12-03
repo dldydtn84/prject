@@ -17,6 +17,8 @@ public interface BoardMapper {
 
     int selectListno(String boardcode);
     BoardDto contextRead(String boardcode, int no);
+    BoardDto contextReading(int no);
+
     void contextWrite(BoardDto boardDto);
     int postnoOne(String board_code);
     void readcountUp(int reviewNo);

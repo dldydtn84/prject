@@ -263,5 +263,78 @@ if(principalDetails != null) {
         return "/board/read";
     }
 
+    @RequestMapping(value = "/reading")
+    public String reading(@RequestParam(value = "no") int no, Model model, BoardDto boardDto, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+
+        if(principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
+
+        BoardDto contextread = boardService.contextReadingService(no);
+
+
+       int posts_no=  contextread.getPosts_no();
+       String board_code =contextread.getBoard_code();
+       int board_num = 0;
+        if (board_code == "FB") {
+            board_num = 1;
+        } else if (board_code == "QB") {
+            board_num = 2;
+        } else if (board_code == "CB") {
+            board_num = 3;
+        }
+            
+
+
+
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
+
+        model.addAttribute("contextread", contextread);
+        model.addAttribute("board", board_num);
+        model.addAttribute("posts_no", posts_no);
+
+        //게시판 시퀀스번호
+        int boardno = contextread.getNo();
+
+
+        //쿠키가져오기
+        Cookie[] cookies = request.getCookies();
+
+        // 새로운쿠키 생성하여 비교
+        Cookie viewCookie = null;
+
+        // 쿠키가 있을 경우
+        if (cookies != null && cookies.length > 0) {
+            for (int i = 0; i < cookies.length; i++) {
+                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌
+                if (cookies[i].getName().equals("cookie" + posts_no)) {
+                    viewCookie = cookies[i];
+                }
+            }
+        }
+        // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+        if (viewCookie == null) {
+
+            // 쿠키 생성(이름, 값)
+            Cookie newCookie = new Cookie("cookie" + posts_no, "|" + posts_no + "|");
+            // 쿠키 추가
+            response.addCookie(newCookie);
+
+
+            boardService.readcountUpService(boardno);
+        }
+        // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+        else {
+            // 쿠키 값 받아옴.
+            String value = viewCookie.getValue();
+        }
+
+
+        return "/board/read";
+    }
 
 }

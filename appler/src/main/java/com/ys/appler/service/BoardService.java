@@ -128,6 +128,17 @@ public class BoardService {
         BoardDto boardread = boardMapper.contextRead(boardcode,no);
         return  boardread;
     }
+
+
+    public BoardDto contextReadingService(int no){
+
+
+        BoardDto boardread = boardMapper.contextReading(no);
+        return  boardread;
+    }
+
+
+
     public void contextWriteService(BoardDto boardDto){
 
 
