@@ -108,9 +108,14 @@ $( document ).ready(function() {
 			}
 		}
 		document.addEventListener("keypress", function(e){
-			if(e.keyCode == 13){ //enter press
-				entersend();
-			}
+		 var userid = "[[ ${session.greeting} ]]";
+
+                if(userid !=""){
+
+                       if(e.keyCode == 13){ //enter press
+                         send();
+                       }
+			    }
 		});
 	}
 		function send() {
@@ -134,20 +139,7 @@ $( document ).ready(function() {
 		ws.send(JSON.stringify(option))
 		$('#chatting').val("");
 	}
-	function entersend() {
 
-		var option ={
-			type: "message",
-			sessionId : $("#sessionId").val(),
-
-			msg : $("#chatting").val()
-		}
-
-
-
-		ws.send(JSON.stringify(option))
-		$('#chatting').val("");
-	}
 
 </script>
     </head>

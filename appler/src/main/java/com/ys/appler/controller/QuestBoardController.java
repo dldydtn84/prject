@@ -51,8 +51,6 @@ public class QuestBoardController {
     @PostMapping("/write")
     public String writepro(@Valid QuestBoardDto questBoardDto, MultipartFile uploadfile, Errors errors, Model model, HttpServletRequest request) throws IOException {
 
-
-
         if (errors.hasErrors()) {
             // 회원가입 실패시, 입력 데이터를 유지
             model.addAttribute("questBoardDto", questBoardDto);
@@ -91,7 +89,7 @@ public class QuestBoardController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
-model.addAttribute("email",email);
+        model.addAttribute("email",email);
         return "/questboard/writesussce";
     }
 

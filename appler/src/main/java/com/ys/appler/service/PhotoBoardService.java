@@ -36,7 +36,6 @@ public class PhotoBoardService {
         log.info("saveName: {}",saveName);
 
         String fileName = file.getOriginalFilename();
-        log.info("fileName : "+fileName);
         String contentType = file.getContentType();
         long filesize = file.getSize();
 

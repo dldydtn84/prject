@@ -37,12 +37,10 @@ public class PhotoboardController {
                        @RequestParam(value = "page", defaultValue = "1") int page) {
 
         int totalcount = photoBoardService.totalcountService();
-        log.info("totalcount : "+String.valueOf(totalcount));
 
         Criteria criteria = new Criteria();
         criteria.setPage(page);
         criteria.setPerPageNum(perPageNum);
-        //criteria.setBoardCode(boardCode);
 
         Pageing pageing = new Pageing();
         pageing.setCriteria(criteria);
@@ -50,14 +48,7 @@ public class PhotoboardController {
         int start = pageing.getStartPage();
 
 
-
-
-
-
-
       List<PhotoBoardDto> contextlist = photoBoardService.contextListService(criteria);
-      log.info("context :"+String.valueOf(contextlist));
-
 
       model.addAttribute("contextlists",contextlist);
       model.addAttribute("pageing", pageing);
@@ -87,10 +78,6 @@ public class PhotoboardController {
 
 
         log.info("save : "+result);
-
-        log.info("subject : "+photoBoardDto.getSubject());
-        log.info("contents : "+photoBoardDto.getContents());
-
 
         photoBoardDto.setIp(photoBoardService.getIp(request));
          photoBoardDto.setFile(result);
@@ -157,14 +144,7 @@ public class PhotoboardController {
             // 쿠키 값 받아옴.
             String value = viewCookie.getValue();
         }
-
-
-
-
-
-
-
-        return "/photoboard/read";
+       return "/photoboard/read";
     }
 
     @GetMapping("/modify")
@@ -206,33 +186,4 @@ public class PhotoboardController {
 
         return "redirect:/photoboard/list";
     }
-
-
-
-
-
-
-
-
-
-   /* @RequestMapping(value = "/fileupload2", method = RequestMethod.POST)
-    public String multiupload(@RequestParam("uploadfiles") MultipartFile[] file, Model model) throws IOException {
-
-        log.info("Welcome multi file! The client locale is {}.", "Hello");
-
-        String result = "";
-
-        for(MultipartFile f : file){
-            result += saveFile(f);
-        }
-
-        return "redirect:/";
-    }*/
-
-
-
-
-
-
-
 }

@@ -42,6 +42,7 @@
         }
 
 
+
 </style>
 
 
@@ -147,21 +148,26 @@
 
                                         </div>
                                         <hr>
+                                        <form th:action="@{/user/changePass}" id="passform" method="post">
+                                            <input type="hidden" name="userid"  th:value="${userid}">
                                         <label for="nowpass">현재 비밀번호</label>
                                         <input type="password" name="nowpass" id="nowpass" class="form-control2">
                                         <div class="nowpassck"></div>
                                         <hr>
-                                        <br>
-                                        <label for="newpass">새 비밀번호</label>
-                                        <input type="password" name="newpass" id="newpass" class="form-control2"><br>
-                                        <label for="againpass">새 비밀번호 확인</label>
-                                        <input type="password" name="againpass" id="againpass"
-                                               class="form-control2"><br>
-                                        <hr>
 
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-success" id="changepass">인증하기</button>
-                                        </div>
+                                            <br>
+                                            <label for="newpass">새 비밀번호</label>
+                                            <input type="password" name="newpass" id="newpass"
+                                                   class="form-control2"><br>
+                                            <label for="againpass">새 비밀번호 확인</label>
+                                            <input type="password" name="againpass" id="againpass"
+                                                   class="form-control2"><br>
+                                            <hr>
+
+                                            <div class="text-right">
+                                                <div class="btn btn-success" onclick="changepass()">변경하기</div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </td>
@@ -309,6 +315,7 @@ window.onclick = function(event) {
 };
 
 
+
 </script>
 
 
@@ -379,15 +386,17 @@ function isEmail(Value){
 
 
 
+
 </script>
 <script>
     $(document).ready(function(){
 
-     $("#changepass").click(function(){
+     $("#nowpass").blur(function(){
             var userid = "[[ ${userid} ]]";
             var nowpass = document.getElementById('nowpass').value;
             var newpass = document.getElementById('newpass').value;
             var againpass = document.getElementById('againpass').value;
+
 
                $.ajax({
                         type:"POST",
@@ -412,7 +421,14 @@ function isEmail(Value){
                });
 
 
-			if($("#newpass").val() !== $("#againpass").val()){
+
+		});
+	})
+
+function changepass(){
+
+
+            if($("#newpass").val() !== $("#againpass").val()){
 				alert("비밀번호가 다릅니다.");
 				$("#newpass").val("").focus();
 				$("#againpass").val("");
@@ -424,30 +440,20 @@ function isEmail(Value){
 			}else if($.trim($("#newpass").val()) !== $("#newpass").val()){
 				alert("공백은 입력이 불가능합니다.");
 				return false;
-			}else {
-
-			       $.ajax({
-                        type:"POST",
-                        url:"/user/changePass",
-                        data:{'newpass':newpass,'againpass':againpass, 'userid':userid},
-                        success : function(data){
-                            if(data ==1){
-                                   $(".nowpassck").remove();
-                                alert('정상적으로 변경되었습니다.');
-
-                            }else{
-                                alert('에러가 발생했습니다.');
-                            }
-
-
-
-                        },error : function(e){
-                        alert('오류가 발생했습니다.');
-                        }
-                   });
+			}else{
+			 document.getElementById('passform').submit();
 			}
-		});
-	})
+
+
+
+
+}
+
+
+
+
+
+
 
 	 $("#nicknameCheck").click(function(){
         var nickname = $("#nickname").val();
@@ -472,46 +478,6 @@ function isEmail(Value){
 
 	 });
 
-    $("#nickchange").click(function(){
-        var nickname = $("#nickname").val();
-        var userid = "[[ ${userid} ]]";
-             $.ajax({
-                  type:"POST",
-                      url:"/user/nicknamechange",
-                      data:{'nickname':nickname,'userid':userid},
-                      success : function(data){
-                            var a ='';
-                              a += data;
-                              $(".changenickname").html(a);
-                              alert('변경되었습니다.');
-
-                      },error : function(e){
-                      alert('오류가 발생했습니다.');
-                      }
-             });
-
-	 });
-
-     $("#namechange").click(function(){
-        var name = $("#name").val();
-        var userid = "[[ ${userid} ]]";
-             $.ajax({
-                  type:"post",
-                      url:"/user/namechange",
-                      data:{'name':name,'userid':userid},
-                      success : function(data){
-                             var a ='';
-                              a += data;
-                              $(".changename").html(a);
-                              alert('변경되었습니다.');
-
-
-                      },error : function(e){
-                      alert('오류가 발생했습니다.');
-                      }
-             });
-
-	 });
 
 
 </script>

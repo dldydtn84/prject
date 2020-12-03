@@ -45,31 +45,6 @@ public class HomeController {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
-    @GetMapping("/test/login")
-    public @ResponseBody String testLogin( @AuthenticationPrincipal PrincipalDetails PrincipalDetails){
-        System.out.println("testlogin ==============");
-
-
-        System.out.println("userDetails :"+PrincipalDetails.getMemberDto())  ;
-        System.out.println("userDetails :"+PrincipalDetails.getPassword())  ;
-        return "세션정보확인";
-    }
-
-
-
-
-    @GetMapping("/test/oauth/login")
-    public @ResponseBody String testOAuthLogin(Model model,@AuthenticationPrincipal PrincipalDetails PrincipalDetails){
-        System.out.println("testlogin ==============");
-
-        System.out.println("PrincipalDetails :"+PrincipalDetails.getMemberDto())  ;
-
-
-        return "세션정보확인";
-    }
-
-
-
 
     @GetMapping("/")
     public String index(Model model, HttpSession session ,@AuthenticationPrincipal PrincipalDetails principalDetails,BoardDto boardDto) {
@@ -78,19 +53,11 @@ public class HomeController {
 
 
         if(principalDetails == null){
-            System.out.println("test ::  .......");
+
         }else{
-            System.out.println("test ::"+principalDetails.getMemberDto().getNickname());
-            System.out.println("test ::"+principalDetails.getMemberDto().getUserid());
             model.addAttribute("nickname",principalDetails.getMemberDto().getNickname());
             model.addAttribute("userid",principalDetails.getMemberDto().getUserid());
         }
-
-
-
-
-        String test = String.valueOf(session.getAttribute("greeting"));
-        System.out.println("test sessiong::"+test);
 
         List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
         List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
@@ -99,8 +66,6 @@ public class HomeController {
         List<PhotoBoardDto> photoList = photoBoardService.IndexPhotoListService();
 
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
-
-
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 
 
@@ -118,44 +83,10 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/chat")
-    public String chat(Model model){
-
-       /* User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();*/
-/*
-        log.info("{} username " +user.getUsername());
-        log.info("{] getname " + user.getName());
-
-        model.addAttribute("userid",user.getUsername());*/
-
-
-        return "chat";
-    }
-    @GetMapping("/test")
-    public String test(Model model){
-
-        return "test";
-    }
-    @GetMapping("/test2")
-    public String test2(Model model){
-
-        return "test2";
-    }
     @GetMapping("/admin/layout/default")
     public String defaults(Model model){
         //model.addAttribute("data","hello");
         return "/admin/layout/default";
-    }
-    @GetMapping("default")
-    public String defaultss(Model model){
-        //model.addAttribute("data","hello");
-        return "default";
-    }
-
-    @GetMapping("side")
-    public String side(Model model){
-        model.addAttribute("userid","userid");
-        return "side";
     }
 
 

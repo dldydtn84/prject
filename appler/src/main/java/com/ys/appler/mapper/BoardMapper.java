@@ -15,8 +15,6 @@ public interface BoardMapper {
     List<BoardDto> BestcontextList();
     List<BoardDto> NewcontextList();
 
-
-
     int selectListno(String boardcode);
     BoardDto contextRead(String boardcode, int no);
     void contextWrite(BoardDto boardDto);

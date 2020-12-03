@@ -27,7 +27,6 @@ public class SockerHandler  extends TextWebSocketHandler {
         JSONObject obj = jsonToObjectParser(msg);
         obj.put("userName",session.getPrincipal().getName());
 
-        System.out.println("obj ::"+obj);
 
         for(String key : sessionMap.keySet()) {
             WebSocketSession wss = sessionMap.get(key);
@@ -51,8 +50,7 @@ public class SockerHandler  extends TextWebSocketHandler {
         obj.put("sessionId", session.getId());
         session.sendMessage(new TextMessage(obj.toJSONString()));
 
-        System.out.println("sessionMap ::"+sessionMap);
-        System.out.println("obj2 ::"+obj);
+
     }
 
     @Override
@@ -63,7 +61,7 @@ public class SockerHandler  extends TextWebSocketHandler {
     }
 
     private static JSONObject jsonToObjectParser(String jsonStr) {
-        System.out.println("jsonStr ::"+jsonStr);
+
         JSONParser parser = new JSONParser();
         JSONObject obj = null;
         try {

@@ -30,7 +30,6 @@ public class CommentController {
     @ResponseBody
     private List<CommentDto> commentList(@RequestParam int bno,Model model,CommentDto commentDto) throws Exception{
         List<CommentDto> result = commentService.CommentListService(bno);
-        log.info("comment : "+result);
         model.addAttribute("commentDto",commentDto);
 
 

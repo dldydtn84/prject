@@ -66,12 +66,6 @@ public class NoticeController {
 
         }
 
-
-       /* Map<String,Object> map = new HashMap<>();
-        map.put("search_option", search_option);
-        map.put("keyword", keyword);*/
-
-
         List<NoticeBoardDto> contextlist = NoticeboardService.listPagingService(criteria);
 
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
@@ -194,7 +188,6 @@ public class NoticeController {
 
         NoticeBoardDto contextread = NoticeboardService.contextReadService(no);
         model.addAttribute("contextread", contextread);
-        log.info("noasd : "+no);
         model.addAttribute("no", no);
 
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
@@ -224,14 +217,6 @@ public class NoticeController {
 
         return "redirect:/noticeboard/list";
     }
-   /* @GetMapping("/search")
-    public String search(Model model,@RequestParam("search") String search, NoticeBoardDto noticeBoardDto) {
-        List<NoticeBoardDto> searchcontextlist= NoticeboardService.contextSearchService(search);
-        model.addAttribute("searchcontextlist", searchcontextlist);
-
-
-        return "/noticeboard/list";
-    }*/
 
 
 }

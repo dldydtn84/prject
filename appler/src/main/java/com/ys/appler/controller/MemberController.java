@@ -1,24 +1,23 @@
 package com.ys.appler.controller;
 
-import com.ys.appler.config.auth.PrincipalDetails;
+
 import com.ys.appler.dto.BoardDto;
 import com.ys.appler.dto.MemberDto;
+import com.ys.appler.dto.Message;
 import com.ys.appler.service.BoardService;
 import com.ys.appler.service.MailService;
 import com.ys.appler.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,9 +43,7 @@ public class MemberController {
     @GetMapping("/user/login")
     public String login(HttpServletRequest request){
 
-        String referrer = request.getHeader("Referer");
-        System.out.println("referrer : "+referrer);
-        request.getSession().setAttribute("prevPage", referrer);
+
         return "/user/login";
     }
 
@@ -59,15 +56,8 @@ public class MemberController {
 
     @PostMapping("/user/singuppro")
     public String singuppro(@Valid MemberDto memberDto , Errors errors, Model model,HttpSession session){
-        System.out.println("memberDto: "+memberDto);
 
-
-        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
-
-
-
-
-
+           memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
 
        if (errors.hasErrors()) {
             // 회원가입 실패시, 입력 데이터를 유지
@@ -99,7 +89,6 @@ public class MemberController {
     public int idCheck(@RequestParam("userid") String userid){
 
         int result = memberService.memberidCheckService(userid);
-    log.info("result"+String.valueOf(result));
         return result ;
     }
 
@@ -122,18 +111,13 @@ public class MemberController {
 
 
 
-        System.out.println("substring : "+ userid.substring(0,1));
-
-        if(userid.substring(0,1).equals("k")){
-            System.out.println("kakao");
+        if(contextread.getProvider().equals("kakao")){
             model.addAttribute("id","kakao");
-        }else if(userid.substring(0,1).equals("n")){
-            System.out.println("naver");
+        }else if(contextread.getProvider().equals("naver")){
             model.addAttribute("id","naver");
-        }else if(userid.substring(0,1).equals("g")){
-            System.out.println("google");
+        }else if(contextread.getProvider().equals("google")){
             model.addAttribute("id","google");
-        }else{
+        }else if(contextread.getProvider().equals("form")){
             model.addAttribute("id",userid);
         }
         model.addAttribute("userid",userid);
@@ -145,7 +129,6 @@ public class MemberController {
     @PostMapping("/user/email")
     @ResponseBody
     public String sendEmail(HttpServletRequest request, String userEmail) throws Exception {
-        log.info("useremail"+ userEmail);
         String type ="auth";
          mailService.createMessage(userEmail, type);
 
@@ -157,8 +140,7 @@ public class MemberController {
         log.info("Post verifyCode");
 
         int result = 0;
-        System.out.println("code : "+authcode);
-        System.out.println("code match : "+ MailService.ePw.equals(authcode)); //이멜로 보낸 번호와 비교
+
         if(MailService.ePw.equals(authcode)) {
             result =1;
            memberService.memberAuthService(userid);
@@ -195,25 +177,13 @@ public class MemberController {
     public Object  account_search(String pw_id, String pw_email, Model model){
         //계정존재여부 확인
        int result=memberService.memberAccountSearchService(pw_id, pw_email); //count
-   /*    log.info("result : "+result);
-       String asd = String.valueOf(result)+pw_id +pw_email;
-       log.info("result2 : "+asd);*/
 
        Map<String, Object> list = new HashMap<String, Object>();
        list.put("result", result);
        list.put("id", pw_id);
        list.put("email", pw_email);
 
-       log.info("Object : "+String.valueOf(list));
        return list;
-
-     /*  if(result == 1){
-
-            return result ;
-        }else{
-            return result ;
-        }*/
-
     }
 
     @PostMapping("/user/account_search")
@@ -228,35 +198,45 @@ public class MemberController {
 
        int result =  memberService.temporaryPasswordService(userid,temporaryPass);   //임시비밀번호 변경
 
-
-
         return result;
     }
 
     @PostMapping("/user/nowpassCheck")
     @ResponseBody
-    public int nowpassCheck(String userid, String nowpass, Model model) throws Exception {
+    public Boolean nowpassCheck(String userid, String nowpass, Model model) throws Exception {
 
-        int result =  memberService.nowpassCheckService(userid,passwordEncoder.encode(nowpass));
-        //현재 비밀번호 체크
+        String password =  memberService.nowpassCheckService(userid);
+        Boolean result = passwordEncoder.matches(nowpass,password);
 
         return result;
     }
 
     @PostMapping("/user/changePass")
-    @ResponseBody
-    public int changePass(String newpass, String againpass, String userid, Model model) throws Exception {
-        if(newpass.equals(againpass)) {
-            int result = memberService.changePassService(userid, passwordEncoder.encode(newpass));
+    public ModelAndView changePass(@RequestParam("nowpass")String nowpass, @RequestParam("newpass")String newpass, @RequestParam("againpass") String againpass, ModelAndView mav, String userid, Model model) throws Exception {
 
-            log.info("result :"+result);
+        String password =  memberService.nowpassCheckService(userid);
+        Boolean result = passwordEncoder.matches(nowpass,password);
 
+        if(result == true){
+            if(newpass.equals(againpass)) {
+                int passresult = memberService.changePassService(userid, passwordEncoder.encode(newpass));
 
-            return result;
-        }else {
+                mav.addObject("data", new Message("비밀번호가 변경되었습니다.", "/user/mypage?userid="+userid));
+                mav.setViewName("Message");
+                return mav;
 
-            return 0;
+            }
+            mav.addObject("data", new Message("비밀번호가 일치하지 않습니다.", "/user/mypage?userid="+userid));
+            mav.setViewName("Message");
+            return mav;
         }
+
+        mav.addObject("data", new Message("현재 비밀번호가 일치하지 않습니다.", "/user/mypage?userid="+userid));
+        mav.setViewName("Message");
+
+        return mav;
+
+
     }
 
     @PostMapping("/user/nicknameCheck")
@@ -265,7 +245,6 @@ public class MemberController {
 
         int result = memberService.nicknameCheckService(nickname);
         //닉네임 중복확인
-        log.info("result ::"+result);
 
 
 
@@ -282,18 +261,28 @@ public class MemberController {
 
 
     @PostMapping("/user/nicknamechange")
-    public String nicknamechange(@RequestParam("nickname") String nickname,@RequestParam("userid") String userid, Model model) throws Exception {
+    public ModelAndView nicknamechange(@RequestParam("nickname") String nickname,@RequestParam("userid") String userid, Model model,ModelAndView mav) throws Exception {
 
         int result = memberService.nicknameCheckService(nickname);
+
         if(result == 0){
-            log.info("asdsadsdsadsdsadsadsadsdas;::::::");
+
             int result2 = memberService.nicknameChangeService(nickname, userid);
 
             String changenickname = memberService.nickNameChangeSearchService(userid);
 
-        }
-        return "redirect:/user/mypage?userid="+userid;
+            mav.addObject("data", new Message("닉네임이 변경되었습니다.", "/user/mypage?userid="+userid));
+            mav.setViewName("Message");
 
+            return mav;
+
+        }
+
+
+        mav.addObject("data", new Message("닉네임을 사용할수 없습니다.", "/user/mypage?userid="+userid));
+        mav.setViewName("Message");
+
+        return mav;
 
     }
 
@@ -309,11 +298,15 @@ public class MemberController {
 
     @PostMapping("/user/namechange")
 
-    public String namechange(@RequestParam("name") String name,@RequestParam("userid") String userid,Model model) throws Exception {
+    public ModelAndView namechange(@RequestParam("name") String name,@RequestParam("userid") String userid,ModelAndView mav) throws Exception {
 
         int result = memberService.nameChangeService(name, userid);
 
-        return "redirect:/user/mypage?userid="+userid;
+        mav.addObject("data", new Message("이름이 변경되었습니다.", "/user/mypage?userid="+userid));
+        mav.setViewName("Message");
+
+        return mav;
+      
     }
 
 }

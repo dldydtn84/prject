@@ -54,10 +54,10 @@
         password = #{temporaryPass}
         WHERE userid = #{id}
     </update>
-    <select id="nowpassCheck" resultType="int">
-        SELECT count(*)
+    <select id="nowpassCheck" resultType="String">
+        SELECT password
         FROM tbl_member
-        WHERE userid = #{id} and password =#{nowpass}
+        WHERE userid = #{id}
     </select>
     <update id="changePass" >
         UPDATE tbl_member

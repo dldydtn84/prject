@@ -78,8 +78,8 @@ public class MemberService {
 
         return result;
     }
-    public int nowpassCheckService(String id,String nowpass){
-        int result= memberMapper.nowpassCheck(id, nowpass);
+    public String nowpassCheckService(String id){
+        String result= memberMapper.nowpassCheck(id);
 
         return result;
     }

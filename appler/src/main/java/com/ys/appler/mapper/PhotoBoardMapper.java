@@ -20,14 +20,4 @@ public interface PhotoBoardMapper {
     void contextModify(PhotoBoardDto photoBoardDto);
     void readcountUp(int reviewNo);
 
-    /*List<BoardDto> contextList(String boardcode);
-    int selectListno(String boardcode);
-    BoardDto contextRead(String boardcode, int no);
-    void contextWrite(BoardDto boardDto);
-    int postnoOne(String board_code);
-    void readcountUp(int reviewNo);
-    void contextDelete(Map<String, String> map);
-    void contextUpdate(BoardDto boardDto);
-    List<BoardDto> listPaging(Criteria criteria);*/
-
 }

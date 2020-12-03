@@ -53,15 +53,13 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService  {
        log.info("userRequest : "+userRequest.getClientRegistration());
 
 
-       //registrationId =google or naver
+
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         OAuth2User oauth2User = super.loadUser(userRequest);
         log.info("getAttributes : "+oauth2User.getAttributes());
-        System.out.println(registrationId);
 
-        System.out.println("asdasd :: " +oauth2User.getAttributes());
         if(registrationId.equals("google")){
-            System.out.println("google");
+
             provider = userRequest.getClientRegistration().getRegistrationId(); //google
             providerId= (String) oauth2User.getAttributes().get("sub");
             username = provider+"_"+providerId;
@@ -70,7 +68,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService  {
             name= (String) oauth2User.getAttributes().get("name");
             nickname = nNick();
         }else if(registrationId.equals("naver")){
-            System.out.println("네이버");
+
            Map<String,Object> Attributes = (Map<String, Object>) oauth2User.getAttributes().get("response");
 
 
@@ -85,7 +83,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService  {
 
         }else if(registrationId.equals("kakao")) {
 
-            System.out.println("네kakaokakaokakaokakao이버");
+
 
             Map<String,Object> Attributes = (Map<String, Object>) oauth2User.getAttributes().get("kakao_account");
             Map<String,Object> Attributes2 =(Map<String, Object>)  Attributes.get("profile");
@@ -100,14 +98,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService  {
             nickname = nNick();
 
         }
-
-
-        System.out.println("provider : "+provider);
-        System.out.println("providerId : "+providerId);
-        System.out.println("username : "+username);
-        System.out.println("password : "+password);
-        System.out.println("email : "+email);
-        System.out.println("name : "+name);
 
         MemberDto member = memberService.findByusernameService(username);
 

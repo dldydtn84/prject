@@ -15,7 +15,7 @@ public interface MemberMapper {
     String memberIdSearch(String name,String email);
     int memberAccountSearch(String id, String email);
     int temporaryPassword(String id, String temporaryPass);
-    int nowpassCheck(String id, String nowpass);
+    String nowpassCheck(String id);
     int changePass(String id, String changpass);
     int nicknameCheck(String nickname);
     int nicknameChange(String nickname, String userid);
