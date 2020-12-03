@@ -82,6 +82,10 @@ var bno = [[${posts_no}]]; //게시글 번호
 
 
 $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시
+    var userid = [[${session.greeting}]];
+    if(userid == null){
+        alert("로그인 후 이용해주세요");
+    }
     var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
     commentInsert(insertData); //Insert 함수호출(아래)
 });
@@ -129,7 +133,6 @@ function commentInsert(insertData){
         type : 'post',
         data : insertData,
         success : function(data){
-        console.log(data);
              if(data == 1) {
                 commentList(); //댓글 작성 후 댓글 목록 reload
                 $('[name=content]').val('');

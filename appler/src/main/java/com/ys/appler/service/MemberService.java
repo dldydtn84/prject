@@ -103,4 +103,15 @@ public class MemberService {
 
         return result;
     }
+
+    public String nickNameChangeSearchService(String userid){
+        String nicknameChange= memberMapper.nickNameChangeSearch(userid);
+
+        return nicknameChange;
+    }
+    public String nameChangeSearchService(String userid){
+        String nameChange= memberMapper.nameChangeSearch(userid);
+
+        return nameChange;
+    }
 }

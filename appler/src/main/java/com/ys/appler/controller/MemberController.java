@@ -271,31 +271,49 @@ public class MemberController {
 
     return result;
     }
+
+
+
+
+
+
+
+
+
+
     @PostMapping("/user/nicknamechange")
-    @ResponseBody
-    public int nicknamechange(String nickname,String userid, Model model) throws Exception {
+    public String nicknamechange(@RequestParam("nickname") String nickname,@RequestParam("userid") String userid, Model model) throws Exception {
 
-    int result = memberService.nicknameChangeService(nickname, userid);
-        //닉네임 중복확인
-       /* log.info("result ::"+result);*/
-log.info("nickname:: "+nickname);
-        log.info("userid:: "+userid);
-        log.info("result:: "+result);
+        int result = memberService.nicknameCheckService(nickname);
+        if(result == 0){
+            log.info("asdsadsdsadsdsadsadsadsdas;::::::");
+            int result2 = memberService.nicknameChangeService(nickname, userid);
 
-        return result;
+            String changenickname = memberService.nickNameChangeSearchService(userid);
+
+        }
+        return "redirect:/user/mypage?userid="+userid;
+
+
     }
 
+
+
+
+
+
+
+
+
+
+
     @PostMapping("/user/namechange")
-    @ResponseBody
-    public int namechange(String name,String userid, Model model) throws Exception {
+
+    public String namechange(@RequestParam("name") String name,@RequestParam("userid") String userid,Model model) throws Exception {
 
         int result = memberService.nameChangeService(name, userid);
 
-        log.info("name:: "+name);
-        log.info("userid:: "+userid);
-        log.info("result:: "+result);
-
-        return result;
+        return "redirect:/user/mypage?userid="+userid;
     }
 
 }

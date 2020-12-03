@@ -41,6 +41,7 @@
             cursor: pointer;
         }
 
+
 </style>
 
 
@@ -94,16 +95,21 @@
                                             </div>
                                             <hr>
                                             <label>이메일&nbsp;</label>
-                                            <input type="text" name="email" id="email" th:value="${contextread.email}" class="form-control2" readonly/>
-                                            <button id="emailCheck" onclick="emailSend()" class="btn btn-outline-success">인증번호 보내기</button>
+                                            <input type="text" name="email" id="email" th:value="${contextread.email}"
+                                                   class="form-control2" readonly/>
+                                            <button id="emailCheck" onclick="emailSend()"
+                                                    class="btn btn-outline-success">인증번호 보내기
+                                            </button>
                                             <br>
                                             <label for="authcode">인증번호&nbsp;</label>
                                             <input type="text" name="authcode" id="authcode" class="form-control2"><br>
                                             <hr>
-                                           <div class="text-right">
+                                            <div class="text-right">
 
-                                            <button type="button" onclick="emailCodeCheck()" class="btn btn-success">인증하기</button>
-                                           </div>
+                                                <button type="button" onclick="emailCodeCheck()"
+                                                        class="btn btn-success">인증하기
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -149,11 +155,12 @@
                                         <label for="newpass">새 비밀번호</label>
                                         <input type="password" name="newpass" id="newpass" class="form-control2"><br>
                                         <label for="againpass">새 비밀번호 확인</label>
-                                        <input type="password" name="againpass" id="againpass" class="form-control2"><br>
+                                        <input type="password" name="againpass" id="againpass"
+                                               class="form-control2"><br>
                                         <hr>
 
                                         <div class="text-right">
-                                        <button type="button" class="btn btn-success" id="changepass">인증하기</button>
+                                            <button type="button" class="btn btn-success" id="changepass">인증하기</button>
                                         </div>
                                     </div>
                                 </div>
@@ -164,6 +171,7 @@
                             </th>
                             <td colspan="2">
                                 <span th:text="${contextread.nickname}"></span>
+                                <div class="changenickname"></div>
                             </td>
                             <td>
 
@@ -171,24 +179,27 @@
 
                                 <!-- 두 번째 Modal -->
                                 <div class="cumodal">
+                                    <form th:action="@{/user/nicknamechange}" method="post">
+                                        <input type="hidden" name="userid" id="userid" th:value="${userid}">
+                                        <div class="cumodal-content">
+                                            <div class="cumodal-header">
+                                                <span class="cuclose">&times;</span>
+                                                <h3 class="cumodal-title">닉네임 변경</h3>
 
-                                    <div class="cumodal-content">
-                                        <div class="cumodal-header">
-                                            <span class="cuclose">&times;</span>
-                                            <h3 class="cumodal-title">닉네임 변경</h3>
-
+                                            </div>
+                                            <hr>
+                                            <label for="nickname">닉네임</label>
+                                            <input type="text" name="nickname" id="nickname" class="form-control2">
+                                            <div id="nicknameCheck" class="btn btn-outline-success">중복확인</div>
+                                            <div class="nickcheck"></div>
+                                            <br>
+                                            <hr>
+                                            <div class="text-right">
+                                                <button class="btn btn-success" type="submit">변경하기</button>
+                                                <!--<button id="nickchange" class="btn btn-success">변경하기</button>-->
+                                            </div>
                                         </div>
-                                        <hr>
-                                        <label for="nickname">닉네임</label>
-                                        <input type="text" name="nickname" id="nickname" class="form-control2">
-                                        <button id="nicknameCheck"class="btn btn-outline-success">중복확인</button>
-                                        <div class="nickcheck"></div>
-                                        <br>
-                                        <hr>
-                                        <div class="text-right">
-                                        <button id="nickchange" class="btn btn-success">변경하기</button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
 
 
@@ -199,6 +210,7 @@
                             </th>
                             <td colspan="2">
                                 <span th:text="${contextread.name}"></span>
+                                <div class="changename"></div>
                             </td>
                             <td>
 
@@ -206,22 +218,25 @@
 
                                 <!-- 두 번째 Modal -->
                                 <div class="cumodal">
+                                    <form th:action="@{/user/namechange}" method="post">
+                                        <input type="hidden" name="userid" th:value="${userid}">
+                                        <div class="cumodal-content">
+                                            <div class="cumodal-header">
+                                                <span class="cuclose">&times;</span>
+                                                <h3 class="cumodal-title">이름 변경</h3>
 
-                                    <div class="cumodal-content">
-                                        <div class="cumodal-header">
-                                            <span class="cuclose">&times;</span>
-                                            <h3 class="cumodal-title">이름 변경</h3>
-
+                                            </div>
+                                            <hr>
+                                            <label>이름</label>
+                                            <input type="text" name="name" id="name" class="form-control2">
+                                            <br>
+                                            <hr>
+                                            <div class="text-right">
+                                                <button class="btn btn-success" type="submit">변경하기</button>
+                                                <!--<button id="namechange" class="btn btn-success">변경하기</button>-->
+                                            </div>
                                         </div>
-                                        <hr>
-                                        <label>이름</label>
-                                        <input type="text" name="name" id="name" class="form-control2">
-                                        <br>
-                                        <hr>
-                                        <div class="text-right">
-                                        <button id="namechange" class="btn btn-success">변경하기</button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
 
 
@@ -293,6 +308,7 @@ window.onclick = function(event) {
   }
 };
 
+
 </script>
 
 
@@ -362,6 +378,7 @@ function isEmail(Value){
 
 
 
+
 </script>
 <script>
     $(document).ready(function(){
@@ -415,7 +432,9 @@ function isEmail(Value){
                         data:{'newpass':newpass,'againpass':againpass, 'userid':userid},
                         success : function(data){
                             if(data ==1){
+                                   $(".nowpassck").remove();
                                 alert('정상적으로 변경되었습니다.');
+
                             }else{
                                 alert('에러가 발생했습니다.');
                             }
@@ -425,7 +444,7 @@ function isEmail(Value){
                         },error : function(e){
                         alert('오류가 발생했습니다.');
                         }
-                        });
+                   });
 			}
 		});
 	})
@@ -461,6 +480,10 @@ function isEmail(Value){
                       url:"/user/nicknamechange",
                       data:{'nickname':nickname,'userid':userid},
                       success : function(data){
+                            var a ='';
+                              a += data;
+                              $(".changenickname").html(a);
+                              alert('변경되었습니다.');
 
                       },error : function(e){
                       alert('오류가 발생했습니다.');
@@ -473,17 +496,23 @@ function isEmail(Value){
         var name = $("#name").val();
         var userid = "[[ ${userid} ]]";
              $.ajax({
-                  type:"POST",
+                  type:"post",
                       url:"/user/namechange",
                       data:{'name':name,'userid':userid},
                       success : function(data){
-alert('수정완료');
+                             var a ='';
+                              a += data;
+                              $(".changename").html(a);
+                              alert('변경되었습니다.');
+
+
                       },error : function(e){
                       alert('오류가 발생했습니다.');
                       }
              });
 
 	 });
+
 
 </script>
 

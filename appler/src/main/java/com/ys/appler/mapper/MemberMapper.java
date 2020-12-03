@@ -20,5 +20,7 @@ public interface MemberMapper {
     int nicknameCheck(String nickname);
     int nicknameChange(String nickname, String userid);
     int nameChange(String name, String userid);
+    String nameChangeSearch(String userid);
+    String nickNameChangeSearch(String userid);
 
 }

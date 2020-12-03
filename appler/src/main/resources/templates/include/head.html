@@ -109,18 +109,32 @@ $( document ).ready(function() {
 		}
 		document.addEventListener("keypress", function(e){
 			if(e.keyCode == 13){ //enter press
-				send();
+				entersend();
 			}
 		});
 	}
 		function send() {
-var userid = "[[ ${session.greeting} ]]";
+                var userid = "[[ ${session.greeting} ]]";
 
-if(userid ==""){
-    alert("로그인 후 이용해주세요");
-}
+                if(userid ==""){
+                    alert("로그인 후 이용해주세요");
+                }
 
 
+
+		var option ={
+			type: "message",
+			sessionId : $("#sessionId").val(),
+
+			msg : $("#chatting").val()
+		}
+
+
+
+		ws.send(JSON.stringify(option))
+		$('#chatting').val("");
+	}
+	function entersend() {
 
 		var option ={
 			type: "message",

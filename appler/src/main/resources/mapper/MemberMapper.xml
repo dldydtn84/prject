@@ -83,4 +83,14 @@
         name = #{name}
         WHERE userid = #{userid}
     </update>
+    <select id="nameChangeSearch" resultType="String">
+        SELECT name
+        FROM tbl_member
+        WHERE userid = #{userid}
+    </select>
+    <select id="nickNameChangeSearch" resultType="String">
+        SELECT nickname
+        FROM tbl_member
+        WHERE userid = #{userid}
+    </select>
 </mapper>
