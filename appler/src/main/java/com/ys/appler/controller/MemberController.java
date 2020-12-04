@@ -44,14 +44,14 @@ public class MemberController {
     public String login(HttpServletRequest request){
 
 
-        return "/user/login";
+        return "user/login";
     }
 
 
     @GetMapping("/user/singup")
     public String singup(){
 
-        return "/user/singup";
+        return "user/singup";
     }
 
     @PostMapping("/user/singuppro")
@@ -71,7 +71,7 @@ public class MemberController {
                 log.info("key2 : " +validatorResult.get(key));
             }
 
-            return "/user/singup";
+            return "user/singup";
         }
         else {
             String userid =memberDto.getUserid();
@@ -123,7 +123,7 @@ public class MemberController {
         model.addAttribute("userid",userid);
         model.addAttribute("contextread",contextread);
 
-        return "/user/mypage";
+        return "user/mypage";
     }
 
     @PostMapping("/user/email")
@@ -151,12 +151,12 @@ public class MemberController {
     @GetMapping("/user/idsearch")
     public String idsearch(){
 
-        return "/user/idsearch";
+        return "user/idsearch";
     }
     @GetMapping("/user/pwsearch")
     public String pwsearch(){
 
-        return "/user/idsearch";
+        return "user/idsearch";
     }
 
     @PostMapping("/user/id_search")
@@ -221,17 +221,17 @@ public class MemberController {
             if(newpass.equals(againpass)) {
                 int passresult = memberService.changePassService(userid, passwordEncoder.encode(newpass));
 
-                mav.addObject("data", new Message("비밀번호가 변경되었습니다.", "/user/mypage?userid="+userid));
+                mav.addObject("data", new Message("비밀번호가 변경되었습니다.", "user/mypage?userid="+userid));
                 mav.setViewName("Message");
                 return mav;
 
             }
-            mav.addObject("data", new Message("비밀번호가 일치하지 않습니다.", "/user/mypage?userid="+userid));
+            mav.addObject("data", new Message("비밀번호가 일치하지 않습니다.", "user/mypage?userid="+userid));
             mav.setViewName("Message");
             return mav;
         }
 
-        mav.addObject("data", new Message("현재 비밀번호가 일치하지 않습니다.", "/user/mypage?userid="+userid));
+        mav.addObject("data", new Message("현재 비밀번호가 일치하지 않습니다.", "user/mypage?userid="+userid));
         mav.setViewName("Message");
 
         return mav;
@@ -302,7 +302,7 @@ public class MemberController {
 
         int result = memberService.nameChangeService(name, userid);
 
-        mav.addObject("data", new Message("이름이 변경되었습니다.", "/user/mypage?userid="+userid));
+        mav.addObject("data", new Message("이름이 변경되었습니다.", "user/mypage?userid="+userid));
         mav.setViewName("Message");
 
         return mav;

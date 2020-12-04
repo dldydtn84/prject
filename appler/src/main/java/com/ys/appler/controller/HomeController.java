@@ -86,7 +86,7 @@ public class HomeController {
     @GetMapping("/admin/layout/default")
     public String defaults(Model model){
         //model.addAttribute("data","hello");
-        return "/admin/layout/default";
+        return "admin/layout/default";
     }
 
 

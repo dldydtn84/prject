@@ -46,7 +46,7 @@ public class QuestBoardController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
-        return "/questboard/write";
+        return "questboard/write";
     }
     @PostMapping("/write")
     public String writepro(@Valid QuestBoardDto questBoardDto, MultipartFile uploadfile, Errors errors, Model model, HttpServletRequest request) throws IOException {
@@ -64,7 +64,7 @@ public class QuestBoardController {
                 log.info("key2 : " +validatorResult.get(key));
             }
 
-            return "/questboard/write";
+            return "questboard/write";
         }
         else {
 
@@ -90,7 +90,7 @@ public class QuestBoardController {
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
         model.addAttribute("email",email);
-        return "/questboard/writesussce";
+        return "questboard/writesussce";
     }
 
 }

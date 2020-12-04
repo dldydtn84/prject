@@ -55,7 +55,7 @@ public class PhotoboardController {
       model.addAttribute("start", start);
 
 
-        return "/photoboard/list";
+        return "photoboard/list";
     }
     @GetMapping("/write")
     public String write(Model model) {
@@ -64,7 +64,7 @@ public class PhotoboardController {
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
 
-        return "/photoboard/write";
+        return "photoboard/write";
     }
 
     @RequestMapping(value = "/writepro",method = RequestMethod.POST)
@@ -144,7 +144,7 @@ public class PhotoboardController {
             // 쿠키 값 받아옴.
             String value = viewCookie.getValue();
         }
-       return "/photoboard/read";
+       return "photoboard/read";
     }
 
     @GetMapping("/modify")
@@ -161,7 +161,7 @@ public class PhotoboardController {
             model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         }
 
-        return "/photoboard/modify";
+        return "photoboard/modify";
     }
 
     @PostMapping("/modify")

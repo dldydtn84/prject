@@ -27,43 +27,25 @@ public class ApplerApplicationTests {
 
 	private Logger log = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	BoardMapper boardMapper;
-	@Autowired
-	CommentMapper commentMapper;
-	@Autowired
-	CommentService commentService;
+
 	@Autowired
 	BoardService boardService;
 
 
-
-	@Autowired
-	MemberService memberService;
-
-	@Autowired
-	PhotoBoardService photoBoardService;
-
-
-
-
-	@Autowired
-	NoticeBoardService noticeBoardService;
-
-
 	@Test
 	public void 게시글테스트() throws Exception{
-		NoticeBoardDto noticeBoardDto =new NoticeBoardDto();
-		for(int i=1; i<10; i++){
+		BoardDto boardDto =new BoardDto();
+		for(int i=1; i<=100; i++){
 
-		noticeBoardDto.setIp("127.0.0.1");
-		noticeBoardDto.setFile(null);
-		noticeBoardDto.setContents("aasdsadasd");
-		noticeBoardDto.setSubject("asd"+i+"입니다.");
-		noticeBoardDto.setBoard_code("NB");
-		noticeBoardDto.setNickname("test");
+			boardDto.setIp("127.0.0.1");
+			boardDto.setFiles(null);
+			boardDto.setEditordata("안녕하세요 자유게시판 테스트 게시글 "+i+"번 입니다.");
+			boardDto.setSubject("테스트 "+i+"번 게시물");
+			boardDto.setBoard_code("FB");
+			boardDto.setNickname("테스터");
 
-			noticeBoardService.contextWriteService(noticeBoardDto);
+
+			boardService.contextWriteService(boardDto);
 		}
 
 	}

@@ -15,14 +15,6 @@ configurations {
 	}
 }
 
-bootJar {
-	enabled = false
-}
-
-jar {
-	enabled = true
-}
-
 
 repositories {
 	mavenCentral()
@@ -45,6 +37,7 @@ dependencies {
 
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'

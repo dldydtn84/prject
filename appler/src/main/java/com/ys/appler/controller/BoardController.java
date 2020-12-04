@@ -94,7 +94,7 @@ if(principalDetails != null) {
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
 
-        return "/board/list";
+        return "board/list";
     }
 
 
@@ -116,7 +116,7 @@ if(principalDetails != null) {
         model.addAttribute("boardcode", boardcode);
 
 
-        return "/board/write";
+        return "board/write";
     }
 
     @PostMapping("/writepro")
@@ -140,7 +140,7 @@ if(principalDetails != null) {
                 log.info("key2 : " +validatorResult.get(key));
             }
 
-            return "/board/write";
+            return "board/write";
         }
         else {
 
@@ -177,7 +177,7 @@ if(principalDetails != null) {
         model.addAttribute("posts_no", posts_no);
 
 
-        return "/board/modify";
+        return "board/modify";
     }
 
     @GetMapping("/modifypro")
@@ -260,7 +260,7 @@ if(principalDetails != null) {
         }
 
 
-        return "/board/read";
+        return "board/read";
     }
 
     @RequestMapping(value = "/reading")
@@ -334,7 +334,7 @@ if(principalDetails != null) {
         }
 
 
-        return "/board/read";
+        return "board/read";
     }
 
 }

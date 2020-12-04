@@ -80,7 +80,7 @@ public class NoticeController {
         model.addAttribute("keyword", keyword);
 
 
-        return "/noticeboard/list";
+        return "noticeboard/list";
     }
 
     @GetMapping(value = "/read")
@@ -139,7 +139,7 @@ public class NoticeController {
         }
 
 
-        return "/noticeboard/read";
+        return "noticeboard/read";
     }
 
 
@@ -161,7 +161,7 @@ public class NoticeController {
     model.addAttribute("bestcontextList", bestcontextList);
     model.addAttribute("newcontextList", newcontextList);
 
-        return "/noticeboard/write";
+        return "noticeboard/write";
     }
     @PostMapping("/write")
     public String writepro(NoticeBoardDto noticeBoardDto, HttpServletRequest request,Model model) {
@@ -195,7 +195,7 @@ public class NoticeController {
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
 
-        return "/noticeboard/modify";
+        return "noticeboard/modify";
     }
 
     @GetMapping("/modifypro")

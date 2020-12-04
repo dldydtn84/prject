@@ -30,6 +30,6 @@ public class AskboardController {
         model.addAttribute("newcontextList", newcontextList);
 
 
-        return "/askboard/list";
+        return "askboard/list";
     }
 }
