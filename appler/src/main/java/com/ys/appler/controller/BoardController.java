@@ -277,16 +277,13 @@ if(principalDetails != null) {
        int posts_no=  contextread.getPosts_no();
        String board_code =contextread.getBoard_code();
        int board_num = 0;
-        if (board_code == "FB") {
+        if (board_code.equals("FB")) {
             board_num = 1;
-        } else if (board_code == "QB") {
+        } else if (board_code.equals("QB")) {
             board_num = 2;
-        } else if (board_code == "CB") {
+        } else if (board_code.equals("CB")) {
             board_num = 3;
         }
-            
-
-
 
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
         List<BoardDto> newcontextList = boardService.NewcontextListService();

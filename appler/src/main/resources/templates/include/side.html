@@ -85,14 +85,14 @@
         <div class="tab-pane fade card-body card" id="home">
             <th:block th:each="bestcontextList: ${bestcontextList}">
 
-                    <span th:text="${bestcontextList.subject}+' ['+ ${bestcontextList.comment}+']'"></span><br>
+                <a th:href="@{/board/reading(no=${bestcontextList.no})}"><span th:text="${bestcontextList.subject}+' ['+ ${bestcontextList.comment}+']'"></span></a><br>
 
             </th:block>
         </div>
         <div class="tab-pane fade card-body card active show" id="profile">
             <th:block th:each="newcontextList: ${newcontextList}">
 
-                <span th:text="${newcontextList.subject}+' ['+ ${newcontextList.comment}+']'"></span><br>
+                <a th:href="@{/board/reading(no=${newcontextList.no})}"><span th:text="${newcontextList.subject}+' ['+ ${newcontextList.comment}+']'"></span></a><br>
             </th:block>
 
         </div>

@@ -18,6 +18,7 @@
                         <h4 class="card-title">자유게시판</h4>
                         <form  action="#" th:action="@{/noticeboard/modifypro}" th:object="${NoticeBoardDto}" method="get" >
                             <input type="hidden" name="no" id="no" th:value="${no}">
+                            <input type="hidden" class="editordata" th:value="${contextread.contents}">
                             <label for="subject">제목</label><br>
                             <input type="text" name="subject" id="subject"  th:value="${contextread.subject}" class="form-control mr-sm-2" ><br>
 
@@ -47,7 +48,16 @@
 <script th:src="@{/js/summernote/summernote-lite.js}"></script>
 <script th:src="@{/js/summernote/lang/summernote-ko-KR.js}"></script>
 <script>
+
 $(document).ready(function() {
+
+    String.prototype.replaceAll = function(org, dest) {
+        return this.split(org).join(dest);
+    }
+
+    var editordata = $('.editordata').val();
+    var result = editordata.replaceAll(`"`, `'`);
+
 	//여기 아래 부분
 	$('#summernote').summernote({
 		  height: 300,                 // 에디터 높이
@@ -58,7 +68,7 @@ $(document).ready(function() {
 		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 
 	});
-		  $("#summernote").summernote('code',  "[[${contextread.contents}]]");
+		  $("#summernote").summernote('code',  result);
 
 });
 

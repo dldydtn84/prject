@@ -28,7 +28,7 @@
     </select>
 
     <select id="contextReading" resultType="com.ys.appler.dto.BoardDto">
-        SELECT no, posts_no, subject ,nickname, editordata ,files ,readcount, DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
+        SELECT no, posts_no,board_code, subject ,nickname, editordata ,files ,readcount, DATE_FORMAT(reporting_date, '%Y-%m-%d') as reporting_date
         FROM tbl_board
         WHERE no=#{no}
     </select>

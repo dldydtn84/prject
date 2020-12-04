@@ -36,13 +36,13 @@ public class ApplerApplicationTests {
 	public void 게시글테스트() throws Exception{
 		BoardDto boardDto =new BoardDto();
 		for(int i=1; i<=100; i++){
-
+			boardDto.setPosts_no(i);
 			boardDto.setIp("127.0.0.1");
 			boardDto.setFiles(null);
-			boardDto.setEditordata("안녕하세요 자유게시판 테스트 게시글 "+i+"번 입니다.");
+			boardDto.setEditordata("안녕하세요 인증게시판 테스트 게시글 "+i+"번 입니다.");
 			boardDto.setSubject("테스트 "+i+"번 게시물");
-			boardDto.setBoard_code("FB");
-			boardDto.setNickname("테스터");
+			boardDto.setBoard_code("CB");
+			boardDto.setNickname("tester");
 
 
 			boardService.contextWriteService(boardDto);
