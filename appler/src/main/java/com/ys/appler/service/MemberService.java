@@ -3,10 +3,8 @@ package com.ys.appler.service;
 
 import com.ys.appler.dto.MemberDto;
 import com.ys.appler.mapper.MemberMapper;
-import jdk.internal.jline.internal.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;

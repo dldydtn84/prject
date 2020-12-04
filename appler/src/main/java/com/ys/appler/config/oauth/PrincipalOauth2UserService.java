@@ -114,6 +114,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService  {
 
 
             int result =memberService.oauthJoinService(memberDto);
+            return new PrincipalDetails(memberDto, oauth2User.getAttributes());
 
         } ;
 

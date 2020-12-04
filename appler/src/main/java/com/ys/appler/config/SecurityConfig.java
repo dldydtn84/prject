@@ -34,7 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/questboard/write").permitAll()
                 .antMatchers("/**/write/**").authenticated()
                 .antMatchers("/**/modify/**").authenticated()
-
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
@@ -44,8 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Login()
                 .loginPage("/user/login")
-        .userInfoEndpoint()
-        .userService(principalOauth2UserService)
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService)
                 .and()
                 .successHandler(new LoginSuccessHandler("/"))
         ;

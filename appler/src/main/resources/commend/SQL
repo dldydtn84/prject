@@ -6,34 +6,92 @@ CREATE TABLE tbl_board
     `subject`           VARCHAR(45)    NOT NULL    COMMENT '제목',
     `nickname`        VARCHAR(45)    NOT NULL    COMMENT '닉네임',
     `editordata`        VARCHAR(2000)    NOT NULL    COMMENT '내용',
-
+     `files`     VARCHAR(500)    NULL        COMMENT '첨부파일',
     `ip`              VARCHAR(45)   DEFAULT '0.0.0.0' NOT NULL    COMMENT 'IP',
-    `files`     VARCHAR(500)    NULL        COMMENT '첨부파일',
+    `comment` varchar(50)  NULL  comment '댓글수',
     `readcount`       INT            NOT NULL    COMMENT '조회수',
     `reporting_date`  DATETIME       NOT NULL    COMMENT '등록일',
     PRIMARY KEY (no)
 );
 
-     create table tbl_comment(
-no int not null auto_increment,
-p_no varchar(50) not null,
-board_code varchar(50) not null ,
-comments varchar(500) not null,
-nickname varchar(50) not null,
-r_date datetime not null,
-ip varchar(50) not null,
-primary key(no)
+ALTER TABLE tbl_board ADD CONSTRAINT board_code FOREIGN KEY (board_code) REFERENCES tbl_board_config (code);
+
+CREATE TABLE tbl_member
+(
+	`no`	    INT    not NULL  AUTO_INCREMENT COMMENT '회원번호' ,
+	`userid`        VARCHAR(45)    NOT NULL    COMMENT '아이디',
+    `password`      VARCHAR(200)    NOT NULL    COMMENT '비밀번호',
+    `nickname`  VARCHAR(45)    NOT NULL    COMMENT '닉네임',
+    `name`      VARCHAR(45)    NOT NULL    COMMENT '이름',
+    `email`     VARCHAR(45)    NOT NULL    COMMENT '이메일',
+    `enabled`   CHAR(1)        NOT NULL    COMMENT '휴면계정',
+    `authority` VARCHAR(50)    NOT NULL    COMMENT '회원권한',
+    `emailauth` VARCHAR(50)    NOT NULL ,
+    `provider` varchar(50),
+    `providerid` varchar(50) ,
+    `point`     INT            NOT NULL    COMMENT '포인트',
+    `lastdate`  DATETIME       NOT NULL    COMMENT '마지막로그인',
+    `date`      DATETIME       NOT NULL    COMMENT '가입일자',
+    PRIMARY KEY (no)
 );
 
-  create table tbl_notice_board(
-no int not null auto_increment,
-board_code varchar(50) not null ,
-nickname varchar(50) not null,
-subject varchar(500) not null,
-contents varchar(500) not null,
-file varchar(500) null,
-ip varchar(50) not null,
-readcount int not null,
-reporting_date datetime not null,
-primary key(no)
+CREATE TABLE tbl_comment(
+			no int not null auto_increment,
+			p_no varchar(50) not null,
+			board_code varchar(50) not null ,
+			comments varchar(500) not null,
+			nickname varchar(50) not null,
+			r_date datetime not null,
+			ip varchar(50) not null,
+			primary key(no)
+	);
+
+ CREATE TABLE tbl_notice_board(
+		no int not null auto_increment,
+		board_code varchar(50) not null ,
+		nickname varchar(50) not null,
+		subject varchar(500) not null,
+		contents varchar(500) not null,
+		file varchar(500) null,
+		ip varchar(50) not null,
+		readcount int not null,
+		reporting_date datetime not null,
+		primary key(no)
+	);
+
+ALTER TABLE tbl_notice_board ADD CONSTRAINT noticeboard_code FOREIGN KEY (board_code) REFERENCES tbl_board_config (code);
+
+
+	  CREATE TABLE tbl_quest_board(
+    		no int not null auto_increment,
+    		board_code varchar(50) not null ,
+    		name varchar(50) not null,
+    		email varchar(500) not null,
+    		phone varchar(500) not null,
+    		subject varchar(500) null,
+    		contents varchar(50) not null,
+    		file varchar(50) not null,
+    		ip varchar(50) not null,
+    		readcount int not null,
+    		reporting_date datetime not null,
+    		primary key(no)
+    );
+
+    ALTER TABLE tbl_quest_board ADD CONSTRAINT quest_board_code FOREIGN KEY (board_code) REFERENCES tbl_board_config (code);
+
+CREATE TABLE tbl_photo_board(
+		no int not null auto_increment,
+		board_code varchar(50) not null ,
+		nickname varchar(50) not null,
+		subject varchar(500) not null,
+		contents varchar(500) not null,
+		file varchar(500) null,
+		ip varchar(50) not null,
+		readcount int not null,
+		reporting_date datetime not null,
+		primary key(no)
 );
+
+ALTER TABLE tbl_photo_board ADD CONSTRAINT photo_board FOREIGN KEY (board_code) REFERENCES tbl_board_config (code);
+
+

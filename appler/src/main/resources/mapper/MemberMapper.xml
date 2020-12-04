@@ -17,8 +17,8 @@
     </select>
 
    <insert id="memberSingup"  parameterType="com.ys.appler.dto.MemberDto" >
-        INSERT INTO tbl_member (userid, password, nickname, name, email, enabled, authority,emailauth, point, lastdate, date)
-        VALUES (#{userid}, #{password}, #{nickname}, #{name},#{email},1, 'ROLE_USER','N' ,0 ,now(),now())
+        INSERT INTO tbl_member (userid, password, nickname, name, email, enabled, authority,emailauth,provider, point, lastdate, date)
+        VALUES (#{userid}, #{password}, #{nickname}, #{name},#{email},1, 'ROLE_USER','N' ,'form',0 ,now(),now())
     </insert>
     <insert id="oauthJoin"  parameterType="com.ys.appler.dto.MemberDto" >
         INSERT INTO tbl_member (userid, password, nickname, name, email, enabled, authority,emailauth,provider,providerid ,point, lastdate, date)
