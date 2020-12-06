@@ -103,7 +103,7 @@
                                             </button>
                                             <br>
                                             <label for="authcode">인증번호&nbsp;</label>
-                                            <input type="text" name="authcode" id="authcode" class="form-control2"><br>
+                                            <input type="text" name="authcode" id="authcode" class="form-control2" required="required"><br>
                                             <hr>
                                             <div class="text-right">
 
@@ -151,17 +151,17 @@
                                         <form th:action="@{/user/changePass}" id="passform" method="post">
                                             <input type="hidden" name="userid"  th:value="${userid}">
                                         <label for="nowpass">현재 비밀번호</label>
-                                        <input type="password" name="nowpass" id="nowpass" class="form-control2">
+                                        <input type="password" name="nowpass" id="nowpass" class="form-control2" required="required">
                                         <div class="nowpassck"></div>
                                         <hr>
 
                                             <br>
                                             <label for="newpass">새 비밀번호</label>
                                             <input type="password" name="newpass" id="newpass"
-                                                   class="form-control2"><br>
+                                                   class="form-control2" required="required"><br>
                                             <label for="againpass">새 비밀번호 확인</label>
                                             <input type="password" name="againpass" id="againpass"
-                                                   class="form-control2"><br>
+                                                   class="form-control2" required="required"><br>
                                             <hr>
 
                                             <div class="text-right">
@@ -195,7 +195,7 @@
                                             </div>
                                             <hr>
                                             <label for="nickname">닉네임</label>
-                                            <input type="text" name="nickname" id="nickname" class="form-control2">
+                                            <input type="text" name="nickname" id="nickname" class="form-control2" required="required">
                                             <div id="nicknameCheck" class="btn btn-outline-success">중복확인</div>
                                             <div class="nickcheck"></div>
                                             <br>
@@ -234,7 +234,7 @@
                                             </div>
                                             <hr>
                                             <label>이름</label>
-                                            <input type="text" name="name" id="name" class="form-control2">
+                                            <input type="text" name="name" id="name" class="form-control2" required="required">
                                             <br>
                                             <hr>
                                             <div class="text-right">

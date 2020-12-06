@@ -221,18 +221,18 @@ public class MemberController {
             if(newpass.equals(againpass)) {
                 int passresult = memberService.changePassService(userid, passwordEncoder.encode(newpass));
 
-                mav.addObject("data", new Message("비밀번호가 변경되었습니다.", "user/mypage?userid="+userid));
-                mav.setViewName("Message");
+                mav.addObject("data", new Message("비밀번호가 변경되었습니다.", "mypage?userid="+userid));
+                mav.setViewName("message");
                 return mav;
 
             }
-            mav.addObject("data", new Message("비밀번호가 일치하지 않습니다.", "user/mypage?userid="+userid));
-            mav.setViewName("Message");
+            mav.addObject("data", new Message("비밀번호가 일치하지 않습니다.", "mypage?userid="+userid));
+            mav.setViewName("message");
             return mav;
         }
 
-        mav.addObject("data", new Message("현재 비밀번호가 일치하지 않습니다.", "user/mypage?userid="+userid));
-        mav.setViewName("Message");
+        mav.addObject("data", new Message("현재 비밀번호가 일치하지 않습니다.", "mypage?userid="+userid));
+        mav.setViewName("message");
 
         return mav;
 
@@ -271,16 +271,16 @@ public class MemberController {
 
             String changenickname = memberService.nickNameChangeSearchService(userid);
 
-            mav.addObject("data", new Message("닉네임이 변경되었습니다.", "/user/mypage?userid="+userid));
-            mav.setViewName("Message");
+            mav.addObject("data", new Message("닉네임이 변경되었습니다.", "mypage?userid="+userid));
+            mav.setViewName("message");
 
             return mav;
 
         }
 
 
-        mav.addObject("data", new Message("닉네임을 사용할수 없습니다.", "/user/mypage?userid="+userid));
-        mav.setViewName("Message");
+        mav.addObject("data", new Message("닉네임을 사용할수 없습니다.", "mypage?userid="+userid));
+        mav.setViewName("message");
 
         return mav;
 
@@ -302,8 +302,8 @@ public class MemberController {
 
         int result = memberService.nameChangeService(name, userid);
 
-        mav.addObject("data", new Message("이름이 변경되었습니다.", "user/mypage?userid="+userid));
-        mav.setViewName("Message");
+        mav.addObject("data", new Message("이름이 변경되었습니다.", "mypage?userid="+userid));
+        mav.setViewName("message");
 
         return mav;
       

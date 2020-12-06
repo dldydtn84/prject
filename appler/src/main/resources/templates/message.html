@@ -8,7 +8,9 @@
     </th:block>
     <th:block th:if="${#strings.length(data.href) != 0}">
         <script>
+
 			top.location.href = '[[${data.href}]]';
+
 		</script>
     </th:block>
 </head>
