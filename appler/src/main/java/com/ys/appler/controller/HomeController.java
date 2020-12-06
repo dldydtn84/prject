@@ -43,7 +43,7 @@ public class HomeController {
 
 
     @Autowired
-    BCryptPasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
 
     @GetMapping("/")
