@@ -25,7 +25,9 @@ public class PhotoBoardService {
     @Autowired
     PhotoBoardMapper photoBoardMapper;
 
-    private final String UPLOAD_PATH = "c:" + File.separator + "temp" + File.separator;
+
+    private final String UPLOAD_PATH =
+            File.separator+ "home" + File.separator + "ubuntu" + File.separator+  "app" + File.separator+  "step1" + File.separator+  "prject" + File.separator+  "appler" + File.separator;
 
     public String saveFile(MultipartFile file) throws IOException {
 
