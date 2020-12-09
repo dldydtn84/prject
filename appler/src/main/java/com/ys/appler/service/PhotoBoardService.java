@@ -27,7 +27,7 @@ public class PhotoBoardService {
 
 
     private final String UPLOAD_PATH =
-            File.separator+ "home" + File.separator + "ubuntu" + File.separator+  "app" + File.separator+  "step1" + File.separator+  "prject" + File.separator+  "appler" + File.separator;
+            File.separator+ "home" + File.separator + "ubuntu" + File.separator+  "app" + File.separator+  "step1" + File.separator+  "prject" + File.separator+  "appler" + File.separator+"photo"+File.separator;
 
     public String saveFile(MultipartFile file) throws IOException {
 
