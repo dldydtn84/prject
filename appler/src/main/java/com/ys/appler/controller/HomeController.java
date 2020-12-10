@@ -48,7 +48,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model, HttpSession session ,@AuthenticationPrincipal PrincipalDetails principalDetails,BoardDto boardDto) {
-        System.out.println("한글테스트 ==============");
+
 
 
 
