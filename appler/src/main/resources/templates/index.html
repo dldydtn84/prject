@@ -292,8 +292,11 @@ $(function (){
 
 
 </script>
-
-
+<script>
+    $(document).ready(function(){
+$("#chating").scrollTop($("#chating")[0].scrollHeight+20);
+});
+</script>
 
 <!-- 공통 스크립트-->
 <th:block th:replace="include/script :: script"></th:block>

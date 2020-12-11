@@ -98,8 +98,10 @@ $( document ).ready(function() {
 				}else if(d.type == "message"){
 					if(d.sessionId == $("#sessionId").val()){
 						$("#chating").append(" <div class='side_me me'><span class='side_chatimg chatimg'><i class='fas fa-user-circle'></i></span><span>" + d.userName + "</span><div class='side_tome tome'>" + d.msg + "</div></div>");
+						$("#chating").scrollTop($("#chating")[0].scrollHeight+20);
 					}else{
 						$("#chating").append(" <div class='side_oth oth'><span class='side_chatimg chatimg'><i class='fas fa-user-circle'></i></span><span> " + d.userName + "</span><div class='side_tooth tooth'>" + d.msg + "</div></div>");
+						$("#chating").scrollTop($("#chating")[0].scrollHeight+20);
 					}
 
 				}else{
