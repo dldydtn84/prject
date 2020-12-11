@@ -44,7 +44,7 @@ public class CommentController {
     @ResponseBody
     private List<CommentDto> commentList(@RequestParam int bno,@RequestParam int board, Model model,CommentDto commentDto) throws Exception{
         String boardcode = boardCode(board);
-        System.out.println("bno : "+bno + "board :"+boardcode);
+
 
         List<CommentDto> result = commentService.CommentListService(bno, boardcode);
         model.addAttribute("commentDto",commentDto);
