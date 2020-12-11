@@ -11,7 +11,7 @@
 
 ## 개발환경
 - IDE : IntelliJ 2019.02
-- Language : Java 11
+- Language : Java 1.8
 - Framework : Spring Boot, Spring Security
 - DB : MySQL
 - UI : Bootstrap
