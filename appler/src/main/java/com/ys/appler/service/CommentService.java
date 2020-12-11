@@ -18,8 +18,8 @@ public class CommentService {
         return result;
     }
 
-    public List<CommentDto> CommentListService(int p_no) throws Exception{
-        List<CommentDto> result =commentMapper.commentList(p_no);
+    public List<CommentDto> CommentListService(int p_no, String boardcode) throws Exception{
+        List<CommentDto> result =commentMapper.commentList(p_no ,boardcode);
         return result;
     }
     public int commentInsertService(CommentDto commentDto) throws Exception {

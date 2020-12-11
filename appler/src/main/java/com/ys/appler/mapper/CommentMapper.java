@@ -10,7 +10,7 @@ public interface CommentMapper {
 
      int commentCount() throws Exception;
     // 댓글 목록
-     List<CommentDto> commentList(int p_no) throws Exception;
+     List<CommentDto> commentList(int p_no, String boardcode) throws Exception;
     // 댓글 작성
     int commentInsert(CommentDto commentDto) throws Exception;
     // 댓글 수정

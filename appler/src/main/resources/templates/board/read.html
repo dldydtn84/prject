@@ -78,19 +78,18 @@
 </body>
 <script th:inline="javascript">
 var bno = [[${posts_no}]]; //게시글 번호
-
+var board = [[${board}]];
 
 
 $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시
     var userid = [[${session.greeting}]];
     if(userid != null){
-
-
-    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
-    commentInsert(insertData); //Insert 함수호출(아래)
+        var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
+        alert(insertData);
+        commentInsert(insertData); //Insert 함수호출(아래)
     }
     else{
-     alert("로그인 후 이용해주세요");
+        alert("로그인 후 이용해주세요");
     }
 });
 
@@ -108,7 +107,7 @@ function commentList(){
     $.ajax({
         url : '/comment/list',
         type : 'get',
-        data : {'bno':bno},
+        data : {'bno':bno,'board':board},
         success : function(data){
              var a ='';
             $.each(data, function(key, value){

@@ -13,7 +13,7 @@
         SELECT
         *
         FROM tbl_comment
-        WHERE p_no =#{p_no}
+        WHERE p_no =#{p_no} and board_code = #{boardcode}
 
     </select>
 

@@ -29,7 +29,7 @@ public class FileController {
         log.info("file : "+String.valueOf(multipartFile));
 
 
-        String fileRoot = "classpath:/static/summernoteImage/";	//저장될 외부 파일 경로
+        String fileRoot = "C://summernote_image/";	//저장될 외부 파일 경로
         String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 

@@ -26,10 +26,27 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
+    private String boardCode(int boardnum) {
+        String boardcode = "";
+        if (boardnum == 1) {
+            boardcode = "FB";
+        } else if (boardnum == 2) {
+            boardcode = "QB";
+        } else if (boardnum == 3) {
+            boardcode = "CB";
+        } else {
+
+        }
+        return boardcode;
+    }
+
     @RequestMapping("/list") //댓글 리스트
     @ResponseBody
-    private List<CommentDto> commentList(@RequestParam int bno,Model model,CommentDto commentDto) throws Exception{
-        List<CommentDto> result = commentService.CommentListService(bno);
+    private List<CommentDto> commentList(@RequestParam int bno,@RequestParam int board, Model model,CommentDto commentDto) throws Exception{
+        String boardcode = boardCode(board);
+        System.out.println("bno : "+bno + "board :"+boardcode);
+
+        List<CommentDto> result = commentService.CommentListService(bno, boardcode);
         model.addAttribute("commentDto",commentDto);
 
 
