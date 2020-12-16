@@ -62,6 +62,7 @@ public class MemberController {
        if (errors.hasErrors()) {
             // 회원가입 실패시, 입력 데이터를 유지
             model.addAttribute("memberDto", memberDto);
+            System.out.println("에러시 :"+memberDto);
 
             // 유효성 통과 못한 필드와 메시지를 핸들링
             Map<String, String> validatorResult = memberService.validateHandling(errors);
