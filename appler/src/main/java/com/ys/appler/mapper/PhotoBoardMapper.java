@@ -11,20 +11,20 @@ import java.util.Map;
 @Mapper
 public interface PhotoBoardMapper {
 
-    void contextWrite(PhotoBoardDto photoBoardDto);
+  void contextWrite(PhotoBoardDto photoBoardDto);
 
-    List<PhotoBoardDto> contextList(Criteria criteria);
+  List<PhotoBoardDto> contextList(Criteria criteria);
 
-    int totalcount();
+  int totalcount();
 
-    List<PhotoBoardDto> IndexPhotoList();
+  List<PhotoBoardDto> IndexPhotoList();
 
-    PhotoBoardDto contextRead(int no);
+  PhotoBoardDto contextRead(int no);
 
-    void contextDelete(int no);
+  void contextDelete(int no);
 
-    void contextModify(PhotoBoardDto photoBoardDto);
+  void contextModify(PhotoBoardDto photoBoardDto);
 
-    void readcountUp(int reviewNo);
+  void readcountUp(int reviewNo);
 
 }

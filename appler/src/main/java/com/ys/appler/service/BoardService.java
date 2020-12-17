@@ -21,160 +21,154 @@ import java.util.Map;
 @Service
 public class BoardService {
 
-    @Autowired
-    BoardMapper boardMapper;
+  @Autowired
+  BoardMapper boardMapper;
 
 
-    public String Boardnum(int boardnum) {
-        String boardcode = "";
-        if (boardnum == 1) {
-            boardcode = "FB";
-        } else if (boardnum == 2) {
-            boardcode = "QB";
-        } else if (boardnum == 3) {
-            boardcode = "CB";
-        } else {
-            log.info("boardcode error");
-        }
-        return boardcode;
+  public String Boardnum(int boardnum) {
+    String boardcode = "";
+    if (boardnum == 1) {
+      boardcode = "FB";
+    } else if (boardnum == 2) {
+      boardcode = "QB";
+    } else if (boardnum == 3) {
+      boardcode = "CB";
+    } else {
+      log.info("boardcode error");
+    }
+    return boardcode;
+  }
+
+  public Map<String, String> validateHandling(Errors errors) {
+    Map<String, String> validatorResult = new HashMap<>();
+
+    for (FieldError error : errors.getFieldErrors()) {
+      String validKeyName = String.format("valid_%s", error.getField());
+      validatorResult.put(validKeyName, error.getDefaultMessage());
     }
 
-    public Map<String, String> validateHandling(Errors errors) {
-        Map<String, String> validatorResult = new HashMap<>();
+    return validatorResult;
+  }
 
-        for (FieldError error : errors.getFieldErrors()) {
-            String validKeyName = String.format("valid_%s", error.getField());
-            validatorResult.put(validKeyName, error.getDefaultMessage());
-        }
 
-        return validatorResult;
+  public String getIp(HttpServletRequest request) {
+
+    String ip = request.getHeader("X-Forwarded-For");
+
+    log.info(">>>> X-FORWARDED-FOR : " + ip);
+
+    if (ip == null) {
+      ip = request.getHeader("Proxy-Client-IP");
+      log.info(">>>> Proxy-Client-IP : " + ip);
+    }
+    if (ip == null) {
+      ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
+      log.info(">>>> WL-Proxy-Client-IP : " + ip);
+    }
+    if (ip == null) {
+      ip = request.getHeader("HTTP_CLIENT_IP");
+      log.info(">>>> HTTP_CLIENT_IP : " + ip);
+    }
+    if (ip == null) {
+      ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+      log.info(">>>> HTTP_X_FORWARDED_FOR : " + ip);
+    }
+    if (ip == null) {
+      ip = request.getRemoteAddr();
     }
 
+    log.info(">>>> Result : IP Address : " + ip);
 
-    public String getIp(HttpServletRequest request) {
+    return ip;
 
-        String ip = request.getHeader("X-Forwarded-For");
-
-        log.info(">>>> X-FORWARDED-FOR : " + ip);
-
-        if (ip == null) {
-            ip = request.getHeader("Proxy-Client-IP");
-            log.info(">>>> Proxy-Client-IP : " + ip);
-        }
-        if (ip == null) {
-            ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
-            log.info(">>>> WL-Proxy-Client-IP : " + ip);
-        }
-        if (ip == null) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-            log.info(">>>> HTTP_CLIENT_IP : " + ip);
-        }
-        if (ip == null) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-            log.info(">>>> HTTP_X_FORWARDED_FOR : " + ip);
-        }
-        if (ip == null) {
-            ip = request.getRemoteAddr();
-        }
-
-        log.info(">>>> Result : IP Address : " + ip);
-
-        return ip;
-
-    }
+  }
 
 
-    public List<BoardDto> contextListService(int board) {
-        String boardcode = Boardnum(board);
-        List<BoardDto> boardlist = boardMapper.contextList(boardcode);
-        return boardlist;
-    }
+  public List<BoardDto> contextListService(int board) {
+    String boardcode = Boardnum(board);
+    List<BoardDto> boardlist = boardMapper.contextList(boardcode);
+    return boardlist;
+  }
 
-    public List<BoardDto> BestcontextListService() {
+  public List<BoardDto> BestcontextListService() {
 
-        List<BoardDto> boardlist = boardMapper.BestcontextList();
+    List<BoardDto> boardlist = boardMapper.BestcontextList();
 
-        return boardlist;
-    }
+    return boardlist;
+  }
 
-    public List<BoardDto> NewcontextListService() {
+  public List<BoardDto> NewcontextListService() {
 
-        List<BoardDto> boardlist = boardMapper.NewcontextList();
-        return boardlist;
-    }
-
-
-    public int selectListnoService(int board) {
-
-        String boardcode = Boardnum(board);
-        int listno = boardMapper.selectListno(boardcode);
+    List<BoardDto> boardlist = boardMapper.NewcontextList();
+    return boardlist;
+  }
 
 
-        return listno;
-    }
+  public int selectListnoService(int board) {
 
-    public BoardDto contextReadService(int no, int board) {
-        String boardcode = Boardnum(board);
+    String boardcode = Boardnum(board);
+    int listno = boardMapper.selectListno(boardcode);
 
-        BoardDto boardread = boardMapper.contextRead(boardcode, no);
-        return boardread;
-    }
+    return listno;
+  }
 
+  public BoardDto contextReadService(int no, int board) {
+    String boardcode = Boardnum(board);
 
-    public BoardDto contextReadingService(int no) {
-
-
-        BoardDto boardread = boardMapper.contextReading(no);
-        return boardread;
-    }
+    BoardDto boardread = boardMapper.contextRead(boardcode, no);
+    return boardread;
+  }
 
 
-    public void contextWriteService(BoardDto boardDto) {
+  public BoardDto contextReadingService(int no) {
+
+    BoardDto boardread = boardMapper.contextReading(no);
+    return boardread;
+  }
 
 
-        boardMapper.contextWrite(boardDto);
-    }
+  public void contextWriteService(BoardDto boardDto) {
 
-    public int postnoOneService(String board_code) {
-        int boardpostno = boardMapper.postnoOne(board_code);
-        boardpostno += 1;
-        return boardpostno;
-    }
+    boardMapper.contextWrite(boardDto);
+  }
 
-    public void readcountUpService(int reviewNo) {
-        boardMapper.readcountUp(reviewNo);
+  public int postnoOneService(String board_code) {
+    int boardpostno = boardMapper.postnoOne(board_code);
+    boardpostno += 1;
+    return boardpostno;
+  }
 
-    }
+  public void readcountUpService(int reviewNo) {
+    boardMapper.readcountUp(reviewNo);
 
-    public void contextDeleteService(int board, int posts_no) {
-        String boardcode = Boardnum(board);
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("boardcode", boardcode);
-        map.put("posts_no", String.valueOf(posts_no));
+  }
 
+  public void contextDeleteService(int board, int posts_no) {
+    String boardcode = Boardnum(board);
+    Map<String, String> map = new HashMap<String, String>();
+    map.put("boardcode", boardcode);
+    map.put("posts_no", String.valueOf(posts_no));
 
-        boardMapper.contextDelete(map);
-    }
+    boardMapper.contextDelete(map);
+  }
 
-    public void contextUpdateService(BoardDto boardDto) {
-        boardMapper.contextUpdate(boardDto);
+  public void contextUpdateService(BoardDto boardDto) {
+    boardMapper.contextUpdate(boardDto);
 
-    }
+  }
 
-    public List<BoardDto> listPagingService(Criteria criteria) {
+  public List<BoardDto> listPagingService(Criteria criteria) {
 
+    List<BoardDto> result = boardMapper.listPaging(criteria);
 
-        List<BoardDto> result = boardMapper.listPaging(criteria);
+    return result;
+  }
 
-        return result;
-    }
+  public List<BoardDto> IndexContextListService(String boardcode) {
+    List<BoardDto> result = boardMapper.IndexContextList(boardcode);
 
-    public List<BoardDto> IndexContextListService(String boardcode) {
-        List<BoardDto> result = boardMapper.IndexContextList(boardcode);
-
-
-        return result;
-    }
+    return result;
+  }
 
 
 }

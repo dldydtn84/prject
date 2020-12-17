@@ -16,106 +16,106 @@ import java.util.Map;
 @Slf4j
 public class MemberService {
 
-    @Autowired
-    MemberMapper memberMapper;
+  @Autowired
+  MemberMapper memberMapper;
 
 
-    public void memberSingupService(MemberDto memberDto) {
-        memberMapper.memberSingup(memberDto);
+  public void memberSingupService(MemberDto memberDto) {
+    memberMapper.memberSingup(memberDto);
+  }
+
+  public int oauthJoinService(MemberDto memberDto) {
+    int result = memberMapper.oauthJoin(memberDto);
+    return result;
+  }
+
+  public MemberDto findByusernameService(String username) {
+    MemberDto result = memberMapper.findByusername(username);
+    return result;
+  }
+
+  public int memberidCheckService(String id) {
+    int result = memberMapper.idCheck(id);
+    return result;
+  }
+
+  public Map<String, String> validateHandling(Errors errors) {
+    Map<String, String> validatorResult = new HashMap<>();
+
+    for (FieldError error : errors.getFieldErrors()) {
+      String validKeyName = String.format("valid_%s", error.getField());
+      validatorResult.put(validKeyName, error.getDefaultMessage());
     }
 
-    public int oauthJoinService(MemberDto memberDto) {
-        int result = memberMapper.oauthJoin(memberDto);
-        return result;
-    }
+    return validatorResult;
+  }
 
-    public MemberDto findByusernameService(String username) {
-        MemberDto result = memberMapper.findByusername(username);
-        return result;
-    }
+  public MemberDto memberReadService(String userid) {
+    MemberDto result = memberMapper.memberRead(userid);
+    return result;
+  }
 
-    public int memberidCheckService(String id) {
-        int result = memberMapper.idCheck(id);
-        return result;
-    }
+  public void memberAuthService(String userid) {
+    memberMapper.memberAuth(userid);
 
-    public Map<String, String> validateHandling(Errors errors) {
-        Map<String, String> validatorResult = new HashMap<>();
+  }
 
-        for (FieldError error : errors.getFieldErrors()) {
-            String validKeyName = String.format("valid_%s", error.getField());
-            validatorResult.put(validKeyName, error.getDefaultMessage());
-        }
+  public String memberIdSearchService(String name, String email) {
+    String userid = memberMapper.memberIdSearch(name, email);
+    return userid;
+  }
 
-        return validatorResult;
-    }
+  public int memberAccountSearchService(String id, String email) {
+    int result = memberMapper.memberAccountSearch(id, email);
+    log.info("asdasda" + id + "asd : " + email);
+    return result;
+  }
 
-    public MemberDto memberReadService(String userid) {
-        MemberDto result = memberMapper.memberRead(userid);
-        return result;
-    }
+  public int temporaryPasswordService(String id, String temporaryPass) {
+    int result = memberMapper.temporaryPassword(id, temporaryPass);
 
-    public void memberAuthService(String userid) {
-        memberMapper.memberAuth(userid);
+    return result;
+  }
 
-    }
+  public String nowpassCheckService(String id) {
+    String result = memberMapper.nowpassCheck(id);
 
-    public String memberIdSearchService(String name, String email) {
-        String userid = memberMapper.memberIdSearch(name, email);
-        return userid;
-    }
+    return result;
+  }
 
-    public int memberAccountSearchService(String id, String email) {
-        int result = memberMapper.memberAccountSearch(id, email);
-        log.info("asdasda" + id + "asd : " + email);
-        return result;
-    }
+  public int changePassService(String id, String changpass) {
+    int result = memberMapper.changePass(id, changpass);
 
-    public int temporaryPasswordService(String id, String temporaryPass) {
-        int result = memberMapper.temporaryPassword(id, temporaryPass);
+    return result;
+  }
 
-        return result;
-    }
+  public int nicknameCheckService(String nickname) {
+    int result = memberMapper.nicknameCheck(nickname);
 
-    public String nowpassCheckService(String id) {
-        String result = memberMapper.nowpassCheck(id);
+    return result;
+  }
 
-        return result;
-    }
+  public int nicknameChangeService(String nickname, String userid) {
+    int result = memberMapper.nicknameChange(nickname, userid);
 
-    public int changePassService(String id, String changpass) {
-        int result = memberMapper.changePass(id, changpass);
+    return result;
+  }
 
-        return result;
-    }
+  public int nameChangeService(String name, String userid) {
+    int result = memberMapper.nameChange(name, userid);
 
-    public int nicknameCheckService(String nickname) {
-        int result = memberMapper.nicknameCheck(nickname);
+    return result;
+  }
 
-        return result;
-    }
+  public String nickNameChangeSearchService(String userid) {
+    String nicknameChange = memberMapper.nickNameChangeSearch(userid);
 
-    public int nicknameChangeService(String nickname, String userid) {
-        int result = memberMapper.nicknameChange(nickname, userid);
+    return nicknameChange;
+  }
 
-        return result;
-    }
+  public String nameChangeSearchService(String userid) {
+    String nameChange = memberMapper.nameChangeSearch(userid);
 
-    public int nameChangeService(String name, String userid) {
-        int result = memberMapper.nameChange(name, userid);
-
-        return result;
-    }
-
-    public String nickNameChangeSearchService(String userid) {
-        String nicknameChange = memberMapper.nickNameChangeSearch(userid);
-
-        return nicknameChange;
-    }
-
-    public String nameChangeSearchService(String userid) {
-        String nameChange = memberMapper.nameChangeSearch(userid);
-
-        return nameChange;
-    }
+    return nameChange;
+  }
 }

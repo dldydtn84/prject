@@ -22,118 +22,119 @@ import java.util.UUID;
 @Slf4j
 public class PhotoBoardService {
 
-    @Autowired
-    PhotoBoardMapper photoBoardMapper;
+  @Autowired
+  PhotoBoardMapper photoBoardMapper;
 
 
-    private final String UPLOAD_PATH =
-            File.separator + "home" + File.separator + "ubuntu" + File.separator + "app" + File.separator + "step1" + File.separator + "prject" + File.separator + "appler" + File.separator + "photo" + File.separator;
+  private final String UPLOAD_PATH =
+      File.separator + "home" + File.separator + "ubuntu" + File.separator + "app" + File.separator
+          + "step1" + File.separator + "prject" + File.separator + "appler" + File.separator
+          + "photo" + File.separator;
 
-    public String saveFile(MultipartFile file) throws IOException {
+  public String saveFile(MultipartFile file) throws IOException {
 
-        // 파일 이름 변경
-        UUID uuid = UUID.randomUUID();
-        String saveName = uuid + "_" + file.getOriginalFilename();
+    // 파일 이름 변경
+    UUID uuid = UUID.randomUUID();
+    String saveName = uuid + "_" + file.getOriginalFilename();
 
-        log.info("saveName: {}", saveName);
+    log.info("saveName: {}", saveName);
 
-        String fileName = file.getOriginalFilename();
-        log.info("fileName : " + fileName);
-        String contentType = file.getContentType();
-        long filesize = file.getSize();
+    String fileName = file.getOriginalFilename();
+    log.info("fileName : " + fileName);
+    String contentType = file.getContentType();
+    long filesize = file.getSize();
 
-        // 저장할 File 객체를 생성(껍데기 파일)
-        File saveFile = new File(UPLOAD_PATH, saveName); // 저장할 폴더 이름, 저장할 파일 이름
-        log.info("saveFile : " + String.valueOf(saveFile));
-        try {
-            file.transferTo(saveFile); // 업로드 파일에 saveFile이라는 껍데기 입힘
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return saveName;
+    // 저장할 File 객체를 생성(껍데기 파일)
+    File saveFile = new File(UPLOAD_PATH, saveName); // 저장할 폴더 이름, 저장할 파일 이름
+    log.info("saveFile : " + String.valueOf(saveFile));
+    try {
+      file.transferTo(saveFile); // 업로드 파일에 saveFile이라는 껍데기 입힘
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
     }
 
-    public String getIp(HttpServletRequest request) {
+    return saveName;
+  }
 
-        String ip = request.getHeader("X-Forwarded-For");
+  public String getIp(HttpServletRequest request) {
 
-        log.info(">>>> X-FORWARDED-FOR : " + ip);
+    String ip = request.getHeader("X-Forwarded-For");
 
-        if (ip == null) {
-            ip = request.getHeader("Proxy-Client-IP");
-            log.info(">>>> Proxy-Client-IP : " + ip);
-        }
-        if (ip == null) {
-            ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
-            log.info(">>>> WL-Proxy-Client-IP : " + ip);
-        }
-        if (ip == null) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-            log.info(">>>> HTTP_CLIENT_IP : " + ip);
-        }
-        if (ip == null) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-            log.info(">>>> HTTP_X_FORWARDED_FOR : " + ip);
-        }
-        if (ip == null) {
-            ip = request.getRemoteAddr();
-        }
+    log.info(">>>> X-FORWARDED-FOR : " + ip);
 
-        log.info(">>>> Result : IP Address : " + ip);
-
-        return ip;
-
+    if (ip == null) {
+      ip = request.getHeader("Proxy-Client-IP");
+      log.info(">>>> Proxy-Client-IP : " + ip);
+    }
+    if (ip == null) {
+      ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
+      log.info(">>>> WL-Proxy-Client-IP : " + ip);
+    }
+    if (ip == null) {
+      ip = request.getHeader("HTTP_CLIENT_IP");
+      log.info(">>>> HTTP_CLIENT_IP : " + ip);
+    }
+    if (ip == null) {
+      ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+      log.info(">>>> HTTP_X_FORWARDED_FOR : " + ip);
+    }
+    if (ip == null) {
+      ip = request.getRemoteAddr();
     }
 
-    public List<PhotoBoardDto> contextListService(Criteria criteria) {
+    log.info(">>>> Result : IP Address : " + ip);
 
-        List<PhotoBoardDto> boardlist = photoBoardMapper.contextList(criteria);
-        return boardlist;
-    }
+    return ip;
 
-    public void contextWriteService(PhotoBoardDto photoBoardDto) {
+  }
+
+  public List<PhotoBoardDto> contextListService(Criteria criteria) {
+
+    List<PhotoBoardDto> boardlist = photoBoardMapper.contextList(criteria);
+    return boardlist;
+  }
+
+  public void contextWriteService(PhotoBoardDto photoBoardDto) {
+
+    photoBoardMapper.contextWrite(photoBoardDto);
+  }
+
+  public int totalcountService() {
+
+    int totalcount = photoBoardMapper.totalcount();
+    return totalcount;
+  }
+
+  public List<PhotoBoardDto> IndexPhotoListService() {
+    List<PhotoBoardDto> result = photoBoardMapper.IndexPhotoList();
+    return result;
+  }
+
+  public PhotoBoardDto contextReadService(int no) {
+
+    PhotoBoardDto result = photoBoardMapper.contextRead(no);
+
+    return result;
 
 
-        photoBoardMapper.contextWrite(photoBoardDto);
-    }
+  }
 
-    public int totalcountService() {
+  public void contextModifyService(PhotoBoardDto photoBoardDto) {
 
-        int totalcount = photoBoardMapper.totalcount();
-        return totalcount;
-    }
+    photoBoardMapper.contextModify(photoBoardDto);
+  }
 
-    public List<PhotoBoardDto> IndexPhotoListService() {
-        List<PhotoBoardDto> result = photoBoardMapper.IndexPhotoList();
-        return result;
-    }
+  public void contextDeleteService(int no) {
 
-    public PhotoBoardDto contextReadService(int no) {
+    photoBoardMapper.contextDelete(no);
 
-        PhotoBoardDto result = photoBoardMapper.contextRead(no);
+  }
 
-        return result;
+  public void readcountUpService(int reviewNo) {
+    photoBoardMapper.readcountUp(reviewNo);
 
-
-    }
-
-    public void contextModifyService(PhotoBoardDto photoBoardDto) {
-
-        photoBoardMapper.contextModify(photoBoardDto);
-    }
-
-    public void contextDeleteService(int no) {
-
-        photoBoardMapper.contextDelete(no);
-
-    }
-
-    public void readcountUpService(int reviewNo) {
-        photoBoardMapper.readcountUp(reviewNo);
-
-    }
+  }
 
 
 }

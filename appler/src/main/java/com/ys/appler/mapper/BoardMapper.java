@@ -11,29 +11,29 @@ import java.util.Map;
 @Mapper
 public interface BoardMapper {
 
-    List<BoardDto> contextList(String boardcode);
+  List<BoardDto> contextList(String boardcode);
 
-    List<BoardDto> BestcontextList();
+  List<BoardDto> BestcontextList();
 
-    List<BoardDto> NewcontextList();
+  List<BoardDto> NewcontextList();
 
-    int selectListno(String boardcode);
+  int selectListno(String boardcode);
 
-    BoardDto contextRead(String boardcode, int no);
+  BoardDto contextRead(String boardcode, int no);
 
-    BoardDto contextReading(int no);
+  BoardDto contextReading(int no);
 
-    void contextWrite(BoardDto boardDto);
+  void contextWrite(BoardDto boardDto);
 
-    int postnoOne(String board_code);
+  int postnoOne(String board_code);
 
-    void readcountUp(int reviewNo);
+  void readcountUp(int reviewNo);
 
-    void contextDelete(Map<String, String> map);
+  void contextDelete(Map<String, String> map);
 
-    void contextUpdate(BoardDto boardDto);
+  void contextUpdate(BoardDto boardDto);
 
-    List<BoardDto> listPaging(Criteria criteria);
+  List<BoardDto> listPaging(Criteria criteria);
 
-    List<BoardDto> IndexContextList(String boardcode);
+  List<BoardDto> IndexContextList(String boardcode);
 }

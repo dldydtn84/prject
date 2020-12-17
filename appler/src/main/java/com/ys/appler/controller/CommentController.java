@@ -23,71 +23,71 @@ import java.util.List;
 @RequestMapping("/comment")
 public class CommentController {
 
-    @Autowired
-    CommentService commentService;
+  @Autowired
+  CommentService commentService;
 
-    private String boardCode(int boardnum) {
-        String boardcode = "";
-        if (boardnum == 1) {
-            boardcode = "FB";
-        } else if (boardnum == 2) {
-            boardcode = "QB";
-        } else if (boardnum == 3) {
-            boardcode = "CB";
-        } else {
+  private String boardCode(int boardnum) {
+    String boardcode = "";
+    if (boardnum == 1) {
+      boardcode = "FB";
+    } else if (boardnum == 2) {
+      boardcode = "QB";
+    } else if (boardnum == 3) {
+      boardcode = "CB";
+    } else {
 
-        }
-        return boardcode;
     }
+    return boardcode;
+  }
 
-    @RequestMapping("/list") //댓글 리스트
-    @ResponseBody
-    private List<CommentDto> commentList(@RequestParam int bno, @RequestParam int board, Model model, CommentDto commentDto) throws Exception {
-        String boardcode = boardCode(board);
+  @RequestMapping("/list") //댓글 리스트
+  @ResponseBody
+  private List<CommentDto> commentList(@RequestParam int bno, @RequestParam int board, Model model,
+      CommentDto commentDto) throws Exception {
+    String boardcode = boardCode(board);
 
+    List<CommentDto> result = commentService.CommentListService(bno, boardcode);
+    model.addAttribute("commentDto", commentDto);
 
-        List<CommentDto> result = commentService.CommentListService(bno, boardcode);
-        model.addAttribute("commentDto", commentDto);
+    return result;
+  }
 
+  @RequestMapping("/insert") //댓글 작성
+  @ResponseBody
+  private int commentInsert(@RequestParam String p_no, @RequestParam int board,
+      @RequestParam String comments, HttpSession session, HttpServletRequest request)
+      throws Exception {
 
-        return result;
-    }
+    BoardService boardService = new BoardService();
+    String IP = boardService.getIp(request);
+    String boardcode = boardService.Boardnum(board);
 
-    @RequestMapping("/insert") //댓글 작성
-    @ResponseBody
-    private int commentInsert(@RequestParam String p_no, @RequestParam int board, @RequestParam String comments, HttpSession session, HttpServletRequest request) throws Exception {
+    CommentDto comment = new CommentDto();
+    comment.setP_no(p_no);
+    comment.setComments(comments);
+    comment.setIp(IP);
+    comment.setBoard_code(boardcode);
+    comment.setNickname((String) session.getAttribute("greeting"));
+    int result = commentService.commentInsertService(comment);
 
-        BoardService boardService = new BoardService();
-        String IP = boardService.getIp(request);
-        String boardcode = boardService.Boardnum(board);
+    return result;
+  }
 
+  @RequestMapping("/update") //댓글 수정
+  @ResponseBody
+  private int commentUpdate(@RequestParam int no, @RequestParam String content) throws Exception {
 
-        CommentDto comment = new CommentDto();
-        comment.setP_no(p_no);
-        comment.setComments(comments);
-        comment.setIp(IP);
-        comment.setBoard_code(boardcode);
-        comment.setNickname((String) session.getAttribute("greeting"));
-        int result = commentService.commentInsertService(comment);
+    CommentDto comment = new CommentDto();
+    comment.setNo(no);
+    comment.setComments(content);
 
-        return result;
-    }
+    return commentService.commentUpdateService(comment);
+  }
 
-    @RequestMapping("/update") //댓글 수정  
-    @ResponseBody
-    private int commentUpdate(@RequestParam int no, @RequestParam String content) throws Exception {
+  @RequestMapping("/delete/{no}") //댓글 삭제
+  @ResponseBody
+  private int commentDelete(@PathVariable int no) throws Exception {
 
-        CommentDto comment = new CommentDto();
-        comment.setNo(no);
-        comment.setComments(content);
-
-        return commentService.commentUpdateService(comment);
-    }
-
-    @RequestMapping("/delete/{no}") //댓글 삭제
-    @ResponseBody
-    private int commentDelete(@PathVariable int no) throws Exception {
-
-        return commentService.commentDeleteService(no);
-    }
+    return commentService.commentDeleteService(no);
+  }
 }

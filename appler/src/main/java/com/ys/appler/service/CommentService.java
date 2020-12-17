@@ -10,37 +10,37 @@ import java.util.List;
 @Service
 public class CommentService {
 
-    @Autowired
-    CommentMapper commentMapper;
+  @Autowired
+  CommentMapper commentMapper;
 
-    public int commentCount() throws Exception {
-        int result = commentMapper.commentCount();
-        return result;
-    }
+  public int commentCount() throws Exception {
+    int result = commentMapper.commentCount();
+    return result;
+  }
 
-    public List<CommentDto> CommentListService(int p_no, String boardcode) throws Exception {
-        List<CommentDto> result = commentMapper.commentList(p_no, boardcode);
-        return result;
-    }
+  public List<CommentDto> CommentListService(int p_no, String boardcode) throws Exception {
+    List<CommentDto> result = commentMapper.commentList(p_no, boardcode);
+    return result;
+  }
 
-    public int commentInsertService(CommentDto commentDto) throws Exception {
-        int result = commentMapper.commentInsert(commentDto);
-        return result;
-    }
+  public int commentInsertService(CommentDto commentDto) throws Exception {
+    int result = commentMapper.commentInsert(commentDto);
+    return result;
+  }
 
-    public int commentUpdateService(CommentDto commentDto) throws Exception {
-        int result = commentMapper.commentUpdate(commentDto);
-        return result;
-    }
+  public int commentUpdateService(CommentDto commentDto) throws Exception {
+    int result = commentMapper.commentUpdate(commentDto);
+    return result;
+  }
 
-    public int commentDeleteService(int no) throws Exception {
-        int result = commentMapper.commentDelete(no);
-        return result;
-    }
+  public int commentDeleteService(int no) throws Exception {
+    int result = commentMapper.commentDelete(no);
+    return result;
+  }
 
-    public int contextallcommentDeleteService(int p_no) throws Exception {
-        int result = commentMapper.contextallcommentDelete(p_no);
-        return result;
-    }
+  public int contextallcommentDeleteService(int p_no) throws Exception {
+    int result = commentMapper.contextallcommentDelete(p_no);
+    return result;
+  }
 
 }

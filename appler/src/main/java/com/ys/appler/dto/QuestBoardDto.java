@@ -11,25 +11,26 @@ import java.util.Date;
 
 @Data
 public class QuestBoardDto {
-    private int no;
-    private String board_code;
 
-    private String name;
+  private int no;
+  private String board_code;
 
-    private String email;
+  private String name;
 
-    private String pnum1;
-    private String pnum2;
-    private String pnum3;
-    private String phone;
+  private String email;
 
-    @NotBlank(message = "제목은 필수 입력사항입니다.")
-    private String subject;
+  private String pnum1;
+  private String pnum2;
+  private String pnum3;
+  private String phone;
 
-    private String contents;
-    private String file;
-    private String ip;
-    private int readcount;
-    private Date reporting_date;
+  @NotBlank(message = "제목은 필수 입력사항입니다.")
+  private String subject;
+
+  private String contents;
+  private String file;
+  private String ip;
+  private int readcount;
+  private Date reporting_date;
 
 }

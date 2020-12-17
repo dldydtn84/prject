@@ -8,11 +8,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Message {
-    String message = "";
-    String href = "";
 
-    public Message(String message, String href) {
-        this.message = message;
-        this.href = href;
-    }
+  String message = "";
+  String href = "";
+
+  public Message(String message, String href) {
+    this.message = message;
+    this.href = href;
+  }
 }

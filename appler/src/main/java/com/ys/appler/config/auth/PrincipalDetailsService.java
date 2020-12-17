@@ -12,19 +12,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrincipalDetailsService implements UserDetailsService {
 
-    @Autowired
-    private MemberService memberService;
+  @Autowired
+  private MemberService memberService;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("username ::: " + username);
-        MemberDto member = memberService.findByusernameService(username);
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    System.out.println("username ::: " + username);
+    MemberDto member = memberService.findByusernameService(username);
 
-        if (member != null) {
+    if (member != null) {
 
-            return new PrincipalDetails(member);
-        }
-
-        return null;
+      return new PrincipalDetails(member);
     }
+
+    return null;
+  }
 }

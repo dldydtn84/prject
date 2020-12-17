@@ -13,37 +13,38 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    PrincipalOauth2UserService principalOauth2UserService;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf()
-                .disable()
-                .authorizeRequests()
+  @Autowired
+  PrincipalOauth2UserService principalOauth2UserService;
 
-                .antMatchers("/noticeboard/write").hasRole("ADMIN")
-                .antMatchers("/questboard/write").permitAll()
-                .antMatchers("/**/write/**").authenticated()
-                .antMatchers("/**/modify/**").authenticated()
-                .anyRequest().permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/user/login")
-                .loginProcessingUrl("/login")
-                .successHandler(new LoginSuccessHandler("/"))
-                .and()
-                .oauth2Login()
-                .loginPage("/user/login")
-                .userInfoEndpoint()
-                .userService(principalOauth2UserService)
-                .and()
-                .successHandler(new LoginSuccessHandler("/"))
-        ;
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http
+        .csrf()
+        .disable()
+        .authorizeRequests()
+
+        .antMatchers("/noticeboard/write").hasRole("ADMIN")
+        .antMatchers("/questboard/write").permitAll()
+        .antMatchers("/**/write/**").authenticated()
+        .antMatchers("/**/modify/**").authenticated()
+        .anyRequest().permitAll()
+        .and()
+        .formLogin()
+        .loginPage("/user/login")
+        .loginProcessingUrl("/login")
+        .successHandler(new LoginSuccessHandler("/"))
+        .and()
+        .oauth2Login()
+        .loginPage("/user/login")
+        .userInfoEndpoint()
+        .userService(principalOauth2UserService)
+        .and()
+        .successHandler(new LoginSuccessHandler("/"))
+    ;
 
 
-    }
+  }
 
 
 }

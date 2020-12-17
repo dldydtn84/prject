@@ -12,19 +12,19 @@ import java.util.Map;
 @Mapper
 public interface NoticeBoardMapper {
 
-    void contextWrite(NoticeBoardDto noticeBoardDto);
+  void contextWrite(NoticeBoardDto noticeBoardDto);
 
-    int ListCount(String search_option, String keyword);
+  int ListCount(String search_option, String keyword);
 
-    List<NoticeBoardDto> listPaging(Criteria criteria);
+  List<NoticeBoardDto> listPaging(Criteria criteria);
 
-    NoticeBoardDto contextRead(int no);
+  NoticeBoardDto contextRead(int no);
 
-    void readcountUp(int reviewNo);
+  void readcountUp(int reviewNo);
 
-    void contextUpdate(NoticeBoardDto noticeBoardDto);
+  void contextUpdate(NoticeBoardDto noticeBoardDto);
 
-    void contextDelete(Map<String, String> map);
+  void contextDelete(Map<String, String> map);
 
-    List<NoticeBoardDto> contextSearch(String search);
+  List<NoticeBoardDto> contextSearch(String search);
 }

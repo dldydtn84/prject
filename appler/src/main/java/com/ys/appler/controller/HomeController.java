@@ -35,53 +35,51 @@ public class HomeController {
    /* @Autowired
     MemberService memberService;*/
 
-    @Autowired
-    BoardService boardService;
+  @Autowired
+  BoardService boardService;
 
-    @Autowired
-    PhotoBoardService photoBoardService;
+  @Autowired
+  PhotoBoardService photoBoardService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
-    @GetMapping("/")
-    public String index(Model model, HttpSession session, @AuthenticationPrincipal PrincipalDetails principalDetails, BoardDto boardDto) {
+  @GetMapping("/")
+  public String index(Model model, HttpSession session,
+      @AuthenticationPrincipal PrincipalDetails principalDetails, BoardDto boardDto) {
 
+    if (principalDetails == null) {
 
-        if (principalDetails == null) {
-
-        } else {
-            model.addAttribute("nickname", principalDetails.getMemberDto().getNickname());
-            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
-        }
-
-        List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
-        List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
-        List<BoardDto> cbcontextList = boardService.IndexContextListService("CB");
-
-        List<PhotoBoardDto> photoList = photoBoardService.IndexPhotoListService();
-
-        List<BoardDto> bestcontextList = boardService.BestcontextListService();
-        List<BoardDto> newcontextList = boardService.NewcontextListService();
-
-
-        model.addAttribute("fbcontextList", fbcontextList);
-        model.addAttribute("qbcontextList", qbcontextList);
-        model.addAttribute("cbcontextList", cbcontextList);
-        model.addAttribute("photoList", photoList);
-
-        model.addAttribute("bestcontextList", bestcontextList);
-        model.addAttribute("newcontextList", newcontextList);
-
-
-        return "index";
+    } else {
+      model.addAttribute("nickname", principalDetails.getMemberDto().getNickname());
+      model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
     }
 
-    @GetMapping("/admin/layout/default")
-    public String defaults(Model model) {
-        //model.addAttribute("data","hello");
-        return "admin/layout/default";
-    }
+    List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
+    List<BoardDto> qbcontextList = boardService.IndexContextListService("QB");
+    List<BoardDto> cbcontextList = boardService.IndexContextListService("CB");
+
+    List<PhotoBoardDto> photoList = photoBoardService.IndexPhotoListService();
+
+    List<BoardDto> bestcontextList = boardService.BestcontextListService();
+    List<BoardDto> newcontextList = boardService.NewcontextListService();
+
+    model.addAttribute("fbcontextList", fbcontextList);
+    model.addAttribute("qbcontextList", qbcontextList);
+    model.addAttribute("cbcontextList", cbcontextList);
+    model.addAttribute("photoList", photoList);
+
+    model.addAttribute("bestcontextList", bestcontextList);
+    model.addAttribute("newcontextList", newcontextList);
+
+    return "index";
+  }
+
+  @GetMapping("/admin/layout/default")
+  public String defaults(Model model) {
+    //model.addAttribute("data","hello");
+    return "admin/layout/default";
+  }
 
 
 }
