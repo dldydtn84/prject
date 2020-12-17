@@ -18,22 +18,20 @@ public class NoticeBoardService {
     NoticeBoardMapper noticeBoardMapper;
 
 
-
-
-    public void contextWriteService(NoticeBoardDto noticeBoardDto){
+    public void contextWriteService(NoticeBoardDto noticeBoardDto) {
 
 
         noticeBoardMapper.contextWrite(noticeBoardDto);
     }
 
 
-    public int ListCountService(String search_option,String keyword ){
+    public int ListCountService(String search_option, String keyword) {
 
 
-        return noticeBoardMapper.ListCount(search_option,keyword);
+        return noticeBoardMapper.ListCount(search_option, keyword);
     }
-    public List<NoticeBoardDto> listPagingService(Criteria criteria){
 
+    public List<NoticeBoardDto> listPagingService(Criteria criteria) {
 
 
         List<NoticeBoardDto> result = noticeBoardMapper.listPaging(criteria);
@@ -41,20 +39,23 @@ public class NoticeBoardService {
         return result;
     }
 
-    public NoticeBoardDto contextReadService(int no){
+    public NoticeBoardDto contextReadService(int no) {
 
         NoticeBoardDto boardread = noticeBoardMapper.contextRead(no);
-        return  boardread;
+        return boardread;
     }
-    public void readcountUpService(int reviewNo){
+
+    public void readcountUpService(int reviewNo) {
         noticeBoardMapper.readcountUp(reviewNo);
 
     }
-    public void contextUpdateService(NoticeBoardDto noticeBoardDto){
+
+    public void contextUpdateService(NoticeBoardDto noticeBoardDto) {
         noticeBoardMapper.contextUpdate(noticeBoardDto);
 
     }
-    public void contextDeleteService(int no){
+
+    public void contextDeleteService(int no) {
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("no", String.valueOf(no));
@@ -62,11 +63,11 @@ public class NoticeBoardService {
 
         noticeBoardMapper.contextDelete(map);
     }
-    public List<NoticeBoardDto> contextSearchService(String search){
+
+    public List<NoticeBoardDto> contextSearchService(String search) {
 
 
-
-        List<NoticeBoardDto> result=noticeBoardMapper.contextSearch(search);
+        List<NoticeBoardDto> result = noticeBoardMapper.contextSearch(search);
         return result;
     }
 }

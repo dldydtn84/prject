@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 
 @Data
-public class BoardDto{
+public class BoardDto {
 
 
     private int no;

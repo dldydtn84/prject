@@ -7,20 +7,35 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper {
 
     int idCheck(String id);
+
     MemberDto findByusername(String username);
+
     void memberSingup(MemberDto memberDto);
+
     int oauthJoin(MemberDto memberDto);
+
     MemberDto memberRead(String userid);
+
     void memberAuth(String userid);
-    String memberIdSearch(String name,String email);
+
+    String memberIdSearch(String name, String email);
+
     int memberAccountSearch(String id, String email);
+
     int temporaryPassword(String id, String temporaryPass);
+
     String nowpassCheck(String id);
+
     int changePass(String id, String changpass);
+
     int nicknameCheck(String nickname);
+
     int nicknameChange(String nickname, String userid);
+
     int nameChange(String name, String userid);
+
     String nameChangeSearch(String userid);
+
     String nickNameChangeSearch(String userid);
 
 }

@@ -22,8 +22,9 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     public PrincipalDetails(MemberDto memberDto) {
         this.memberDto = memberDto;
     }
+
     //Oauth 로그인
-    public PrincipalDetails(MemberDto memberDto,Map<String,Object> attributes) {
+    public PrincipalDetails(MemberDto memberDto, Map<String, Object> attributes) {
         this.memberDto = memberDto;
         this.attributes = attributes;
     }
@@ -31,17 +32,16 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     //권한 리턴
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       Collection<GrantedAuthority> collect = new ArrayList<>();
-       collect.add(new GrantedAuthority() {
-           @Override
-           public String getAuthority() {
-               return memberDto.getAuthority();
-           }
-       });
+        Collection<GrantedAuthority> collect = new ArrayList<>();
+        collect.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return memberDto.getAuthority();
+            }
+        });
 
         return collect;
     }
-
 
 
     @Override
@@ -83,9 +83,8 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     }
 
 
-
     @Override
     public String getName() {
-        return  memberDto.getName();
+        return memberDto.getName();
     }
 }

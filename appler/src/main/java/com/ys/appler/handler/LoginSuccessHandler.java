@@ -15,12 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
 @Slf4j
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStratgy = new DefaultRedirectStrategy();
-
-
 
 
     public LoginSuccessHandler(String defaultTargetUrl) {
@@ -40,7 +39,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
-        if(savedRequest!=null) {
+        if (savedRequest != null) {
             String targetUrl = savedRequest.getRedirectUrl();
             redirectStratgy.sendRedirect(request, response, targetUrl);
         } else {

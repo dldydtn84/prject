@@ -6,6 +6,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -22,48 +23,48 @@ public class MailService {
 
     private static final String FROM_ADDRESS = "dldydtn84@gmail.com";
 
-    public void createMessage(String to,String type) throws Exception{
-        System.out.println("보내는 대상 : "+ to);
-        System.out.println("인증 번호 : "+ePw);
-        MimeMessage  message = emailSender.createMimeMessage();
+    public void createMessage(String to, String type) throws Exception {
+        System.out.println("보내는 대상 : " + to);
+        System.out.println("인증 번호 : " + ePw);
+        MimeMessage message = emailSender.createMimeMessage();
 
         message.addRecipients(RecipientType.TO, to);//보내는 대상
 
-        if(type == "auth"){
+        if (type == "auth") {
             message.setSubject("Appler 인증번호가 도착했습니다.");//제목
-            String msgg="";
-            msgg+= "<div style='margin:100px;'>";
-            msgg+= "<h1> 안녕하세요  Appler입니다!!! </h1>";
-            msgg+= "<br>";
-            msgg+= "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
-            msgg+= "<br>";
-            msgg+= "<p>감사합니다!<p>";
-            msgg+= "<br>";
-            msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
-            msgg+= "<h3 style='color:blue;'>회원가입 코드입니다.</h3>";
-            msgg+= "<div style='font-size:130%'>";
-            msgg+= "CODE : <strong>";
-            msgg+= ePw+"</strong><div><br/> ";
-            msgg+= "</div>";
+            String msgg = "";
+            msgg += "<div style='margin:100px;'>";
+            msgg += "<h1> 안녕하세요  Appler입니다!!! </h1>";
+            msgg += "<br>";
+            msgg += "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
+            msgg += "<br>";
+            msgg += "<p>감사합니다!<p>";
+            msgg += "<br>";
+            msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+            msgg += "<h3 style='color:blue;'>회원가입 코드입니다.</h3>";
+            msgg += "<div style='font-size:130%'>";
+            msgg += "CODE : <strong>";
+            msgg += ePw + "</strong><div><br/> ";
+            msgg += "</div>";
             message.setText(msgg, "utf-8", "html");//내용
             message.setFrom(FROM_ADDRESS);//보내는 사람
             emailSender.send(message);
-        }else if(type =="account"){
+        } else if (type == "account") {
             message.setSubject("Appler 임시비밀번호 보내드립니다.");//제목
-            String msgg="";
-            msgg+= "<div style='margin:100px;'>";
-            msgg+= "<h1> 안녕하세요  Appler입니다!!! </h1>";
-            msgg+= "<br>";
-            msgg+= "<p>아래 임시비밀번호를 입력해주세요.<p>";
-            msgg+= "<br>";
-            msgg+= "<p>감사합니다!<p>";
-            msgg+= "<br>";
-            msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
-            msgg+= "<h3 style='color:blue;'>임시비밀번호 입니다.</h3>";
-            msgg+= "<div style='font-size:130%'>";
-            msgg+= "PassWord : <strong>";
-            msgg+= pass+"</strong><div><br/> ";
-            msgg+= "</div>";
+            String msgg = "";
+            msgg += "<div style='margin:100px;'>";
+            msgg += "<h1> 안녕하세요  Appler입니다!!! </h1>";
+            msgg += "<br>";
+            msgg += "<p>아래 임시비밀번호를 입력해주세요.<p>";
+            msgg += "<br>";
+            msgg += "<p>감사합니다!<p>";
+            msgg += "<br>";
+            msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+            msgg += "<h3 style='color:blue;'>임시비밀번호 입니다.</h3>";
+            msgg += "<div style='font-size:130%'>";
+            msgg += "PassWord : <strong>";
+            msgg += pass + "</strong><div><br/> ";
+            msgg += "</div>";
             message.setText(msgg, "utf-8", "html");//내용
             message.setFrom(FROM_ADDRESS);//보내는 사람
             emailSender.send(message);
@@ -71,6 +72,7 @@ public class MailService {
 
 
     }
+
     //		인증코드 만들기
     public static String createKey() {
         StringBuffer key = new StringBuffer();

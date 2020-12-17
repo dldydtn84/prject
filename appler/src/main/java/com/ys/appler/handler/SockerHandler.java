@@ -11,12 +11,13 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+
 import java.util.HashMap;
 
 
 @Slf4j
 @Component
-public class SockerHandler  extends TextWebSocketHandler {
+public class SockerHandler extends TextWebSocketHandler {
 
     HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 
@@ -25,14 +26,14 @@ public class SockerHandler  extends TextWebSocketHandler {
         //메시지 발송
         String msg = message.getPayload();
         JSONObject obj = jsonToObjectParser(msg);
-        obj.put("userName",session.getPrincipal().getName());
+        obj.put("userName", session.getPrincipal().getName());
 
 
-        for(String key : sessionMap.keySet()) {
+        for (String key : sessionMap.keySet()) {
             WebSocketSession wss = sessionMap.get(key);
             try {
                 wss.sendMessage(new TextMessage(obj.toJSONString()));
-            }catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

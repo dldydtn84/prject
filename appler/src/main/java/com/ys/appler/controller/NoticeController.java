@@ -1,7 +1,6 @@
 package com.ys.appler.controller;
 
 
-
 import com.ys.appler.commons.paging.Criteria;
 import com.ys.appler.commons.paging.Pageing;
 import com.ys.appler.config.auth.PrincipalDetails;
@@ -37,15 +36,15 @@ public class NoticeController {
     @Autowired
     NoticeBoardService NoticeboardService;
 
-@Autowired
+    @Autowired
     BoardService boardService;
 
     @GetMapping("/list") //search_option 차후 개선가능
     public String list(Model model, NoticeBoardDto noticeBoardDto, @RequestParam(value = "perPageNum", defaultValue = "15") int perPageNum,
-                       @RequestParam(value = "page", defaultValue = "1") int page,  @RequestParam(defaultValue="all") String search_option,
-                       @RequestParam(value = "keyword", defaultValue="") String keyword ,@AuthenticationPrincipal PrincipalDetails principalDetails ) {
+                       @RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(defaultValue = "all") String search_option,
+                       @RequestParam(value = "keyword", defaultValue = "") String keyword, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        int totalcount = NoticeboardService.ListCountService(search_option,keyword);
+        int totalcount = NoticeboardService.ListCountService(search_option, keyword);
 
 
         Criteria criteria = new Criteria();
@@ -60,7 +59,7 @@ public class NoticeController {
         pageing.setTotalCount(totalcount);
         int start = pageing.getStartPage();
 
-        if(principalDetails != null){
+        if (principalDetails != null) {
             model.addAttribute("Authority", principalDetails.getMemberDto().getAuthority());
             model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
 
@@ -86,7 +85,7 @@ public class NoticeController {
     @GetMapping(value = "/read")
     public String read(@RequestParam("no") int no, Model model, NoticeBoardDto noticeBoardDto, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        if(principalDetails != null){
+        if (principalDetails != null) {
             model.addAttribute("Authority", principalDetails.getMemberDto().getAuthority());
             model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
 
@@ -143,28 +142,25 @@ public class NoticeController {
     }
 
 
-
-
-
-
-@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @GetMapping("/write")
-    public String write(Model model,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String write(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-    if(principalDetails != null) {
-        model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
-    }
+        if (principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
 
 
-    List<BoardDto> bestcontextList = boardService.BestcontextListService();
-    List<BoardDto> newcontextList = boardService.NewcontextListService();
-    model.addAttribute("bestcontextList", bestcontextList);
-    model.addAttribute("newcontextList", newcontextList);
+        List<BoardDto> bestcontextList = boardService.BestcontextListService();
+        List<BoardDto> newcontextList = boardService.NewcontextListService();
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
 
         return "noticeboard/write";
     }
+
     @PostMapping("/write")
-    public String writepro(NoticeBoardDto noticeBoardDto, HttpServletRequest request,Model model) {
+    public String writepro(NoticeBoardDto noticeBoardDto, HttpServletRequest request, Model model) {
 
         noticeBoardDto.setIp(boardService.getIp(request));
 
@@ -179,9 +175,9 @@ public class NoticeController {
     }
 
     @GetMapping("/modify")
-    public String modify(Model model,  @RequestParam("no") int no,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String modify(Model model, @RequestParam("no") int no, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        if(principalDetails != null) {
+        if (principalDetails != null) {
             model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         }
 
@@ -212,7 +208,6 @@ public class NoticeController {
         Cookie delCk = new Cookie("cookie" + no, null);
         delCk.setMaxAge(0);
         response.addCookie(delCk);
-
 
 
         return "redirect:/noticeboard/list";

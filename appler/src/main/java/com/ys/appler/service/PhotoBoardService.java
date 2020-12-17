@@ -27,7 +27,7 @@ public class PhotoBoardService {
 
 
     private final String UPLOAD_PATH =
-            File.separator+ "home" + File.separator + "ubuntu" + File.separator+  "app" + File.separator+  "step1" + File.separator+  "prject" + File.separator+  "appler" + File.separator+"photo"+File.separator;
+            File.separator + "home" + File.separator + "ubuntu" + File.separator + "app" + File.separator + "step1" + File.separator + "prject" + File.separator + "appler" + File.separator + "photo" + File.separator;
 
     public String saveFile(MultipartFile file) throws IOException {
 
@@ -35,16 +35,16 @@ public class PhotoBoardService {
         UUID uuid = UUID.randomUUID();
         String saveName = uuid + "_" + file.getOriginalFilename();
 
-        log.info("saveName: {}",saveName);
+        log.info("saveName: {}", saveName);
 
         String fileName = file.getOriginalFilename();
-        log.info("fileName : "+fileName);
+        log.info("fileName : " + fileName);
         String contentType = file.getContentType();
         long filesize = file.getSize();
 
         // 저장할 File 객체를 생성(껍데기 파일)
         File saveFile = new File(UPLOAD_PATH, saveName); // 저장할 폴더 이름, 저장할 파일 이름
-        log.info("saveFile : "+String.valueOf(saveFile));
+        log.info("saveFile : " + String.valueOf(saveFile));
         try {
             file.transferTo(saveFile); // 업로드 파일에 saveFile이라는 껍데기 입힘
         } catch (IOException e) {
@@ -81,54 +81,56 @@ public class PhotoBoardService {
             ip = request.getRemoteAddr();
         }
 
-        log.info(">>>> Result : IP Address : "+ip);
+        log.info(">>>> Result : IP Address : " + ip);
 
         return ip;
 
     }
 
-    public List<PhotoBoardDto> contextListService(Criteria criteria){
+    public List<PhotoBoardDto> contextListService(Criteria criteria) {
 
         List<PhotoBoardDto> boardlist = photoBoardMapper.contextList(criteria);
         return boardlist;
     }
 
-    public void contextWriteService(PhotoBoardDto photoBoardDto){
+    public void contextWriteService(PhotoBoardDto photoBoardDto) {
 
 
         photoBoardMapper.contextWrite(photoBoardDto);
     }
 
-    public int totalcountService(){
+    public int totalcountService() {
 
         int totalcount = photoBoardMapper.totalcount();
         return totalcount;
     }
 
-    public List<PhotoBoardDto> IndexPhotoListService(){
+    public List<PhotoBoardDto> IndexPhotoListService() {
         List<PhotoBoardDto> result = photoBoardMapper.IndexPhotoList();
         return result;
     }
 
-    public PhotoBoardDto contextReadService(int no){
+    public PhotoBoardDto contextReadService(int no) {
 
         PhotoBoardDto result = photoBoardMapper.contextRead(no);
 
-       return result;
+        return result;
 
 
     }
-    public void contextModifyService(PhotoBoardDto photoBoardDto){
+
+    public void contextModifyService(PhotoBoardDto photoBoardDto) {
 
         photoBoardMapper.contextModify(photoBoardDto);
     }
 
-    public void contextDeleteService(int no){
+    public void contextDeleteService(int no) {
 
-     photoBoardMapper.contextDelete(no);
+        photoBoardMapper.contextDelete(no);
 
     }
-    public void readcountUpService(int reviewNo){
+
+    public void readcountUpService(int reviewNo) {
         photoBoardMapper.readcountUp(reviewNo);
 
     }

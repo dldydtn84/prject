@@ -47,8 +47,9 @@ public class Criteria { //페이징 기준
     public void setBoardCode(String boardCode) {
         this.boardCode = boardCode;
     }
-    public int getPageStart(){ //시작번호
-        return (this.page-1 ) * perPageNum;
+
+    public int getPageStart() { //시작번호
+        return (this.page - 1) * perPageNum;
 
     }
 

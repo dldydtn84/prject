@@ -41,22 +41,18 @@ public class HomeController {
     @Autowired
     PhotoBoardService photoBoardService;
 
-
     @Autowired
     PasswordEncoder passwordEncoder;
 
-
     @GetMapping("/")
-    public String index(Model model, HttpSession session ,@AuthenticationPrincipal PrincipalDetails principalDetails,BoardDto boardDto) {
+    public String index(Model model, HttpSession session, @AuthenticationPrincipal PrincipalDetails principalDetails, BoardDto boardDto) {
 
 
+        if (principalDetails == null) {
 
-
-        if(principalDetails == null){
-
-        }else{
-            model.addAttribute("nickname",principalDetails.getMemberDto().getNickname());
-            model.addAttribute("userid",principalDetails.getMemberDto().getUserid());
+        } else {
+            model.addAttribute("nickname", principalDetails.getMemberDto().getNickname());
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         }
 
         List<BoardDto> fbcontextList = boardService.IndexContextListService("FB");
@@ -69,22 +65,20 @@ public class HomeController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 
 
+        model.addAttribute("fbcontextList", fbcontextList);
+        model.addAttribute("qbcontextList", qbcontextList);
+        model.addAttribute("cbcontextList", cbcontextList);
+        model.addAttribute("photoList", photoList);
 
-        model.addAttribute("fbcontextList",fbcontextList);
-        model.addAttribute("qbcontextList",qbcontextList);
-        model.addAttribute("cbcontextList",cbcontextList);
-        model.addAttribute("photoList",photoList);
-
-        model.addAttribute("bestcontextList",bestcontextList);
-        model.addAttribute("newcontextList",newcontextList);
-
+        model.addAttribute("bestcontextList", bestcontextList);
+        model.addAttribute("newcontextList", newcontextList);
 
 
         return "index";
     }
 
     @GetMapping("/admin/layout/default")
-    public String defaults(Model model){
+    public String defaults(Model model) {
         //model.addAttribute("data","hello");
         return "admin/layout/default";
     }

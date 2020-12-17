@@ -33,7 +33,7 @@ public class PhotoboardController {
     BoardService boardService;
 
     @GetMapping("/list")
-    public String list(Model model , @RequestParam(value = "perPageNum", defaultValue = "9") int perPageNum,
+    public String list(Model model, @RequestParam(value = "perPageNum", defaultValue = "9") int perPageNum,
                        @RequestParam(value = "page", defaultValue = "1") int page) {
 
         int totalcount = photoBoardService.totalcountService();
@@ -48,15 +48,16 @@ public class PhotoboardController {
         int start = pageing.getStartPage();
 
 
-      List<PhotoBoardDto> contextlist = photoBoardService.contextListService(criteria);
+        List<PhotoBoardDto> contextlist = photoBoardService.contextListService(criteria);
 
-      model.addAttribute("contextlists",contextlist);
-      model.addAttribute("pageing", pageing);
-      model.addAttribute("start", start);
+        model.addAttribute("contextlists", contextlist);
+        model.addAttribute("pageing", pageing);
+        model.addAttribute("start", start);
 
 
         return "photoboard/list";
     }
+
     @GetMapping("/write")
     public String write(Model model) {
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
@@ -67,8 +68,8 @@ public class PhotoboardController {
         return "photoboard/write";
     }
 
-    @RequestMapping(value = "/writepro",method = RequestMethod.POST)
-    public String writepro(@RequestParam("uploadfile")MultipartFile uploadfile, Model model , PhotoBoardDto photoBoardDto, HttpServletRequest request ) throws IOException {
+    @RequestMapping(value = "/writepro", method = RequestMethod.POST)
+    public String writepro(@RequestParam("uploadfile") MultipartFile uploadfile, Model model, PhotoBoardDto photoBoardDto, HttpServletRequest request) throws IOException {
 
 
         log.info("파일 이름: {}", uploadfile.getOriginalFilename());
@@ -77,29 +78,30 @@ public class PhotoboardController {
         String result = photoBoardService.saveFile(uploadfile);
 
 
-        log.info("save : "+result);
+        log.info("save : " + result);
 
         photoBoardDto.setIp(photoBoardService.getIp(request));
-         photoBoardDto.setFile(result);
+        photoBoardDto.setFile(result);
 
         photoBoardService.contextWriteService(photoBoardDto);
 
 
-        if(result !=null){ // 파일 저장 성공
+        if (result != null) { // 파일 저장 성공
 
             model.addAttribute("result", result);
 
         } else { // 파일 저장 실패
 
-            model.addAttribute("result","fail");
+            model.addAttribute("result", "fail");
 
         }
 
         return "redirect:/photoboard/list";
 
     }
+
     @GetMapping("/read")
-    public String read(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto , HttpServletRequest request, HttpServletResponse response , @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String read(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         PhotoBoardDto contextread = photoBoardService.contextReadService(no);
         model.addAttribute("contextread", contextread);
@@ -108,7 +110,7 @@ public class PhotoboardController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
-        if(principalDetails != null) {
+        if (principalDetails != null) {
             model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         }
 
@@ -144,11 +146,11 @@ public class PhotoboardController {
             // 쿠키 값 받아옴.
             String value = viewCookie.getValue();
         }
-       return "photoboard/read";
+        return "photoboard/read";
     }
 
     @GetMapping("/modify")
-    public String modify(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto , @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String modify(@RequestParam("no") int no, Model model, PhotoBoardDto photoBoardDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         PhotoBoardDto contextread = photoBoardService.contextReadService(no);
         model.addAttribute("contextread", contextread);
@@ -157,7 +159,7 @@ public class PhotoboardController {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
-        if(principalDetails != null) {
+        if (principalDetails != null) {
             model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         }
 
@@ -165,7 +167,7 @@ public class PhotoboardController {
     }
 
     @PostMapping("/modify")
-    public String modifypro(@RequestParam("no") int no, MultipartFile uploadfile,PhotoBoardDto photoBoardDto, HttpServletRequest request ) throws IOException {
+    public String modifypro(@RequestParam("no") int no, MultipartFile uploadfile, PhotoBoardDto photoBoardDto, HttpServletRequest request) throws IOException {
         String result = photoBoardService.saveFile(uploadfile);
 
         photoBoardDto.setIp(photoBoardService.getIp(request));
@@ -174,8 +176,7 @@ public class PhotoboardController {
         photoBoardService.contextModifyService(photoBoardDto);
 
 
-
-        return "redirect:/photoboard/read?no="+no;
+        return "redirect:/photoboard/read?no=" + no;
     }
 
     @PostMapping("/deletePro")

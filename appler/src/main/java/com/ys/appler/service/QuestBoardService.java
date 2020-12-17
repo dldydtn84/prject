@@ -30,16 +30,16 @@ public class QuestBoardService {
         UUID uuid = UUID.randomUUID();
         String saveName = uuid + "_" + file.getOriginalFilename();
 
-        log.info("saveName: {}",saveName);
+        log.info("saveName: {}", saveName);
 
         String fileName = file.getOriginalFilename();
-        log.info("fileName : "+fileName);
+        log.info("fileName : " + fileName);
         String contentType = file.getContentType();
         long filesize = file.getSize();
 
         // 저장할 File 객체를 생성(껍데기 파일)
         File saveFile = new File(UPLOAD_PATH, saveName); // 저장할 폴더 이름, 저장할 파일 이름
-        log.info("saveFile : "+String.valueOf(saveFile));
+        log.info("saveFile : " + String.valueOf(saveFile));
         try {
             file.transferTo(saveFile); // 업로드 파일에 saveFile이라는 껍데기 입힘
         } catch (IOException e) {
@@ -49,7 +49,6 @@ public class QuestBoardService {
 
         return saveName;
     }
-
 
 
     public Map<String, String> validateHandling(Errors errors) {
@@ -64,7 +63,7 @@ public class QuestBoardService {
     }
 
 
-    public void contextWriteService(QuestBoardDto questBoardDto){
+    public void contextWriteService(QuestBoardDto questBoardDto) {
 
 
         questBoardMapper.contextWrite(questBoardDto);

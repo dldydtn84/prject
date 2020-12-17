@@ -42,12 +42,12 @@ public class CommentController {
 
     @RequestMapping("/list") //댓글 리스트
     @ResponseBody
-    private List<CommentDto> commentList(@RequestParam int bno,@RequestParam int board, Model model,CommentDto commentDto) throws Exception{
+    private List<CommentDto> commentList(@RequestParam int bno, @RequestParam int board, Model model, CommentDto commentDto) throws Exception {
         String boardcode = boardCode(board);
 
 
         List<CommentDto> result = commentService.CommentListService(bno, boardcode);
-        model.addAttribute("commentDto",commentDto);
+        model.addAttribute("commentDto", commentDto);
 
 
         return result;
@@ -55,9 +55,9 @@ public class CommentController {
 
     @RequestMapping("/insert") //댓글 작성
     @ResponseBody
-    private int commentInsert(@RequestParam String p_no, @RequestParam int board , @RequestParam String comments, HttpSession session, HttpServletRequest request) throws Exception{
+    private int commentInsert(@RequestParam String p_no, @RequestParam int board, @RequestParam String comments, HttpSession session, HttpServletRequest request) throws Exception {
 
-        BoardService boardService =new BoardService();
+        BoardService boardService = new BoardService();
         String IP = boardService.getIp(request);
         String boardcode = boardService.Boardnum(board);
 
@@ -68,14 +68,14 @@ public class CommentController {
         comment.setIp(IP);
         comment.setBoard_code(boardcode);
         comment.setNickname((String) session.getAttribute("greeting"));
-         int result= commentService.commentInsertService(comment);
+        int result = commentService.commentInsertService(comment);
 
         return result;
     }
 
     @RequestMapping("/update") //댓글 수정  
     @ResponseBody
-    private int commentUpdate(@RequestParam int no, @RequestParam String content) throws Exception{
+    private int commentUpdate(@RequestParam int no, @RequestParam String content) throws Exception {
 
         CommentDto comment = new CommentDto();
         comment.setNo(no);
@@ -86,7 +86,7 @@ public class CommentController {
 
     @RequestMapping("/delete/{no}") //댓글 삭제
     @ResponseBody
-    private int commentDelete(@PathVariable int no) throws Exception{
+    private int commentDelete(@PathVariable int no) throws Exception {
 
         return commentService.commentDeleteService(no);
     }

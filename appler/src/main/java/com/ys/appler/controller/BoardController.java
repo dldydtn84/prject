@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,11 +49,6 @@ public class BoardController {
     }
 
 
-
-
-
-
-
     @GetMapping("/list")
     public String list(@RequestParam("board") int board, @RequestParam(value = "perPageNum", defaultValue = "15") int perPageNum,
                        @RequestParam(value = "page", defaultValue = "1") int page, Model model, BoardDto boardDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -70,20 +66,14 @@ public class BoardController {
         int start = pageing.getStartPage();
 
 
-
-
-
-
-
-
         List<BoardDto> contextlist = boardService.listPagingService(criteria);
         List<BoardDto> bestcontextList = boardService.BestcontextListService();
         List<BoardDto> newcontextList = boardService.NewcontextListService();
 
 
-if(principalDetails != null) {
-    model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
-}
+        if (principalDetails != null) {
+            model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
+        }
 
 
         model.addAttribute("pageing", pageing);
@@ -99,10 +89,10 @@ if(principalDetails != null) {
 
 
     @GetMapping("/write")
-    public String write(@RequestParam("board") int boardnum, @ModelAttribute BoardDto boardDto, Model model,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String write(@RequestParam("board") int boardnum, @ModelAttribute BoardDto boardDto, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String boardcode = boardCode(boardnum);
 
-        if(principalDetails != null) {
+        if (principalDetails != null) {
             model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         }
 
@@ -123,8 +113,8 @@ if(principalDetails != null) {
     public String writepro(@RequestParam("board_code") String board_code,
                            @RequestParam("boardnum") String boardnum,
                            @Valid BoardDto boardDto, Errors errors,
-                          HttpServletRequest request,
-                          Model model) {
+                           HttpServletRequest request,
+                           Model model) {
         int boardpostno = boardService.postnoOneService(board_code);
 
         if (errors.hasErrors()) {
@@ -136,13 +126,12 @@ if(principalDetails != null) {
             Map<String, String> validatorResult = boardService.validateHandling(errors);
             for (String key : validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));
-                log.info("key : " +key);
-                log.info("key2 : " +validatorResult.get(key));
+                log.info("key : " + key);
+                log.info("key2 : " + validatorResult.get(key));
             }
 
             return "board/write";
-        }
-        else {
+        } else {
 
 
             boardDto.setIp(boardService.getIp(request));
@@ -166,7 +155,7 @@ if(principalDetails != null) {
         List<BoardDto> newcontextList = boardService.NewcontextListService();
         model.addAttribute("bestcontextList", bestcontextList);
         model.addAttribute("newcontextList", newcontextList);
-        if(principalDetails != null) {
+        if (principalDetails != null) {
             model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         }
 
@@ -209,7 +198,7 @@ if(principalDetails != null) {
     public String read(@RequestParam(value = "board", defaultValue = "") int board, @RequestParam("posts_no") int posts_no, Model model, BoardDto boardDto, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
 
-        if(principalDetails != null) {
+        if (principalDetails != null) {
             model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         }
 
@@ -267,16 +256,16 @@ if(principalDetails != null) {
     public String reading(@RequestParam(value = "no") int no, Model model, BoardDto boardDto, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
 
-        if(principalDetails != null) {
+        if (principalDetails != null) {
             model.addAttribute("userid", principalDetails.getMemberDto().getUserid());
         }
 
         BoardDto contextread = boardService.contextReadingService(no);
 
 
-       int posts_no=  contextread.getPosts_no();
-       String board_code =contextread.getBoard_code();
-       int board_num = 0;
+        int posts_no = contextread.getPosts_no();
+        String board_code = contextread.getBoard_code();
+        int board_num = 0;
         if (board_code.equals("FB")) {
             board_num = 1;
         } else if (board_code.equals("QB")) {

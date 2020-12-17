@@ -12,12 +12,19 @@ import java.util.Map;
 public interface PhotoBoardMapper {
 
     void contextWrite(PhotoBoardDto photoBoardDto);
+
     List<PhotoBoardDto> contextList(Criteria criteria);
+
     int totalcount();
+
     List<PhotoBoardDto> IndexPhotoList();
+
     PhotoBoardDto contextRead(int no);
+
     void contextDelete(int no);
+
     void contextModify(PhotoBoardDto photoBoardDto);
+
     void readcountUp(int reviewNo);
 
 }
