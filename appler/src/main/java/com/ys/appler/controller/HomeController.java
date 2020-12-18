@@ -41,12 +41,9 @@ public class HomeController {
   @Autowired
   PhotoBoardService photoBoardService;
 
-  @Autowired
-  PasswordEncoder passwordEncoder;
 
   @GetMapping("/")
-  public String index(Model model, HttpSession session,
-      @AuthenticationPrincipal PrincipalDetails principalDetails, BoardDto boardDto) {
+  public String index(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
     if (principalDetails == null) {
 
@@ -77,7 +74,7 @@ public class HomeController {
 
   @GetMapping("/admin/layout/default")
   public String defaults(Model model) {
-    //model.addAttribute("data","hello");
+
     return "admin/layout/default";
   }
 

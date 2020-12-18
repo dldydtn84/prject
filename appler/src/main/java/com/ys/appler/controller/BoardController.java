@@ -52,7 +52,7 @@ public class BoardController {
   @GetMapping("/list")
   public String list(@RequestParam("board") int board,
       @RequestParam(value = "perPageNum", defaultValue = "15") int perPageNum,
-      @RequestParam(value = "page", defaultValue = "1") int page, Model model, BoardDto boardDto,
+      @RequestParam(value = "page", defaultValue = "1") int page, Model model,
       @AuthenticationPrincipal PrincipalDetails principalDetails) {
     int totalcount = boardService.selectListnoService(board);
 
@@ -88,7 +88,7 @@ public class BoardController {
 
 
   @GetMapping("/write")
-  public String write(@RequestParam("board") int boardnum, @ModelAttribute BoardDto boardDto,
+  public String write(@RequestParam("board") int boardnum,
       Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
     String boardcode = boardCode(boardnum);
 
@@ -164,7 +164,7 @@ public class BoardController {
   }
 
   @GetMapping("/modifypro")
-  public String modifypro(@RequestParam("board") int boardnum, Model model, BoardDto boardDto) {
+  public String modifypro(@RequestParam("board") int boardnum, BoardDto boardDto) {
     boardService.contextUpdateService(boardDto);
 
     return "redirect:/board/list?board=" + boardnum;
@@ -174,7 +174,6 @@ public class BoardController {
   @PostMapping("/deletePro")
   public String deletePro(@RequestParam("board") int board, @RequestParam("posts_no") int posts_no,
       HttpServletResponse response) throws Exception {
-    /*log.info(String.valueOf(posts_no));*/
     boardService.contextDeleteService(board, posts_no);
 
     Cookie delCk = new Cookie("cookie" + posts_no, null);
@@ -191,7 +190,7 @@ public class BoardController {
 
   @RequestMapping(value = "/read")
   public String read(@RequestParam(value = "board", defaultValue = "") int board,
-      @RequestParam("posts_no") int posts_no, Model model, BoardDto boardDto,
+      @RequestParam("posts_no") int posts_no, Model model,
       HttpServletRequest request, HttpServletResponse response,
       @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
@@ -247,7 +246,7 @@ public class BoardController {
   }
 
   @RequestMapping(value = "/reading")
-  public String reading(@RequestParam(value = "no") int no, Model model, BoardDto boardDto,
+  public String reading(@RequestParam(value = "no") int no, Model model,
       HttpServletRequest request, HttpServletResponse response,
       @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
