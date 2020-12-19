@@ -30,6 +30,9 @@ public class FileController {
     String originalFileName = multipartFile.getOriginalFilename();    //오리지날 파일명
     String extension = originalFileName.substring(originalFileName.lastIndexOf("."));    //파일 확장자
 
+    //summernote 저장 오류.. 서버로만 저장되고 콜백이 안됨
+    String ex = extension;
+
     String savedFileName = UUID.randomUUID() + "_" + originalFileName;    //저장될 파일 명
 
     File targetFile = new File(fileRoot + savedFileName);

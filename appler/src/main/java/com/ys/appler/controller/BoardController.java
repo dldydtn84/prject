@@ -286,6 +286,7 @@ public class BoardController {
     Cookie viewCookie = null;
 
     // 쿠키가 있을 경우
+    
     if (cookies != null && cookies.length > 0) {
       for (int i = 0; i < cookies.length; i++) {
         // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌
