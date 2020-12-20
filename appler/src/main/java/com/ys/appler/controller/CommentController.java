@@ -52,7 +52,7 @@ public class CommentController {
     return result;
   }
 
-  @RequestMapping("/insert") //댓글 작성
+  @RequestMapping( "/insert") //댓글 작성
   @ResponseBody
   private int commentInsert(@RequestParam String p_no, @RequestParam int board,
       @RequestParam String comments, HttpSession session, HttpServletRequest request)

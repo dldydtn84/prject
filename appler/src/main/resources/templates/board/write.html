@@ -11,39 +11,40 @@
 <th:block th:replace="include/top :: top"></th:block>
 <div id="content" style="margin-top: 50px">
 
-    <div class="container layout" style="margin-top: 50px">
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h4 class="card-title">자유게시판</h4>
-                        <form action="#" th:action="@{/board/writepro}" th:object="${boardDto}" method="post">
+  <div class="container layout" style="margin-top: 50px">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="card shadow">
+          <div class="card-body">
+            <h4 class="card-title">자유게시판</h4>
+            <form action="#" th:action="@{/board/writepro}" th:object="${boardDto}" method="post">
 
-                            <input type="hidden" name="boardnum" id="boardnum" th:value="${boardnum}">
-                            <input type="hidden" name="board_code" id="board_code" th:value="${boardcode}">
-                            <input type="hidden" name="nickname" id="nickname" th:value="${session.greeting}">
-                            <label for="subject">제목</label><br>
-                            <input type="text" name="subject" id="subject" class="form-control mr-sm-2" required="required"><br>
+              <input type="hidden" name="boardnum" id="boardnum" th:value="${boardnum}">
+              <input type="hidden" name="board_code" id="board_code" th:value="${boardcode}">
+              <input type="hidden" name="nickname" id="nickname" th:value="${session.greeting}">
+              <label for="subject">제목</label><br>
+              <input type="text" name="subject" id="subject" class="form-control mr-sm-2"
+                     required="required"><br>
 
-                            <span>내용 </span>
-                            <textarea id="summernote" name="editordata"></textarea><br>
-                            <button type="submit" class="btn btn-success">입력완료</button>
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
+              <span>내용 </span>
+              <textarea id="summernote" name="editordata"></textarea><br>
+              <button type="submit" class="btn btn-success">입력완료</button>
+            </form>
 
 
-                <th:block th:replace="include/side :: side"></th:block>
-
-            </div>
+          </div>
         </div>
+      </div>
+      <div class="col-sm-4">
 
-        <!-- 공통 하단-->
-        <th:block th:replace="include/footer :: footer"></th:block>
+
+        <th:block th:replace="include/side :: side"></th:block>
+
+      </div>
+    </div>
+
+    <!-- 공통 하단-->
+    <th:block th:replace="include/footer :: footer"></th:block>
 
 </body>
 <!-- 공통 스크립트-->
@@ -52,25 +53,18 @@
 
 $(document).ready(function() {
 $('#summernote').summernote({
-				height: 300,                 // 에디터 높이
-				minHeight: null,             // 최소 높이
-				maxHeight: null,             // 최대 높이
-				focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-				lang: "ko-KR",					// 한글 설정
-				placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
-				callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+				height: 300,
+				minHeight: null,
+				maxHeight: null,
+				focus: true,
+				lang: "ko-KR",
+				placeholder: '최대 2048자까지 쓸 수 있습니다',
+				callbacks: {
 					onImageUpload : function(files, editor, welEditable) {
-						uploadSummernoteImageFile(files[0],this);
-					},
-					onPaste: function (e) {
-						var clipboardData = e.originalEvent.clipboardData;
-						if (clipboardData && clipboardData.items && clipboardData.items.length) {
-							var item = clipboardData.items[0];
-							if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-								e.preventDefault();
-							}
-						}
+                  uploadSummernoteImageFile(files[0],this);
+
 					}
+
 				}
 	});
 
@@ -85,20 +79,31 @@ $('#summernote').summernote({
 	function uploadSummernoteImageFile(file, editor) {
 		var data = new FormData();
 		data.append("file", file);
-		alert(file);
-		alert(data);
+
 		$.ajax({
 			data : data,
 			type : "POST",
 			url : "/uploadSummernoteImageFile",
+			dataType:"text",
 			contentType : false,
 			processData : false,
 			success : function(data) {
-            	//항상 업로드된 파일의 url이 있어야 한다.
-            	console.log(data);
-				$(editor).summernote('editor.insertImage', "summernoteImage/84b21a41-3f87-4cc9-bf36-719a4ceafc73_google.png");
+       	alert("success img :: "+data);
+				$(editor).summernote('insertImage', "/summernoteImage/"+data, function($images) {
+						$images.css('width', "50%");
+					});
 
-			}
+
+
+			},
+			 error : function() {
+	      	alert("에러가 발생하였습니다.");
+    }
+
+
+
+
+
 		});
 	}
 
@@ -130,6 +135,7 @@ $(document).ready(function() {
 	});
 });
 -->
+
 
 
 
