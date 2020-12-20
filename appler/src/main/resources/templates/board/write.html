@@ -51,106 +51,57 @@
 <th:block th:replace="include/script :: script"></th:block>
 <script type="text/javascript">
 
-$(document).ready(function() {
-$('#summernote').summernote({
-					 height: 300,
-		  lang: "ko-KR",
-		  placeholder: '최대 2048자까지 쓸 수 있습니다',
-		  	focus: true,
-	  toolbar: [
-			    // [groupName, [list of button]]
-			    ['fontname', ['fontname']],
-			    ['fontsize', ['fontsize']],
-			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-			    ['color', ['forecolor','color']],
-			    ['table', ['table']],
-			    ['para', ['ul', 'ol', 'paragraph']],
-			    ['height', ['height']],
-			    ['insert',['picture','link','video']],
-			    ['view', ['fullscreen', 'help']]
-			  ],
-			fontNames: ['맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-				callbacks: {
-					onImageUpload : function(files, editor, welEditable) {
+     $(document).ready(function() {
+         $('#summernote').summernote({
+             height: 300,
+             lang: "ko-KR",
+             placeholder: '최대 2048자까지 쓸 수 있습니다',
+             focus: true,
+             toolbar: [
+                  // [groupName, [list of button]]
+                  ['fontname', ['fontname']],
+                  ['fontsize', ['fontsize']],
+                  ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+                  ['color', ['forecolor','color']],
+                  ['table', ['table']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']],
+                  ['insert',['picture','link','video']],
+                  ['view', ['fullscreen', 'help']]
+                  ],
+             fontNames: ['맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+             fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+             callbacks: {
+                onImageUpload : function(files, editor, welEditable) {
                   uploadSummernoteImageFile(files[0],this);
+                }
 
-					}
-
-				}
-	});
-
-   	});
+             }
+         });
+    });
 
 
+    function uploadSummernoteImageFile(file, editor) {
+        var data = new FormData();
+        data.append("file", file);
 
-//summernote 저장 오류.. 서버로만 저장되고 콜백이 안됨
-	/**
-	* 이미지 파일 업로드
-	*/
-	function uploadSummernoteImageFile(file, editor) {
-		var data = new FormData();
-		data.append("file", file);
-
-		$.ajax({
-			data : data,
-			type : "POST",
-			url : "/uploadSummernoteImageFile",
-			dataType:"text",
-			contentType : false,
-			processData : false,
-			success : function(data) {
-       	alert("success img :: "+data);
-				$(editor).summernote('insertImage', "/summernoteImage/"+data, function($images) {
-						$images.css('width', "50%");
-					});
-
-
-
-			},
-			 error : function() {
-	      	alert("에러가 발생하였습니다.");
+      $.ajax({
+        data : data,
+        type : "POST",
+        url : "/uploadSummernoteImageFile",
+        dataType:"text",
+        contentType : false,
+        processData : false,
+        success : function(data) {
+          $(editor).summernote('insertImage', "/summernoteImage/"+data, function($images) {
+              $images.css('width', "50%");
+            });
+        },
+        error : function() {
+            alert("에러가 발생하였습니다.");
+        }
+      });
     }
-
-
-
-
-
-		});
-	}
-
-
-
-
-
-<!--
-$(document).ready(function() {
-	//여기 아래 부분
-	$('#summernote').summernote({
-		  height: 300,
-		  lang: "ko-KR",
-		  placeholder: '최대 2048자까지 쓸 수 있습니다',
-		  toolbar: [
-			    // [groupName, [list of button]]
-			    ['fontname', ['fontname']],
-			    ['fontsize', ['fontsize']],
-			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-			    ['color', ['forecolor','color']],
-			    ['table', ['table']],
-			    ['para', ['ul', 'ol', 'paragraph']],
-			    ['height', ['height']],
-
-			  ],
-			fontNames: ['Arial','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-
-	});
-});
--->
-
-
-
-
 </script>
 
 <script th:src="@{/js/summernote/summernote-lite.js}"></script>

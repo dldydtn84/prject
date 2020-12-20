@@ -50,30 +50,69 @@
 <script th:src="@{/js/summernote/summernote-lite.js}"></script>
 <script th:src="@{/js/summernote/lang/summernote-ko-KR.js}"></script>
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
 
-    String.prototype.replaceAll = function(org, dest) {
-        return this.split(org).join(dest);
+        //editordata " 를 ' 로 변경
+        String.prototype.replaceAll = function(org, dest) {
+            return this.split(org).join(dest);
+        }
+
+        var editordata = $('.editordata').val();
+        var result = editordata.replaceAll(`"`, `'`);
+
+
+        $('#summernote').summernote({
+            height: 300,
+            lang: "ko-KR",
+            placeholder: '최대 2048자까지 쓸 수 있습니다',
+            focus: true,
+            toolbar: [
+                  // [groupName, [list of button]]
+                  ['fontname', ['fontname']],
+                  ['fontsize', ['fontsize']],
+                  ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+                  ['color', ['forecolor','color']],
+                  ['table', ['table']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']],
+                  ['insert',['picture','link','video']],
+                  ['view', ['fullscreen', 'help']]
+                ],
+            fontNames: ['맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+            callbacks: {
+                onImageUpload : function(files, editor, welEditable) {
+                    uploadSummernoteImageFile(files[0],this);
+
+                }
+
+            }
+        });
+            $("#summernote").summernote('code',  result);
+    });
+
+
+    function uploadSummernoteImageFile(file, editor) {
+          var data = new FormData();
+          data.append("file", file);
+
+          $.ajax({
+            data : data,
+            type : "POST",
+            url : "/uploadSummernoteImageFile",
+            dataType:"text",
+            contentType : false,
+            processData : false,
+            success : function(data) {
+              $(editor).summernote('insertImage', "/summernoteImage/"+data, function($images) {
+                  $images.css('width', "50%");
+              });
+            },
+            error : function() {
+              alert("에러가 발생하였습니다.");
+            }
+          });
     }
-
-    var editordata = $('.editordata').val();
-    var result = editordata.replaceAll(`"`, `'`);
-
-	//여기 아래 부분
-	$('#summernote').summernote({
-		  height: 300,                 // 에디터 높이
-		  minHeight: null,             // 최소 높이
-		  maxHeight: null,             // 최대 높이
-		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		  lang: "ko-KR",					// 한글 설정
-		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-
-	});
-		  $("#summernote").summernote('code',  result);
-
-});
-
-
 </script>
 
 </html>

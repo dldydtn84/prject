@@ -25,26 +25,32 @@ public class FileController {
   public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
 
     log.info("file : " + String.valueOf(multipartFile));
+ /*   File.separator + "home" + File.separator + "ubuntu" + File.separator + "app" + File.separator
+        + "step1" + File.separator + "prject" + File.separator + "appler" + File.separator
+        + "summernote" + File.separator;
 
-    String fileRoot = "C://summernote_image/";    //저장될 외부 파일 경로
-    String originalFileName = multipartFile.getOriginalFilename();    //오리지날 파일명
-    String extension = originalFileName.substring(originalFileName.lastIndexOf("."));    //파일 확장자
+  */
+    String fileRoot = File.separator + "home" + File.separator + "ubuntu" + File.separator + "app" + File.separator
+        + "step1" + File.separator + "prject" + File.separator + "appler" + File.separator
+        + "summernote" + File.separator;
+
+    String originalFileName = multipartFile.getOriginalFilename();
+    String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
 
 
 
-    String savedFileName = UUID.randomUUID() + "_" + originalFileName;    //저장될 파일 명
+    String savedFileName = UUID.randomUUID() + "_" + originalFileName;
 
     File targetFile = new File(fileRoot + savedFileName);
 
     try {
       InputStream fileStream = multipartFile.getInputStream();
-      FileUtils.copyInputStreamToFile(fileStream, targetFile);    //파일 저장
+      FileUtils.copyInputStreamToFile(fileStream, targetFile);
 
 
     } catch (IOException e) {
       log.info("save file error");
-      FileUtils.deleteQuietly(targetFile);    //저장된 파일 삭제
-
+      FileUtils.deleteQuietly(targetFile);
       e.printStackTrace();
     }
     log.info("savedFileName : " + savedFileName);
