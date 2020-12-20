@@ -53,12 +53,24 @@
 
 $(document).ready(function() {
 $('#summernote').summernote({
-				height: 300,
-				minHeight: null,
-				maxHeight: null,
-				focus: true,
-				lang: "ko-KR",
-				placeholder: '최대 2048자까지 쓸 수 있습니다',
+					 height: 300,
+		  lang: "ko-KR",
+		  placeholder: '최대 2048자까지 쓸 수 있습니다',
+		  	focus: true,
+	  toolbar: [
+			    // [groupName, [list of button]]
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['insert',['picture','link','video']],
+			    ['view', ['fullscreen', 'help']]
+			  ],
+			fontNames: ['맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
 				callbacks: {
 					onImageUpload : function(files, editor, welEditable) {
                   uploadSummernoteImageFile(files[0],this);
